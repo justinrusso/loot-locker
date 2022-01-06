@@ -2,7 +2,7 @@
 
 ![Database Schema](https://github.com/justinrusso/loot-locker/blob/main/docs/images/database-schema.jpg)
 
-```json
+```
 Table users {
   id int [pk, increment]
   username varchar [unique, not null]
