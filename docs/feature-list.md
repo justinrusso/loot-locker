@@ -41,3 +41,18 @@ A user can search for products by name. The search will be case insensitive and 
 - When an Item is added to the shopping cart, it will update other user's pages to show how many users currently have the item in cart.
 - When an Item is purchased, the quantity will update to the user and will display as "low in stock" or "out of stock" where appropriate.
 - When a review is added, updated, or deleted, the review will be displayed immediately to the user and update the overall rating.
+
+## Categories (Bonus)
+
+- Categories can be used to organize items into related sections.
+- Categories can be searched as well as being added to the navigation.
+- Categories will be pre-defined in the database
+- On the item's page the seller can add categories
+
+## Orders (Bonus)
+
+- Once an order is played, the items in the shopping cart will be converted into an order
+- Users can look at every order placed
+- The order's page will list each item, the total cost, and the cost of each item at the time of purchase
+- Items will not be actually deleted - rather they will be marked as "deleted" and omitted from queries.
+- These deleted items can be used to get the name and description of the item.
