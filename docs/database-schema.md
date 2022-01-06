@@ -46,4 +46,10 @@ Table shopping_cart_items {
   created_at datetime [default: `now()`]
   updated_at datetime [default: `now()`]
 }
+
+Table item_review_summary {
+  item_id int [pk, not null, ref: > items.id]
+  num_of_reviews int [not null]
+  rating_total int [not null]
+}
 ```
