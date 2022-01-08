@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { useMemo } from "react";
 
 import Portal from "../common/Portal";
+import { items, cartItems } from "./mock-data";
 import { useCart } from "../../context/CartProvider";
 
 const DrawerRoot = styled.div`
@@ -35,8 +37,36 @@ const DrawerContent = styled.div`
   }
 `;
 
+const sortDateCreated = (itemA, itemB) => {
+  return new Date(itemB.date) - new Date(itemA.date);
+};
+
 const CartDrawer = () => {
   const cart = useCart();
+
+  const cartItemElements = useMemo(
+    () =>
+      Object.values(cartItems)
+        .sort(sortDateCreated)
+        .map((cartItem) => (
+          <li key={cartItem.item_id}>
+            <div>Name: {items[cartItem.item_id].name}</div>
+            <div>Quantity: {cartItem.quantity}</div>
+            <div>Price: ${items[cartItem.item_id].price / 100}</div>
+          </li>
+        )),
+    [cartItems]
+  );
+
+  const subtotal = useMemo(
+    () =>
+      Object.values(cartItems).reduce(
+        (currentTotal, cartItem) =>
+          currentTotal + items[cartItem.item_id].price * cartItem.quantity,
+        0
+      ) / 100,
+    [cartItems]
+  );
 
   if (!cart.visible) {
     return null;
@@ -49,8 +79,8 @@ const CartDrawer = () => {
         <DrawerContent>
           <div className="inner">
             <h2>Your Cart</h2>
-            <ul></ul>
-            <div>Subtotal: $0</div>
+            <ul>{cartItemElements}</ul>
+            <div>Subtotal: ${subtotal}</div>
             <button>Checkout</button>
           </div>
         </DrawerContent>
