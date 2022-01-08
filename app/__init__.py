@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 
-from .models import db, Item, User
+from .models import db, CartItem, Item, User
 from .api.auth_routes import auth_routes
 from .api.item_routes import item_routes
 from .api.user_routes import user_routes
