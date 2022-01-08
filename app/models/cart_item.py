@@ -18,3 +18,11 @@ class CartItem(db.Model):
     )
 
     item = db.relationship('Item')
+
+    def to_dict(self):
+        return {
+            'item': self.item.to_dict(),
+            'quantity': self.quantity,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at,
+        }
