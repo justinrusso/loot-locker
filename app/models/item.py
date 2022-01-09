@@ -19,12 +19,12 @@ class Item(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'user_id': self.user_id,
+            'userId': self.user_id,
             'name': self.name,
             'description': self.description,
             'image': self.image,
             'price': self.price,
             'stock': self.stock,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
         }
