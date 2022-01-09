@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Portal from "../common/Portal";
 import { items, cartItems } from "./mock-data";
@@ -10,6 +10,8 @@ const DrawerRoot = styled.div`
   z-index: 1200;
 `;
 
+const transitionDuration = 300;
+
 const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -18,6 +20,7 @@ const Backdrop = styled.div`
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
+  transition: opacity ${transitionDuration}ms cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
 const DrawerContent = styled.div`
@@ -31,6 +34,7 @@ const DrawerContent = styled.div`
   position: fixed;
   top: 0;
   right: 0;
+  transition: transform ${transitionDuration}ms cubic-bezier(0, 0, 0.2, 1);
 
   .inner {
     width: 400px;
@@ -43,6 +47,35 @@ const sortDateCreated = (itemA, itemB) => {
 
 const CartDrawer = () => {
   const cart = useCart();
+
+  const [mounted, setMounted] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    let visbilityTimeout;
+    let mountedTimeout;
+
+    if (cart.visible) {
+      setMounted(true);
+
+      // Delay the visibility by a tick so animations happen
+      visbilityTimeout = setTimeout(() => {
+        setVisible(true);
+      });
+    } else {
+      setVisible(false);
+
+      // Unmount after the visibility has transitioned
+      mountedTimeout = setTimeout(() => {
+        setMounted(false);
+      }, transitionDuration);
+    }
+
+    return () => {
+      clearTimeout(mountedTimeout);
+      clearTimeout(visbilityTimeout);
+    };
+  }, [cart.visible]);
 
   const cartItemElements = useMemo(
     () =>
@@ -68,15 +101,17 @@ const CartDrawer = () => {
     [cartItems]
   );
 
-  if (!cart.visible) {
+  if (!mounted) {
     return null;
   }
 
   return (
     <Portal>
       <DrawerRoot>
-        <Backdrop onClick={cart.hide} />
-        <DrawerContent>
+        <Backdrop onClick={cart.hide} style={{ opacity: visible ? 1 : 0 }} />
+        <DrawerContent
+          style={{ transform: visible ? "translateZ(0)" : "translateX(100%)" }}
+        >
           <div className="inner">
             <h2>Your Cart</h2>
             <ul>{cartItemElements}</ul>
