@@ -24,7 +24,7 @@ const Backdrop = styled.div`
 `;
 
 const DrawerContent = styled.div`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.backgroundColor};
   box-shadow: rgb(0 0 0 / 20%) 0px 8px 10px -5px,
     rgb(0 0 0 / 14%) 0px 16px 24px 2px, rgb(0 0 0 / 12%) 0px 6px 30px 5px;
   overflow-y: auto;

@@ -1,18 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import "./index.css";
+
 import App from "./App";
 import store from "./store";
 import { ModalProvider } from "./context/Modal";
+import GlobalStyle from "./theme/GlobalStyle";
+import theme from "./theme";
+import { ThemeProvider } from "styled-components";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ModalProvider>
-        <App />
-      </ModalProvider>
-    </Provider>
+    <GlobalStyle />
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <ModalProvider>
+          <App />
+        </ModalProvider>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
