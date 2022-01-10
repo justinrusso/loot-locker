@@ -8,8 +8,10 @@ function HomePage() {
 
     return (
         <>
-            <NavBar/>
             <p>{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</p>
+
         </>
     )
 }
+
+export default HomePage;
