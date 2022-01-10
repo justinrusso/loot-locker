@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState =
-    { entities: { items : {} } }
+const initialState = { entities: { items : {} } }
 
 export const createItem = createAsyncThunk(
     "items/createItem",
