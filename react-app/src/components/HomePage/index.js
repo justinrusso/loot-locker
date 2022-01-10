@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar";
@@ -19,17 +20,10 @@ function HomePage() {
 
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user)
-    const items = useSelector((state) => state.items.entities.items) // remove optional chaining after store is set up
+    const items = useSelector((state) => state.items.entities.items)
 
-    let newItems = null;
-    let randItems = null;
-
-
-
-    if (items.length > 0) {
-        newItems = items.sort((a,b) => b.createdAt - a.createdAt).slice(0,5);
-        randItems = randomize(items).slice(0,6)
-    }
+    const newItems = useMemo(() => items.sort((a,b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0,6), [items]);
+    const randItems = useMemo(() => randomize(items).slice(0,7), [items]);
 
     return (
         <>
@@ -46,7 +40,7 @@ function HomePage() {
             <div>
                 <p>New!</p>
                 {/* NOTE: SORT ITEMS BY DATE ADDED */}
-                {newItems && newItems.map(item => (
+                {newItems.length > 0 && newItems.map(item => (
                     <Link to={`items/${item.id}`}>
                         <div>
                             <img src={item.image} alt="item image" key={item.id} />
@@ -57,7 +51,7 @@ function HomePage() {
 
             <div>
                 <p>Editors' Picks</p>
-                {randItems && randItems.map(item => (
+                {randItems.length > 0 && randItems.map(item => (
                     <Link to={`items/${item.id}`}>
                         <div>
                             <img src={item.image} alt="item image" key={item.id} />
