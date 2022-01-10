@@ -4,15 +4,11 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../../store/session';
 
 const ProfileDropdownDiv = styled.div`
-      position: relative;
-      width: 4%;
-
       #profile-button {
             background-color:transparent;
             border: none;
             display: flex;
             justify-content:center;
-            width: 100%;
             flex-direction: row;
             border-radius: 35%
       }
@@ -114,7 +110,7 @@ const ProfileButton = ({ user }) => {
             <span>{user.email}</span>
           </li>
           <li className='profile-dropdown-li'>
-            <i class="fas fa-sign-out-alt dropdown-icon"></i>
+            <i className="fas fa-sign-out-alt dropdown-icon"></i>
             <span onClick={handleLogout}>Sign out</span>
           </li>
         </ul>
