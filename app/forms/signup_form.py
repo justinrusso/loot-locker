@@ -33,12 +33,11 @@ class SignUpForm(FlaskForm):
         "email",
         validators=[
             DataRequired(),
-            # Email("Email address must be a valid address."),
+            Email("Email address must be a valid address."),
             Length(max=255, message="Email address must not exceed 255 characters."),
             user_exists,
         ],
     )
-    password = StringField("password", validators=[DataRequired()])
     location = StringField(
         "location",
         validators=[
@@ -46,3 +45,4 @@ class SignUpForm(FlaskForm):
             Length(max=40, message="Location name must not exceed 40 characters."),
         ],
     )
+    password = StringField("password", validators=[DataRequired()])
