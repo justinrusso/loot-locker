@@ -7,6 +7,7 @@ const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [location, setLocation] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
@@ -30,6 +31,11 @@ const SignUpForm = () => {
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
+
+  const updateLocation = (e) => {
+    setLocation(e.target.value);
+  };
+
 
   const updatePassword = (e) => {
     setPassword(e.target.value);
@@ -66,6 +72,15 @@ const SignUpForm = () => {
           name='email'
           onChange={updateEmail}
           value={email}
+        ></input>
+      </div>
+      <div>
+        <label>Location</label>
+        <input
+          type='text'
+          name='location'
+          onChange={updateLocation}
+          value={location}
         ></input>
       </div>
       <div>
