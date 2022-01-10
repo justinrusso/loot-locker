@@ -19,7 +19,7 @@ def password_matches(form, field):
     cred = form.data["cred"]
     user = User.query.filter(or_(User.email == cred, User.username == cred)).first()
     if not user:
-        raise ValidationError("Login failed with given credentials")
+        raise ValidationError("Cannot find user with given name or email")
     elif not user.check_password(password):
         raise ValidationError("Login failed with given credentials")
 
