@@ -13,7 +13,7 @@ function HomePage() {
 
             <div>
                 <p>New!</p>
-                {/* NOTE: SORT BY DATE ADDED */}
+                {/* NOTE: SORT ITEMS BY DATE ADDED */}
                 {items.length > 0 && items.map(item => (
                     <Link to={`items/${item.id}`}>
                         <div>
@@ -25,7 +25,7 @@ function HomePage() {
 
             <div>
                 <p>Editors' Picks</p>
-                {/* NOTE: RANDOMIZE */}
+                {/* NOTE: RANDOMIZE ITEMS*/}
                 {items.length > 0 && items.map(item => (
                     <Link to={`items/${item.id}`}>
                         <div>
