@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import ProfileButton from './components/profile/ProfileButton'
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
@@ -13,8 +12,6 @@ import { authenticate } from './store/session';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-
-  const testUser = { username: 'stupiddummy', email: 'dummy@dummies.r.us'}
 
   useEffect(() => {
     (async() => {
@@ -30,8 +27,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ProfileButton user={testUser}/>
-      <NavBar /> {/* their sample navbar, not ours */}
+      <NavBar />
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
