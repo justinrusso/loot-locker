@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
         background-color:transparent;
         border: none;
         justify-content:center;
-        border-radius: 35%
+        border-radius: 30px;
     }
 
     button:hover {

@@ -15,7 +15,7 @@ const CartButton = () => {
 
   return (
     <StyledCartDiv>
-      <button onClick={cart.show}>
+      <button id="cart-button" onClick={cart.show}>
         <i class="fas fa-shopping-cart" id="cart-icon"></i>
       </button>
       <CartDrawer />

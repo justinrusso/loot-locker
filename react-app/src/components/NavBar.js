@@ -10,7 +10,7 @@ import LoginFormModal from './auth/LoginFormModal';
 
 const StyledNavElement = styled.nav`
   display: flex;
-  height: 15vh;
+  height: 10vh;
   padding-left: 10vw;
   padding-right: 10vw;
   align-items: center;
@@ -28,6 +28,7 @@ const StyledNavElement = styled.nav`
   #nav-ul {
     padding: 0;
     display flex;
+    height: 100%;
     width: 100vw;
     flex-direction: row;
     justify-content: space-between;
@@ -39,22 +40,26 @@ const StyledNavElement = styled.nav`
   }
 
   #logo {
-    padding-left: 0;
-    margin-right: 10px;
     font-size: x-large;
   }
 
   #search-section {
+    height: 50%;
+    align-items: center;
     border: 2px solid black;
-    border-radius: 20px;
+    border-radius: 30px;
   }
 
   #search-input {
+    font-size: large;
     border: none;
-    height: 7vh;
     width: 60vw;
     border-radius: 20px;
     padding-left: 1vw;
+  }
+
+  #search-input:focus {
+    outline: none;
   }
 
   #search-icon {
@@ -62,7 +67,14 @@ const StyledNavElement = styled.nav`
     padding-right: 1vw;
   }
 
+  #login-button {
+    font-size: larger;
+    padding: 15% 1vw;
+  }
 
+  #cart-button {
+    padding: 15% 1vw;
+  }
 
 `
 
@@ -74,12 +86,12 @@ const NavBar = () => {
       <ul id="nav-ul">
         <li className="nav-li">
           <NavLink to='/' exact={true} activeClassName='active'>
-            <span id="logo">logo here >:)</span>
+            <span id="logo">Logo</span>
           </NavLink>
         </li>
         <li className="nav-li" id="search-section">
           <form>
-            <input id="search-input" placeholder="Search for loot!"></input>
+            <input id="search-input" placeholder="Search for loot"></input>
           </form>
           <i className="fas fa-search" id="search-icon"></i>
         </li>
@@ -87,9 +99,6 @@ const NavBar = () => {
           <ProfileButton user={user}/>
         </li>}
         {!user && <li className="nav-li">
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
           <LoginFormModal />
         </li>}
         <li className="nav-li">
