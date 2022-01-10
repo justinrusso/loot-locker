@@ -9,7 +9,7 @@ def user_exists(form, field):
     email = field.data
     user = User.query.filter(User.email == email).first()
     if user:
-        raise ValidationError("Email address is already in use.")
+        raise ValidationError("Email address is already in use")
 
 
 def username_exists(form, field):
@@ -17,7 +17,7 @@ def username_exists(form, field):
     username = field.data
     user = User.query.filter(User.username == username).first()
     if user:
-        raise ValidationError("Username is already in use.")
+        raise ValidationError("Username is already in use")
 
 
 class SignUpForm(FlaskForm):
@@ -25,7 +25,7 @@ class SignUpForm(FlaskForm):
         "username",
         validators=[
             DataRequired(),
-            Length(max=40, message="Username must not exceed 40 characters."),
+            Length(max=40, message="Username must not exceed 40 characters"),
             username_exists,
         ],
     )
@@ -34,7 +34,7 @@ class SignUpForm(FlaskForm):
         validators=[
             DataRequired(),
             Email("Email address must be a valid address."),
-            Length(max=255, message="Email address must not exceed 255 characters."),
+            Length(max=255, message="Email address must not exceed 255 characters"),
             user_exists,
         ],
     )
@@ -42,7 +42,7 @@ class SignUpForm(FlaskForm):
         "location",
         validators=[
             DataRequired(),
-            Length(max=40, message="Location name must not exceed 40 characters."),
+            Length(max=40, message="Location name must not exceed 40 characters"),
         ],
     )
     password = StringField("password", validators=[DataRequired()])
