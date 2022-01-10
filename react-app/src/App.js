@@ -24,6 +24,7 @@ function App() {
     return null;
   }
 
+
   return (
     <BrowserRouter>
       <NavBar />

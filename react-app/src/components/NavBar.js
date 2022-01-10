@@ -1,9 +1,13 @@
 
 import React from 'react';
+import { useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
+import ProfileButton from './profile/ProfileButton'
 import LogoutButton from './auth/LogoutButton';
 
 const NavBar = () => {
+  let user = useSelector(state => state.session.user)
+
   return (
     <nav>
       <ul>
@@ -27,9 +31,9 @@ const NavBar = () => {
             Users
           </NavLink>
         </li>
-        <li>
-          <LogoutButton />
-        </li>
+        {user && <li>
+          <ProfileButton user={user}/>
+        </li>}
       </ul>
     </nav>
   );
