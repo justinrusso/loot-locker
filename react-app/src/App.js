@@ -14,6 +14,8 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
+  const testUser = { username: 'stupiddummy', email: 'dummy@dummies.r.us'}
+
   useEffect(() => {
     (async() => {
       await dispatch(authenticate());
@@ -25,12 +27,11 @@ function App() {
     return null;
   }
 
-  const testUser = { username: 'stupiddummy', email: 'dummy@dummies.r.us'}
 
   return (
     <BrowserRouter>
       <ProfileButton user={testUser}/>
-      <NavBar />
+      <NavBar /> {/* their sample navbar, not ours */}
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
