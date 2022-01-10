@@ -2,6 +2,8 @@
 import React from 'react';
 import { useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
+
+import CartButton from './cart/CartButton';
 import ProfileButton from './profile/ProfileButton'
 import LogoutButton from './auth/LogoutButton';
 import LoginFormModal from './auth/LoginFormModal';
@@ -32,6 +34,12 @@ const NavBar = () => {
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
+        </li>
+        <li>
+          <LogoutButton />
+        </li>
+        <li>
+          <CartButton />
         </li>
         {user && <li>
           <ProfileButton user={user}/>
