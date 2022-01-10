@@ -17,6 +17,10 @@ from .config import Config
 
 app = Flask(__name__)
 
+# Disable strict slashes so urls like /api/items can work
+# Without this, only /api/items/ would work.
+app.url_map.strict_slashes = False
+
 # Setup login manager
 login = LoginManager(app)
 
