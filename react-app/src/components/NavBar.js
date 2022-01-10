@@ -11,8 +11,8 @@ import LoginFormModal from './auth/LoginFormModal';
 const StyledNavElement = styled.nav`
   display: flex;
   height: 15vh;
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 10vw;
+  padding-right: 10vw;
   align-items: center;
   border-bottom: 2px solid lightgrey;
 
@@ -26,9 +26,11 @@ const StyledNavElement = styled.nav`
   }
 
   #nav-ul {
+    padding: 0;
     display flex;
+    width: 100vw;
     flex-direction: row;
-    // justify-content: center;
+    justify-content: space-between;
     align-items: center;
   }
 
@@ -37,12 +39,27 @@ const StyledNavElement = styled.nav`
   }
 
   #logo {
+    padding-left: 0;
+    margin-right: 10px;
     font-size: x-large;
-    justify-self: center;
+  }
+
+  #search-section {
+    border: 2px solid black;
+    border-radius: 20px;
   }
 
   #search-input {
-    width: 30vw
+    border: none;
+    height: 7vh;
+    width: 60vw;
+    border-radius: 20px;
+    padding-left: 1vw;
+  }
+
+  #search-icon {
+    align-self: center;
+    padding-right: 1vw;
   }
 
 
@@ -57,14 +74,14 @@ const NavBar = () => {
       <ul id="nav-ul">
         <li className="nav-li">
           <NavLink to='/' exact={true} activeClassName='active'>
-            <span id="logo">loot locker</span>
+            <span id="logo">logo here >:)</span>
           </NavLink>
         </li>
-        <li className="nav-li">
+        <li className="nav-li" id="search-section">
           <form>
-            <input id="search-input" placeholder="Search for loot"></input>
+            <input id="search-input" placeholder="Search for loot!"></input>
           </form>
-          <i className="fas fa-search"></i>
+          <i className="fas fa-search" id="search-icon"></i>
         </li>
         {user && <li className="nav-li">
           <ProfileButton user={user}/>
