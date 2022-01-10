@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
 
 import CartButton from './cart/CartButton';
-import ProfileButton from './profile/ProfileButton'
+import ProfileButton from './profile/ProfileButton.js'
 import LogoutButton from './auth/LogoutButton';
 import LoginFormModal from './auth/LoginFormModal';
 
