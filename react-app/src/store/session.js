@@ -20,16 +20,13 @@ export const authenticate = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "session/login",
-  async ({ email, password }, thunkAPI) => {
+  async (formInput, thunkAPI) => {
     const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
+      body: JSON.stringify(formInput),
     });
 
     if (response.ok) {
@@ -45,17 +42,13 @@ export const login = createAsyncThunk(
 
 export const signUp = createAsyncThunk(
   "session/signUp",
-  async ({ username, email, password }, thunkAPI) => {
+  async (formInput, thunkAPI) => {
     const response = await fetch("/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
+      body: JSON.stringify(formInput),
     });
 
     if (response.ok) {

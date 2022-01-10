@@ -7,6 +7,7 @@ import styled from "styled-components"
 import CartButton from './cart/CartButton';
 import ProfileButton from './profile/ProfileButton'
 import LoginFormModal from './auth/LoginFormModal';
+import SignUpFormModal from './auth/SignUpModal';
 
 const StyledNavElement = styled.nav`
   display: flex;
