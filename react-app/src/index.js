@@ -1,12 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import './index.css';
-import App from './App';
-import configureStore from './store';
-import { ModalProvider } from './context/Modal'
-
-const store = configureStore();
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import "./index.css";
+import App from "./App";
+import store from "./store";
+import { ModalProvider } from "./context/Modal";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,5 +14,5 @@ ReactDOM.render(
       </ModalProvider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
