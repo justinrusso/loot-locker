@@ -1,4 +1,5 @@
 import session from "./session";
+import items from "./items";
 import { configureStore } from "@reduxjs/toolkit";
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -6,6 +7,7 @@ const isDev = process.env.NODE_ENV !== "production";
 const store = configureStore({
   reducer: {
     session,
+    items
   },
   middleware: (getDefaultMiddleware) => {
     if (isDev) {
