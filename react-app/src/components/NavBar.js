@@ -7,6 +7,7 @@ import CartButton from './cart/CartButton';
 import ProfileButton from './profile/ProfileButton'
 import LogoutButton from './auth/LogoutButton';
 import LoginFormModal from './auth/LoginFormModal';
+import SignUpFormModal from './auth/SignUpModal';
 
 const NavBar = () => {
   let user = useSelector(state => state.session.user)
@@ -20,15 +21,10 @@ const NavBar = () => {
           </NavLink>
         </li>
         <li>
-          {/* <NavLink to='/login' exact={true} activeClassName='active'>
-            Login
-          </NavLink> */}
           <LoginFormModal />
         </li>
         <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
+          <SignUpFormModal />
         </li>
         <li>
           <NavLink to='/users' exact={true} activeClassName='active'>
@@ -42,7 +38,7 @@ const NavBar = () => {
           <CartButton />
         </li>
         {user && <li>
-          <ProfileButton user={user}/>
+          <ProfileButton user={user} />
         </li>}
       </ul>
     </nav>
