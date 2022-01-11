@@ -18,6 +18,19 @@ const containedButtonStyles = css`
   }
 `;
 
+const textButtonStyles = css`
+  &:after {
+    transform: scaleX(0.7) scaleY(0.7);
+  }
+
+  &:not(:disabled):hover {
+    &:after {
+      transform: scaleX(1.015) scaleY(1.035);
+      background-color: rgba(0, 0, 0, 0.075);
+    }
+  }
+`;
+
 const Button = styled.button`
   background-color: initial;
   border: 0;
@@ -43,6 +56,7 @@ const Button = styled.button`
   }
 
   ${(props) => props.variant === "contained" && containedButtonStyles}
+  ${(props) => props.variant === "text" && textButtonStyles}
 `;
 
 Button.defaultProps = {
