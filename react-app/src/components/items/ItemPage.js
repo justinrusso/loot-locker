@@ -112,6 +112,7 @@ const ItemPage = () => {
       }, [])
 
       const item = useSelector(state => state.items.entities.item)
+      console.log("XXXXXXXXXXXXXXX", item.seller)
 
       const [showDescription, setShowDescription] = useState(true)
 
@@ -136,11 +137,11 @@ const ItemPage = () => {
             <StyledItemPageDiv>
                   <div id="left-side-page-container">
                         <div id="item-image-container">
-                              <img id="item-image" src={testItem.image}></img>
+                              <img id="item-image" src={item.image}></img>
                         </div>
                   </div>
                   <div id="item-info-container">
-                        <div id="item-seller">Tingle's Shop</div>
+                        <div id="item-seller">{item.seller}</div>
                         <div id="item-name">{testItem.name}</div>
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
