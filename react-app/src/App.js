@@ -9,6 +9,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import HomePage from "./components/HomePage"
 import { authenticate } from "./store/session";
+import Footer from "./components/Footer";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,6 +41,7 @@ function App() {
             <HomePage />
           </Route>
         </Switch>
+        <Footer />
       </CartProvider>
     </BrowserRouter>
   );
