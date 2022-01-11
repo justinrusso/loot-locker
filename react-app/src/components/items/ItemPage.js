@@ -105,6 +105,24 @@ const StyledItemPageDiv = styled.div`
       }
 `
 
+/**
+ * 
+ * @param {number} stock The amount of stock remaining of the item
+ */
+const getCartButtonMessage = (stock) => {
+      if (stock === 0) {
+            return 'Out of stock'
+      }
+
+      let messageBase = 'Add to cart';
+
+      if (stock <= 5) {
+            messageBase += ` | Only ${stock} available`
+      }
+
+      return messageBase;
+}
+
 const ItemPage = () => {
       const { itemId } = useParams()
       const dispatch = useDispatch();
@@ -155,8 +173,7 @@ const ItemPage = () => {
                                     disabled={item.stock === 0}
                                     onClick={handleAddToCart}
                               >
-                                    <span>Add to cart </span>
-                                    {item.stock < 6 && <>| Only {item.stock} available</>}
+                                    {getCartButtonMessage(item.stock)}
                               </button>
                         )}
                         <button onClick={handleSetShowDescription}id="description-button">
