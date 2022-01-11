@@ -65,6 +65,7 @@ const StyledItemPageDiv = styled.div`
       }
 
       #item-price {
+            display: flex;
             font-size: xx-large;
             font-weight: bolder;
 
@@ -73,7 +74,6 @@ const StyledItemPageDiv = styled.div`
                   font-weight: normal;
                   position: relative;
                   left: 15vw;
-                  text-align: right;
             }
       }
 
@@ -81,16 +81,27 @@ const StyledItemPageDiv = styled.div`
             margin-right: 0.5vw
       }
 
-      #add-to-cart-button {
+      #add-to-cart-button, #description-button {
+            // background-color: lime;
             margin-bottom: 1vh;
             padding: 1.5vh 0;
             margin-top: 10vh;
             font-size: large;
             border: 2px solid black;
       }
+
+      #description-button {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1vh;
+            padding-left: 10%;
+            padding-right: 10%;
+      }
 `
 
 const ItemPage = () => {
+      const [showDescription, setShowDescription] = useState(true)
+
       const testItem = {
             user_id: 1,
             name: "Heart Container | +1 Heart",
@@ -98,6 +109,10 @@ const ItemPage = () => {
             image: "https://purenintendo.com/wp-content/uploads/2012/03/LOZ_OoT_3D_HeartPiece.png",
             price: 500,
             stock: 5
+      }
+
+      const handleSetShowDescription = () => {
+            setShowDescription(!showDescription)
       }
 
       return(
@@ -115,8 +130,16 @@ const ItemPage = () => {
                               {testItem.price}
                               <span><i className="fas fa-check"></i> In stock</span>
                         </div>
-                        <button id="add-to-cart-button"><span>Add to cart</span> | Only {testItem.stock} available</button>
-                        <div id="item-description">{testItem.description}</div>
+                        <button id="add-to-cart-button">
+                              <span>Add to cart </span>
+                              <>| Only {testItem.stock} available</>
+                        </button>
+                        <button onClick={handleSetShowDescription}id="description-button">
+                              <span>Description</span>
+                              {!showDescription && <i className="fas fa-chevron-down"></i>}
+                              {showDescription && <i className="fas fa-chevron-up"></i>}
+                        </button>
+                        {showDescription && <div id="item-description">{testItem.description}</div>}
                   </div>
             </StyledItemPageDiv>
       )
