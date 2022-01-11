@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../store/items'
 import ResultCard from './ResultCard'
 
-import { results } from './mock-data'
+import { testResults } from './mock-data'
 
 const Container = styled.div`
     width: 100%;
@@ -54,13 +54,14 @@ const Results = () => {
         dispatch(getItems(key)).then(() => setIsLoaded(true));
     }, [dispatch, key])
 
-    const testItems = Object.values(results);
+    // const testItems = Object.values(testResults);
+    const results = useSelector(state => state.items.entities.items);
 
     return (
         <Container>
             <Content>
                 {isLoaded && <Grid>
-                    {Object.values(testItems).map((item, idx) => {
+                    {Object.values(results).map((item, idx) => {
                         return <ResultCard key={idx} item={item} />
                     })}
                 </Grid >}

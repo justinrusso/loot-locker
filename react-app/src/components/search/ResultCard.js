@@ -47,7 +47,6 @@ const ItemUser = styled.span`
 `
 
 const ResultCard = ({ item }) => {
-
     return (
         <ResultLi>
             <Link to={`/items/${item.id}`}>
