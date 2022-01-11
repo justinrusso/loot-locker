@@ -18,7 +18,12 @@ def cart_items():
 def add_cart_item():
     form = CartItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
+        cart_item = CartItem.query.get({"user_id": current_user.id, "item_id": form.data['itemId']})
+        if cart_item:
+            return {"errors": ["Item is already added to cart"]}, 400
+
         cart_item = CartItem(
             user_id=current_user.id,
             item_id=form.data['itemId'],
