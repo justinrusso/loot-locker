@@ -58,6 +58,7 @@ const StyledItemPageDiv = styled.div`
       }
 
       #item-name {
+            display: flex;
             margin-bottom: 2vh;
             font-size: xx-large;
       }
@@ -79,12 +80,32 @@ const StyledItemPageDiv = styled.div`
             margin-right: 0.5vw
       }
 
-      #add-to-cart-button, #description-button {
+      #add-to-cart-button, #description-button, #delete-item-button {
             margin-bottom: 1vh;
             padding: 1.5vh 0;
             margin-top: 10vh;
             font-size: large;
             border: 2px solid black;
+      }
+
+      #delete-item-button {
+            height: 5vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            margin-bottom: 2vh;
+            i {
+                  color: crimson;
+                  margin-right: 0.5vw;
+            }
+      }
+
+      #dragon-icon {
+            display: flex;
+            height: 5vh;
+            margin-right: 0.5vw;
       }
 
       #description-button {
@@ -93,6 +114,15 @@ const StyledItemPageDiv = styled.div`
             margin-top: 1vh;
             padding-left: 10%;
             padding-right: 10%;
+      }
+
+      .edit-button {
+            border: 2px solid black;
+            padding: 0px;
+            display: flex;
+            height: 3.5vh;
+            margin-left: 0.5vw;
+            border-radius: 50%;
       }
 
       #item-description {
@@ -131,8 +161,15 @@ const ItemPage = () => {
                         </div>
                   </div>
                   <div id="item-info-container">
+                        <button id="delete-item-button">
+                              <img id="dragon-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
+                              <span>Incinerate this item</span>
+                        </button>
                         <div id="item-seller">{item.seller}</div>
-                        <div id="item-name">{item.name}</div>
+                        <div id="item-name">
+                              {item.name}
+                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930588653795835904/editicon.png"></img>
+                        </div>
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
