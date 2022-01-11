@@ -14,7 +14,7 @@ function Category({ path, name, source }) {
     }
 
     &:hover .circle {
-        transform: scale(1.1);
+        transform: scale(1.08);
         filter: drop-shadow(0 1vh 1vh rgba(0,0,0,0.3))
     }
 
@@ -31,8 +31,8 @@ function Category({ path, name, source }) {
     }
 
     .circle {
-        width: 8vw;
-        height: 8vw;
+        width: 114px;
+        height: 114px;
         border: 2px black solid;
         border-radius: 50%;
         margin-bottom: 2vh;

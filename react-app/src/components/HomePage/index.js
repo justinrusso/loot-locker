@@ -11,6 +11,12 @@ const HomeStyling = styled.div`
     align-tems: center;
     width: 100%;
 
+    #home-top {
+        postion: absolute;
+        display: block;
+        z-index: 2;
+    }
+
     h1 {
         text-align: center;
         font-size: 52px;
@@ -29,6 +35,9 @@ const HomeStyling = styled.div`
         width: 100%;
         display: flex;
         justify-content: center;
+        align-items: flex-start;
+        list-style-type: none;
+        padding: 0px;
     }
 
     .section-title {
@@ -77,15 +86,18 @@ function HomePage() {
 
     return (
         <HomeStyling>
-            <h1 id="header-1">{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
+            <div id="home-top">
+                <h1 id="header-1">{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
 
-            <div id="category-container">
-                <Category path="/tags/1" name="Arms" source={false} />
-                <Category path="/tags/2" name="Armor" source={false} />
-                <Category path="/tags/3" name="Accessories" source={false} />
-                <Category path="/tags/4" name="Mounts" source={false} />
-                <Category path="/tags/5" name="Consumables" source={false}/>
+                <ul id="category-container">
+                    <li><Category path="/tags/1" name="Arms" source={false} /></li>
+                    <li><Category path="/tags/2" name="Armor" source={false} /></li>
+                    <li><Category path="/tags/3" name="Accessories" source={false} /></li>
+                    <li><Category path="/tags/4" name="Mounts" source={false} /></li>
+                    <li><Category path="/tags/5" name="Consumables" source={false}/></li>
+                </ul>
             </div>
+
 
             <div>
                 <p className="section-title">New!</p>
