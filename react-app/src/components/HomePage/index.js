@@ -11,9 +11,17 @@ const HomeStyling = styled.div`
     align-tems: center;
     width: 100%;
 
-    #welcome-message {
+    h1 {
         text-align: center;
-        font-size: 30px;
+        font-size: 52px;
+        line-height: 56px;
+        font-weight: bold;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 44px;
+        line-height: 48px;
         font-weight: bold;
     }
 
@@ -24,7 +32,7 @@ const HomeStyling = styled.div`
     }
 
     .section-title {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bold;
     }
 
@@ -36,6 +44,11 @@ const HomeStyling = styled.div`
         justify-content: center;
         padding-top: 36px;
         padding-bottom: 36px;
+    }
+
+    #questions {
+        font-size: 20px;
+        font-weight: bold;
     }
 `
 
@@ -64,7 +77,7 @@ function HomePage() {
 
     return (
         <HomeStyling>
-            <p id="welcome-message">{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</p>
+            <h1 id="header-1">{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
 
             <div id="category-container">
                 <Category path="/tags/1" name="Arms" source={false} />
@@ -99,9 +112,9 @@ function HomePage() {
 
 
             <div id="about">
-                <p className="section-title">What is Loot Locker?</p>
+                <h2 className="section-title">What is Loot Locker?</h2>
                 <p>Loot Locker is a global online marketplace, where gamers can buy and sell in-game items. (to be cont.)</p>
-                <p>Have any questions?</p>
+                <p id="questions">Have any questions?</p>
                 <a href="https://github.com/justinrusso/loot-locker">Contact Us</a>
             </div>
         </HomeStyling>
