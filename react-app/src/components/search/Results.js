@@ -16,7 +16,7 @@ const Container = styled.div`
 const Content = styled.div`
     display: flex;
     justify-content: center;
-    max-width: 80%;
+    width: 80%;
 `
 
 const Grid = styled.ul`
