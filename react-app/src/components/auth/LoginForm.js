@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { login } from '../../store/session';
+import { login, loginDemo } from '../../store/session';
 
 const LoginForm = ({ toSignUp }) => {
   const [errors, setErrors] = useState([]);
@@ -20,6 +20,11 @@ const LoginForm = ({ toSignUp }) => {
         }
       });
   };
+
+  const handleLoginDemo = async (e) => {
+    e.preventDefault();
+    dispatch(loginDemo())
+  }
 
   const updateCred = (e) => {
     setCred(e.target.value);
@@ -62,6 +67,9 @@ const LoginForm = ({ toSignUp }) => {
       </div>
       <button type='submit'>Login</button>
       <button type='button' onClick={toSignUp}>Register</button>
+      <button type="button" onClick={handleLoginDemo}>
+        Demo Login
+      </button>
     </form>
   );
 };
