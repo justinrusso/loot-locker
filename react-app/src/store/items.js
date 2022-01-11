@@ -95,20 +95,20 @@ const itemSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder.addCase(createItem.fulfilled, (state, action) => {
-            state.items.entities.items[action.payload.id] = action.payload;
+            state.entities.items[action.payload.id] = action.payload;
         });
         builder.addCase(getItems.fulfilled, (state, action) => {
             const items = {}
             action.payload.forEach((item) => {
                 items[item.id] = item
             })
-            state.items.entities.items = items;
+            state.entities.items = items;
         });
         builder.addCase(editItem.fulfilled, (state, action) => {
-            state.items.entities.items[action.payload.id] = action.payload;
+            state.entities.items[action.payload.id] = action.payload;
         });
         builder.addCase(deleteItem.fulfilled, (state, action) => {
-            delete state.items.entities.items[action.payload.id];
+            delete state.entities.items[action.payload.id];
         });
     },
 });
