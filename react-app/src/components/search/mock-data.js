@@ -1,4 +1,4 @@
-export const results = {
+export const testResults = {
     1: {
         id: 1,
         user_id: 2,

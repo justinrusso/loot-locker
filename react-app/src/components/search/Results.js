@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../store/items'
 import ResultCard from './ResultCard'
 
-import { results } from './mock-data'
+// import { testResults } from './mock-data'
 
 const Container = styled.div`
     width: 100%;
@@ -42,30 +42,29 @@ const useQuery = () => {
 }
 
 const Results = () => {
+
+    const [isLoaded, setIsLoaded] = useState(false);
+
     let query = useQuery();
-    const key = query.get("key")
+    const key = query.get("key");
 
     const dispatch = useDispatch()
 
-    // const [items, setItems] = useState([]);
+    useEffect(() => {
+        dispatch(getItems(key)).then(() => setIsLoaded(true));
+    }, [dispatch, key])
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const results = await dispatch(getItems());
-    //         console.log(results)
-    //     })();
-    // }, [key])
-
-    const items = Object.values(results);
+    // const testItems = Object.values(testResults);
+    const results = useSelector(state => state.items.entities.items);
 
     return (
         <Container>
             <Content>
-                <Grid>
-                    {items.map((item, idx) => {
+                {isLoaded && <Grid>
+                    {Object.values(results).map((item, idx) => {
                         return <ResultCard key={idx} item={item} />
                     })}
-                </Grid >
+                </Grid >}
             </Content>
         </Container>
     )

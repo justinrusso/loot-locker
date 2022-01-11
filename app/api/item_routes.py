@@ -9,7 +9,7 @@ item_routes = Blueprint("items", __name__)
 def items():
     key = request.args.get("key")
     if key:
-        items = Item.query.filter(Item.name.ilike(key)).all()
+        items = Item.query.filter(Item.name.ilike(f"%{key}%")).all()
     else:
         items = Item.query.all()
     return {"items": [item.to_dict() for item in items]}
