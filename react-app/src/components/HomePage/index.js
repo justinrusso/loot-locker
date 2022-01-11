@@ -1,7 +1,33 @@
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import NavBar from "../NavBar";
+import Category from "./Category";
+import styled from "styled-components";
+
+const HomeStyling = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-tems: center;
+    width: 100%;
+
+    #welcome-message {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    #category-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .section-title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+`
 
 function HomePage() {
 
@@ -18,27 +44,28 @@ function HomePage() {
         return arrCopy;
     }
 
-    const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user)
     const items = useSelector((state) => Object.values(state.items.entities.items))
 
     const newItems = useMemo(() => items.sort((a,b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0,6), [items]);
     const randItems = useMemo(() => randomize(items).slice(0,7), [items]);
 
-    return (
-        <>
-            <p>{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</p>
 
-            <div>
-                <Link to="/tags/1">Item Choice 1</Link>
-                <Link to="/tags/2">Item Choice 2</Link>
-                <Link to="/tags/3">Item Choice 3</Link>
-                <Link to="/tags/4">Item Choice 4</Link>
-                <Link to="/tags/5">Item Choice 5</Link>
+
+    return (
+        <HomeStyling>
+            <p id="welcome-message">{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</p>
+
+            <div id="category-container">
+                <Category path="/tags/1" name="Arms" source={false} />
+                <Category path="/tags/2" name="Armor" source={false} />
+                <Category path="/tags/3" name="Accessories" source={false} />
+                <Category path="/tags/4" name="Mounts" source={false} />
+                <Category path="/tags/5" name="Consumables" source={false}/>
             </div>
 
             <div>
-                <p>New!</p>
+                <p className="section-title">New!</p>
                 {/* NOTE: SORT ITEMS BY DATE ADDED */}
                 {newItems.map(item => (
                     <Link to={`items/${item.id}`}>
@@ -50,7 +77,7 @@ function HomePage() {
             </div>
 
             <div>
-                <p>Editors' Picks</p>
+                <p className="section-title">Editors' Picks</p>
                 {randItems.map(item => (
                     <Link to={`items/${item.id}`}>
                         <div>
@@ -66,7 +93,7 @@ function HomePage() {
                 <p>Have any questions?</p>
                 <a href="https://github.com/justinrusso/loot-locker">Contact Us</a>
             </div>
-        </>
+        </HomeStyling>
     )
 }
 
