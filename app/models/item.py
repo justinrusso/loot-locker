@@ -18,7 +18,7 @@ class Item(db.Model):
         db.DateTime, server_default=func.now(), onupdate=func.now(), nullable=False
     )
 
-    reviews = db.relationship("Review")
+    reviews = db.relationship("Review", back_populates="items")
 
     def to_dict(self):
         return {
