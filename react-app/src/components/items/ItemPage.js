@@ -149,10 +149,16 @@ const ItemPage = () => {
                               {item.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
-                        {user?.id !== item.seller.id && <button id="add-to-cart-button" onClick={handleAddToCart}>
-                              <span>Add to cart </span>
-                              {item.stock < 6 && <>| Only {item.stock} available</>}
-                        </button>}
+                        {user?.id !== item.seller.id && (
+                              <button
+                                    id="add-to-cart-button"
+                                    disabled={item.stock === 0}
+                                    onClick={handleAddToCart}
+                              >
+                                    <span>Add to cart </span>
+                                    {item.stock < 6 && <>| Only {item.stock} available</>}
+                              </button>
+                        )}
                         <button onClick={handleSetShowDescription}id="description-button">
                               <span>Description</span>
                               {!showDescription && <i className="fas fa-chevron-down"></i>}
