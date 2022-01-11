@@ -112,44 +112,47 @@ const ItemPage = () => {
             dispatch(getAnItem(itemId))
       }, [itemId])
 
-      const item = useSelector(state => state.items.entities.item)
+      const item = useSelector(state => state.items.entities.items[itemId])
+      console.log('XXXXXXXXXXXXX', item)
 
       const [showDescription, setShowDescription] = useState(true)
-
 
       const handleSetShowDescription = () => {
             setShowDescription(!showDescription)
       }
 
-      return(
-            <StyledItemPageDiv>
-                  <div id="left-side-page-container">
-                        <div id="item-image-container">
-                              <img id="item-image" src={item.image}></img>
+      if (item) {
+            return(
+                  <StyledItemPageDiv>
+                        <div id="left-side-page-container">
+                              <div id="item-image-container">
+                                    <img id="item-image" src={item.image}></img>
+                              </div>
                         </div>
-                  </div>
-                  <div id="item-info-container">
-                        <div id="item-seller">{item.seller}</div>
-                        <div id="item-name">{item.name}</div>
-                        <div id="item-price">
-                              <i className="fas fa-coins" id="coins-icon"></i>
-                              {item.price}
-                              {item.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
-                              {item.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
+                        <div id="item-info-container">
+                              <div id="item-seller">{item.seller}</div>
+                              <div id="item-name">{item.name}</div>
+                              <div id="item-price">
+                                    <i className="fas fa-coins" id="coins-icon"></i>
+                                    {item.price}
+                                    {item.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
+                                    {item.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
+                              </div>
+                              <button id="add-to-cart-button">
+                                    <span>Add to cart </span>
+                                    {item.stock < 6 && <>| Only {item.stock} available</>}
+                              </button>
+                              <button onClick={handleSetShowDescription}id="description-button">
+                                    <span>Description</span>
+                                    {!showDescription && <i className="fas fa-chevron-down"></i>}
+                                    {showDescription && <i className="fas fa-chevron-up"></i>}
+                              </button>
+                              {showDescription && <div id="item-description">{item.description}</div>}
                         </div>
-                        <button id="add-to-cart-button">
-                              <span>Add to cart </span>
-                              {item.stock < 6 && <>| Only {item.stock} available</>}
-                        </button>
-                        <button onClick={handleSetShowDescription}id="description-button">
-                              <span>Description</span>
-                              {!showDescription && <i className="fas fa-chevron-down"></i>}
-                              {showDescription && <i className="fas fa-chevron-up"></i>}
-                        </button>
-                        {showDescription && <div id="item-description">{item.description}</div>}
-                  </div>
-            </StyledItemPageDiv>
-      )
+                  </StyledItemPageDiv>
+            )
+      }
+      return <></>
 }
 
 export default ItemPage

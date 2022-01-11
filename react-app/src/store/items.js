@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = { entities: { items : {}, item: {} } }
+const initialState = { entities: { items : {} } }
 
 export const createItem = createAsyncThunk(
     "items/createItem",
@@ -117,7 +117,7 @@ const itemSlice = createSlice({
         state.entities.items = items;
       });
       builder.addCase(getAnItem.fulfilled, (state, action) => {
-        state.entities.item = action.payload
+        state.entities.items[action.payload.id] = action.payload
       })
       builder.addCase(editItem.fulfilled, (state, action) => {
         state.entities.items[action.payload.id] = action.payload;
