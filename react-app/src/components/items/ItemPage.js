@@ -128,11 +128,12 @@ const ItemPage = () => {
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {testItem.price}
-                              <span><i className="fas fa-check"></i> In stock</span>
+                              {testItem.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
+                              {testItem.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
                         <button id="add-to-cart-button">
                               <span>Add to cart </span>
-                              <>| Only {testItem.stock} available</>
+                              {testItem.stock < 6 && <>| Only {testItem.stock} available</>}
                         </button>
                         <button onClick={handleSetShowDescription}id="description-button">
                               <span>Description</span>
