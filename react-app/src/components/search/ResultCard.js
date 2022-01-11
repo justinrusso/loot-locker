@@ -22,14 +22,15 @@ const ResultLi = styled.li`
     }
 
     img {
-        width: 400px;
-        height: 300px;
+        width: 300px;
+        height: 250px;
         object-fit: cover;
         margin-bottom: 10px;
     }
 
     span {
         color: black;
+        margin-top: 2.5px;
     }
 `
 
@@ -38,17 +39,17 @@ const ItemName = styled.span`
 `
 
 const ItemPrice = styled.span`
-
+    font-weight: bold;
 `
 
 const ItemUser = styled.span`
-
+    font-size: small;
 `
 
 const ResultCard = ({ item }) => {
     return (
         <ResultLi>
-            <Link>
+            <Link to={`/items/${item.id}`}>
                 <img src={item.image} alt={item.name} />
                 <ItemName>{item.name}</ItemName>
                 <ItemPrice>{item.price}</ItemPrice>

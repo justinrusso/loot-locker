@@ -16,11 +16,12 @@ const Container = styled.div`
 const Content = styled.div`
     display: flex;
     justify-content: center;
-    max-width: 85   %;
+    max-width: 80%;
 `
 
 const Grid = styled.ul`
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 0px;
     padding: 0px;
 `
