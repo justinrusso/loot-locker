@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = { entities: { items : {} } }
+const initialState = { entities: { items: {} } }
 
 export const createItem = createAsyncThunk(
     "items/createItem",
@@ -25,8 +25,12 @@ export const createItem = createAsyncThunk(
 
 export const getItems = createAsyncThunk(
     "items/getItems",
-    async (_args, thunkAPI) => {
-        const response = await fetch("/api/items/", {
+    async (searchKey, thunkAPI) => {
+        let url = "/api/items";
+        if (searchKey) {
+            url += `?key=${searchKey}`;
+        }
+        const response = await fetch(url, {
             headers: {
                 "Content-Type": "application/json",
             },
