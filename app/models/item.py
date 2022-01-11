@@ -16,6 +16,8 @@ class Item(db.Model):
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
+    category_to_item = db.relationship('CategoryToItem', back_populates="item")
+
     def to_dict(self):
         return {
             'id': self.id,
