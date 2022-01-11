@@ -111,6 +111,8 @@ const ItemPage = () => {
             dispatch(getAnItem(itemId))
       }, [])
 
+      const item = useSelector(state => state.items.entities.item)
+
       const [showDescription, setShowDescription] = useState(true)
 
       const testItem = {
