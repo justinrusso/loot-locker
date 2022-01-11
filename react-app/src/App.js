@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import CartProvider from "./context/CartProvider";
 import NavBar from "./components/NavBar";
+import ItemPage from "./components/items/ItemPage"
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
@@ -37,6 +38,9 @@ function App() {
           <ProtectedRoute path="/users/:userId" exact={true}>
             <User />
           </ProtectedRoute>
+          <Route path="/items/:itemId">
+            <ItemPage />
+          </Route>
           <Route path="/" exact={true}>
             <HomePage />
           </Route>
