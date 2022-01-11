@@ -109,7 +109,6 @@ const NavBar = () => {
               placeholder="Search for loot"
               value={searchKey}
               onChange={updateKey}
-              required
             ></input>
             <button>
               <i className="fas fa-search" id="search-icon"></i>

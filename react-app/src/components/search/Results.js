@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../store/items'
 import ResultCard from './ResultCard'
 
-import { testResults } from './mock-data'
+// import { testResults } from './mock-data'
 
 const Container = styled.div`
     width: 100%;
