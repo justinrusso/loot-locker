@@ -53,14 +53,14 @@ Table item_review_summary {
   rating_total int [not null]
 }
 
-Table tags {
+Table categories {
   id int [pk, increment]
   name varchar [not null]
 }
 
-Table tags_to_items {
+Table categories_to_items {
   id int [pk, increment]
   item_id [not null, ref: > items.id]
-  tag_id [not null, ref: > tags.id]
+  category_id [not null, ref: > category.id]
 }
 ```
