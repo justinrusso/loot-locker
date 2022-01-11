@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
-const SignUpForm = () => {
+const SignUpForm = ({ toLogin }) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -107,6 +107,7 @@ const SignUpForm = () => {
         ></input>
       </div>
       <button type='submit'>Register</button>
+      <button type='button' onClick={toLogin}>Log In</button>
     </form>
   );
 };

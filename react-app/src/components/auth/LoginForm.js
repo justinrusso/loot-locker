@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 
-const LoginForm = () => {
+const LoginForm = ({ toSignUp }) => {
   const [errors, setErrors] = useState([]);
   const [cred, setCred] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +13,7 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     dispatch(login({ cred, password }))
-      .unwrap()
+      .unwrap().then()
       .catch((data) => {
         if (data) {
           setErrors(data);
@@ -61,6 +61,7 @@ const LoginForm = () => {
         />
       </div>
       <button type='submit'>Login</button>
+      <button type='button' onClick={toSignUp}>Register</button>
     </form>
   );
 };
