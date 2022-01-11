@@ -34,7 +34,7 @@ Table reviews {
   user_id int [not null, ref: > users.id]
   item_id int [not null, ref: > items.id]
   rating int [not null]
-  comment int [not null]
+  comment text [not null]
   created_at datetime [default: `now()`]
   updated_at datetime [default: `now()`]
 }
