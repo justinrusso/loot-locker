@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../store/items'
 import ResultCard from './ResultCard'
 
-// import { testResults } from './mock-data'
-
 const Container = styled.div`
     width: 100%;
     display: flex;
@@ -54,7 +52,6 @@ const Results = () => {
         dispatch(getItems(key)).then(() => setIsLoaded(true));
     }, [dispatch, key])
 
-    // const testItems = Object.values(testResults);
     const results = useSelector(state => state.items.entities.items);
 
     return (
