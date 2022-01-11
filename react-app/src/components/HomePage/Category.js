@@ -13,17 +13,24 @@ function Category({ path, name, source }) {
         border-bottom: 2px solid black;
     }
 
-    &:hover img {
+    &:hover .circle {
         transform: scale(1.1);
         filter: drop-shadow(0 1vh 1vh rgba(0,0,0,0.3))
+    }
+
+    &:hover a {
+        color: #595959
     }
 
     a {
         color: black;
         text-decoration: none;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20px;
     }
 
-    .circle{
+    .circle {
         width: 8vw;
         height: 8vw;
         border: 2px black solid;
