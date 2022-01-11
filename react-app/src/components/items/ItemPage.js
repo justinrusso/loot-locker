@@ -12,9 +12,9 @@ const StyledItemPageDiv = styled.div`
             display: flex;
             justify-content: center;
             width: 50vw;
-            // background-color: green;
             border: 1px solid lightgrey;
             border-radius: 8px;
+            box-shadow: 2px 2px 5px 2px grey;
       }
 
       #item-image {
@@ -22,21 +22,19 @@ const StyledItemPageDiv = styled.div`
             max-width: 100%;
             max-height: 100%;
             border-radius: 8px;
-            // background-color: purple;
       }
 
       #item-seller {
             display: inline;
-            // background-color: lime;
       }
 
       #item-info-container {
             height: 100vh;
-            // background-color: lightgrey;
             display: flex;
             flex-direction: column;
             width: 30vw;
             padding-top: 1%;
+            padding-left:2vw;
 
 
             div {
