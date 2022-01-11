@@ -27,6 +27,16 @@ const HomeStyling = styled.div`
         font-size: 20px;
         font-weight: bold;
     }
+
+    #about {
+        background-color: #faecd5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 36px;
+        padding-bottom: 36px;
+    }
 `
 
 function HomePage() {
@@ -87,8 +97,9 @@ function HomePage() {
                 ))}
             </div>
 
-            <div>
-                <p>What is Loot Locker?</p>
+
+            <div id="about">
+                <p className="section-title">What is Loot Locker?</p>
                 <p>Loot Locker is a global online marketplace, where gamers can buy and sell in-game items. (to be cont.)</p>
                 <p>Have any questions?</p>
                 <a href="https://github.com/justinrusso/loot-locker">Contact Us</a>
