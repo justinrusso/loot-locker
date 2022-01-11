@@ -4,8 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-
-from .models import db, CartItem, Item, User, Review
+from .models import db, CartItem, Item, User, Category, CategoryToItem
 from .api.auth_routes import auth_routes
 from .api.cart_routes import cart_routes
 from .api.item_routes import item_routes
