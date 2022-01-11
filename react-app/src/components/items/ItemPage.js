@@ -11,7 +11,7 @@ const StyledItemPageDiv = styled.div`
       #item-image-container {
             display: flex;
             justify-content: center;
-            width: 50vw;
+            width: 45vw;
             border: 1px solid lightgrey;
             border-radius: 8px;
             box-shadow: 2px 2px 5px 2px grey;
