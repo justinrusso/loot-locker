@@ -14,7 +14,7 @@ const StyledItemPageDiv = styled.div`
             width: 45vw;
             border: 1px solid lightgrey;
             border-radius: 8px;
-            box-shadow: 2px 2px 5px 2px grey;
+            box-shadow: 2px 2px 5px grey;
       }
 
       #item-image {
@@ -22,10 +22,6 @@ const StyledItemPageDiv = styled.div`
             max-width: 100%;
             max-height: 100%;
             border-radius: 8px;
-      }
-
-      #item-seller {
-            display: inline;
       }
 
       #item-info-container {
@@ -54,7 +50,7 @@ const StyledItemPageDiv = styled.div`
 
       #item-seller {
             margin-bottom: 10vh;
-            font-size: large;
+            font-size: x-large;
       }
 
       #item-name {
