@@ -40,6 +40,18 @@ export const login = createAsyncThunk(
   }
 );
 
+export const loginDemo = createAsyncThunk(
+  "session/loginDemo",
+  async (_args, thunkAPI) => {
+    const response = await fetch("/api/auth/login-demo");
+
+    if (response.ok) {
+      return await response.json();
+    }
+    throw thunkAPI.rejectWithValue(["An error occurred. Please try again."]);
+  }
+);
+
 export const signUp = createAsyncThunk(
   "session/signUp",
   async (formInput, thunkAPI) => {
@@ -85,6 +97,9 @@ const sessionSlice = createSlice({
       state.user = action.payload;
     });
     builder.addCase(login.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
+    builder.addCase(loginDemo.fulfilled, (state, action) => {
       state.user = action.payload;
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
