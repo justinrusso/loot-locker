@@ -21,9 +21,18 @@ const Content = styled.div`
 
 const Grid = styled.ul`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 0px;
     padding: 0px;
+    grid-template-columns: 1fr 1fr;
+
+    @media (min-width: 1000px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (min-width: 1300px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
 `
 
 const useQuery = () => {
