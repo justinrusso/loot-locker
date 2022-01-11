@@ -30,11 +30,11 @@ function HomePage() {
             <p>{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</p>
 
             <div>
-                <Link to="/categories/1">Item Choice 1</Link>
-                <Link to="/categories/2">Item Choice 2</Link>
-                <Link to="/categories/3">Item Choice 3</Link>
-                <Link to="/categories/4">Item Choice 4</Link>
-                <Link to="/categories/5">Item Choice 5</Link>
+                <Link to="/tags/1">Item Choice 1</Link>
+                <Link to="/tags/2">Item Choice 2</Link>
+                <Link to="/tags/3">Item Choice 3</Link>
+                <Link to="/tags/4">Item Choice 4</Link>
+                <Link to="/tags/5">Item Choice 5</Link>
             </div>
 
             <div>
