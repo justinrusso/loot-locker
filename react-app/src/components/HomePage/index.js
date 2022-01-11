@@ -20,7 +20,7 @@ function HomePage() {
 
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user)
-    const items = useSelector((state) => state.items.entities.items)
+    const items = useSelector((state) => Object.values(state.items.entities.items))
 
     const newItems = useMemo(() => items.sort((a,b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0,6), [items]);
     const randItems = useMemo(() => randomize(items).slice(0,7), [items]);
@@ -40,7 +40,7 @@ function HomePage() {
             <div>
                 <p>New!</p>
                 {/* NOTE: SORT ITEMS BY DATE ADDED */}
-                {newItems.length > 0 && newItems.map(item => (
+                {newItems.map(item => (
                     <Link to={`items/${item.id}`}>
                         <div>
                             <img src={item.image} alt="item image" key={item.id} />
@@ -51,7 +51,7 @@ function HomePage() {
 
             <div>
                 <p>Editors' Picks</p>
-                {randItems.length > 0 && randItems.map(item => (
+                {randItems.map(item => (
                     <Link to={`items/${item.id}`}>
                         <div>
                             <img src={item.image} alt="item image" key={item.id} />
