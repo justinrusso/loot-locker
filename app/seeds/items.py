@@ -14,6 +14,8 @@ def seed_items():
         image="https://purenintendo.com/wp-content/uploads/2012/03/LOZ_OoT_3D_HeartPiece.png",
         price=500,
         stock=5,
+        created_at="Sat, 08 Jan 2022 19:24:00 GMT",
+        updated_at="Sat, 08 Jan 2022 19:24:00 GMT",
     )
 
     bow = Item(
