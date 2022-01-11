@@ -21,15 +21,15 @@ def upgrade():
     op.create_table(
         "reviews",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("user_id", sa.Integer(), nullable=True),
+        sa.Column("user_id", sa.Integer(), nullable=False),
         sa.Column("item_id", sa.Integer(), nullable=False),
         sa.Column("rating", sa.Integer(), nullable=False),
         sa.Column("comment", sa.Text(), nullable=False),
         sa.Column(
-            "created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=True
+            "created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
         ),
         sa.Column(
-            "updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=True
+            "updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
         ),
         sa.ForeignKeyConstraint(
             ["user_id"],
