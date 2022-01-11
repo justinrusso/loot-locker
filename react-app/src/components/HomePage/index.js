@@ -51,9 +51,35 @@ const HomeStyling = styled.div`
         padding-bottom: 36px;
     }
 
+    #about-text {
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 38px;
+        margin: 30px;
+    }
+
     #questions {
         font-size: 20px;
         font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    #contact-button {
+        padding: 10px 18px;
+        background-color: #faecd5;
+        border-radius: 25px;
+        border: 2px solid black;
+        text-decoration: none;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.5;
+        transition: all 0.1s ease-in-out;
+    }
+
+    #contact-button:hover {
+        transform: scale(1.01);
+        filter: drop-shadow(0 3px 3px rgba(0,0,0,0.2))
     }
 `
 
@@ -120,10 +146,10 @@ function HomePage() {
 
 
             <div id="about">
-                <h2 className="section-title">What is Loot Locker?</h2>
-                <p>Loot Locker is a global online marketplace, where gamers can buy and sell in-game items. (to be cont.)</p>
+                <h2>What is Loot Locker?</h2>
+                <p id="about-text">Loot Locker is a global online marketplace, where gamers can buy and sell in-game items. (to be cont.)</p>
                 <p id="questions">Have any questions?</p>
-                <a href="https://github.com/justinrusso/loot-locker">Contact Us</a>
+                <a href="https://github.com/justinrusso/loot-locker" id="contact-button">Contact Us</a>
             </div>
         </HomeStyling>
     )
