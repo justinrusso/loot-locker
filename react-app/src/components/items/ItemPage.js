@@ -12,6 +12,7 @@ const StyledItemPageDiv = styled.div`
       margin-top: 4vh;
 
       #item-image-container {
+            position: relative;
             display: flex;
             justify-content: center;
             width: 45vw;
@@ -25,6 +26,19 @@ const StyledItemPageDiv = styled.div`
             max-width: 100%;
             max-height: 100%;
             border-radius: 8px;
+      }
+
+      #edit-image-button {
+            border: 2px solid black;
+            border-radius: 50%;
+            position: absolute;
+            right: 1vw;
+            top: 2vh;
+      }
+
+      #edit-image-image {
+            height: 4vh;
+            padding: 5px;
       }
 
       #item-info-container {
@@ -59,12 +73,14 @@ const StyledItemPageDiv = styled.div`
 
       #item-name {
             display: flex;
+            align-items: center;
             margin-bottom: 2vh;
             font-size: xx-large;
       }
 
       #item-price {
             display: flex;
+            align-items: center;
             font-size: xx-large;
             font-weight: bolder;
 
@@ -117,12 +133,10 @@ const StyledItemPageDiv = styled.div`
       }
 
       .edit-button {
-            border: 2px solid black;
-            padding: 0px;
+            padding: 2px;
             display: flex;
-            height: 3.5vh;
+            height: 4vh;
             margin-left: 0.5vw;
-            border-radius: 50%;
       }
 
       #item-description {
@@ -144,6 +158,7 @@ const ItemPage = () => {
       const item = useSelector(state => state.items.entities.items[itemId])
 
       const [showDescription, setShowDescription] = useState(true)
+      const [showEditImg, setShowEditImg] = useState(false)
 
       const handleSetShowDescription = () => {
             setShowDescription(!showDescription)
@@ -156,8 +171,13 @@ const ItemPage = () => {
       return(
             <StyledItemPageDiv>
                   <div id="left-side-page-container">
-                        <div id="item-image-container">
+                        <div id="item-image-container"
+                        onMouseOver={() => setShowEditImg(true)}
+                        onMouseOut={() => setShowEditImg(false)}>
                               <img id="item-image" src={item.image}></img>
+                              {showEditImg && <button id="edit-image-button">
+                                    <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                              </button>}
                         </div>
                   </div>
                   <div id="item-info-container">
@@ -168,11 +188,12 @@ const ItemPage = () => {
                         <div id="item-seller">{item.seller}</div>
                         <div id="item-name">
                               {item.name}
-                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930588653795835904/editicon.png"></img>
+                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                         </div>
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
+                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                               {item.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
