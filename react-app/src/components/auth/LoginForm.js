@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { login } from '../../store/session';
+import { login, loginDemo } from '../../store/session';
 
-const LoginForm = () => {
+const LoginForm = ({ toSignUp }) => {
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState('');
+  const [cred, setCred] = useState('');
   const [password, setPassword] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
     e.preventDefault();
-    dispatch(login({ email, password }))
-      .unwrap()
+    dispatch(login({ cred, password }))
+      .unwrap().then()
       .catch((data) => {
         if (data) {
           setErrors(data);
@@ -21,8 +21,13 @@ const LoginForm = () => {
       });
   };
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
+  const handleLoginDemo = async (e) => {
+    e.preventDefault();
+    dispatch(loginDemo())
+  }
+
+  const updateCred = (e) => {
+    setCred(e.target.value);
   };
 
   const updatePassword = (e) => {
@@ -41,13 +46,13 @@ const LoginForm = () => {
         ))}
       </div>
       <div>
-        <label htmlFor='email'>Email</label>
+        <label htmlFor='cred'>Username or Email</label>
         <input
-          name='email'
+          name='cred'
           type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
+          value={cred}
+          onChange={updateCred}
+          required
         />
       </div>
       <div>
@@ -55,12 +60,16 @@ const LoginForm = () => {
         <input
           name='password'
           type='password'
-          placeholder='Password'
           value={password}
           onChange={updatePassword}
+          required
         />
-        <button type='submit'>Login</button>
       </div>
+      <button type='submit'>Login</button>
+      <button type='button' onClick={toSignUp}>Register</button>
+      <button type="button" onClick={handleLoginDemo}>
+        Demo Login
+      </button>
     </form>
   );
 };

@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import CartProvider from "./context/CartProvider";
-import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import ItemPage from "./components/items/ItemPage"
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -11,6 +10,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import HomePage from "./components/HomePage"
 import { authenticate } from "./store/session";
+import Footer from "./components/Footer";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -32,9 +32,6 @@ function App() {
       <CartProvider>
         <NavBar />
         <Switch>
-          <Route path="/sign-up" exact={true}>
-            <SignUpForm />
-          </Route>
           <ProtectedRoute path="/users" exact={true}>
             <UsersList />
           </ProtectedRoute>
@@ -48,6 +45,7 @@ function App() {
             <HomePage />
           </Route>
         </Switch>
+        <Footer />
       </CartProvider>
     </BrowserRouter>
   );

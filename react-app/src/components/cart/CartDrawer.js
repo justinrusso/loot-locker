@@ -1,9 +1,15 @@
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 
 import Portal from "../common/Portal";
-import { items, cartItems } from "./mock-data";
 import { useCart } from "../../context/CartProvider";
+import {
+  clearCartLocally,
+  fetchCartItems,
+  selectCartItems,
+} from "../../store/cart-items";
+import { selectUser } from "../../store/session";
 
 const DrawerRoot = styled.div`
   position: fixed;
@@ -41,12 +47,21 @@ const DrawerContent = styled.div`
   }
 `;
 
-const sortDateCreated = (itemA, itemB) => {
-  return new Date(itemB.date) - new Date(itemA.date);
-};
-
 const CartDrawer = () => {
   const cart = useCart();
+  const cartItems = useSelector(selectCartItems());
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser());
+
+  useEffect(() => {
+    (async () => {
+      if (user) {
+        await dispatch(fetchCartItems());
+      } else {
+        await dispatch(clearCartLocally());
+      }
+    })();
+  }, [dispatch, user]);
 
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -79,23 +94,24 @@ const CartDrawer = () => {
 
   const cartItemElements = useMemo(
     () =>
-      Object.values(cartItems)
-        .sort(sortDateCreated)
-        .map((cartItem) => (
-          <li key={cartItem.item_id}>
-            <div>Name: {items[cartItem.item_id].name}</div>
+      cartItems.ids.map((id) => {
+        const cartItem = cartItems.entities[id];
+        return (
+          <li key={cartItem.item.id}>
+            <div>Name: {cartItem.item.name}</div>
             <div>Quantity: {cartItem.quantity}</div>
-            <div>Price: ${items[cartItem.item_id].price / 100}</div>
+            <div>Price: ${cartItem.item.price / 100}</div>
           </li>
-        )),
+        );
+      }),
     [cartItems]
   );
 
   const subtotal = useMemo(
     () =>
-      Object.values(cartItems).reduce(
+      Object.values(cartItems.entities).reduce(
         (currentTotal, cartItem) =>
-          currentTotal + items[cartItem.item_id].price * cartItem.quantity,
+          currentTotal + cartItem.item.price * cartItem.quantity,
         0
       ) / 100,
     [cartItems]

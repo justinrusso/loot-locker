@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
-const SignUpForm = () => {
+const SignUpForm = ({ toLogin }) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [location, setLocation] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
@@ -15,7 +16,7 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      dispatch(signUp({ username, email, password })).catch((data) => {
+      dispatch(signUp({ username, email, password, location })).unwrap().catch((data) => {
         if (data) {
           setErrors(data);
         }
@@ -30,6 +31,11 @@ const SignUpForm = () => {
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
+
+  const updateLocation = (e) => {
+    setLocation(e.target.value);
+  };
+
 
   const updatePassword = (e) => {
     setPassword(e.target.value);
@@ -51,12 +57,13 @@ const SignUpForm = () => {
         ))}
       </div>
       <div>
-        <label>User Name</label>
+        <label>Username</label>
         <input
           type='text'
           name='username'
           onChange={updateUsername}
           value={username}
+          required
         ></input>
       </div>
       <div>
@@ -66,6 +73,17 @@ const SignUpForm = () => {
           name='email'
           onChange={updateEmail}
           value={email}
+          required
+        ></input>
+      </div>
+      <div>
+        <label>Location</label>
+        <input
+          type='text'
+          name='location'
+          onChange={updateLocation}
+          value={location}
+          required
         ></input>
       </div>
       <div>
@@ -75,19 +93,21 @@ const SignUpForm = () => {
           name='password'
           onChange={updatePassword}
           value={password}
+          required
         ></input>
       </div>
       <div>
-        <label>Repeat Password</label>
+        <label>Confirm Password</label>
         <input
           type='password'
           name='repeat_password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
-          required={true}
+          required
         ></input>
       </div>
-      <button type='submit'>Sign Up</button>
+      <button type='submit'>Register</button>
+      <button type='button' onClick={toLogin}>Log In</button>
     </form>
   );
 };

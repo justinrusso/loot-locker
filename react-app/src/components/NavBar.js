@@ -7,6 +7,7 @@ import styled from "styled-components"
 import CartButton from './cart/CartButton';
 import ProfileButton from './profile/ProfileButton'
 import LoginFormModal from './auth/LoginFormModal';
+// import SignUpFormModal from './auth/SignUpModal';
 
 const StyledNavElement = styled.nav`
   display: flex;
@@ -96,7 +97,7 @@ const NavBar = () => {
           <i className="fas fa-search" id="search-icon"></i>
         </li>
         {user && <li className="nav-li">
-          <ProfileButton user={user}/>
+          <ProfileButton user={user} />
         </li>}
         {!user && <li className="nav-li">
           <LoginFormModal />
