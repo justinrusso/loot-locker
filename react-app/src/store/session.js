@@ -97,3 +97,5 @@ const sessionSlice = createSlice({
 });
 
 export default sessionSlice.reducer;
+
+export const selectUser = () => (state) => state.session.user;
