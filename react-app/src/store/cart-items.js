@@ -20,7 +20,7 @@ export const fetchCartItems = createAsyncThunk(
 export const addCartItem = createAsyncThunk(
   "cartItems/addItem",
   async (cartItemDetails, thunkAPI) => {
-    const response = await fetch("/api/items/", {
+    const response = await fetch("/api/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
