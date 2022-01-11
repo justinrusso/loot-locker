@@ -42,30 +42,28 @@ const useQuery = () => {
 }
 
 const Results = () => {
+
+    const [isLoaded, setIsLoaded] = useState(false);
+
     let query = useQuery();
-    const key = query.get("key")
+    const key = query.get("key");
 
     const dispatch = useDispatch()
 
-    // const [items, setItems] = useState([]);
+    useEffect(() => {
+        dispatch(getItems(key)).then(() => setIsLoaded(true));
+    }, [dispatch, key])
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const results = await dispatch(getItems());
-    //         console.log(results)
-    //     })();
-    // }, [key])
-
-    const items = Object.values(results);
+    const testItems = Object.values(results);
 
     return (
         <Container>
             <Content>
-                <Grid>
-                    {items.map((item, idx) => {
+                {isLoaded && <Grid>
+                    {Object.values(testItems).map((item, idx) => {
                         return <ResultCard key={idx} item={item} />
                     })}
-                </Grid >
+                </Grid >}
             </Content>
         </Container>
     )

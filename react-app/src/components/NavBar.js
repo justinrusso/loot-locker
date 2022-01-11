@@ -82,7 +82,7 @@ const NavBar = () => {
 
   let user = useSelector(state => state.session.user)
 
-  const [searchKey, setSearchKey] = useState();
+  const [searchKey, setSearchKey] = useState('');
 
   const searchSubmit = (e) => {
     e.preventDefault();
