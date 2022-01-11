@@ -64,17 +64,6 @@ const GlobalStyle = createGlobalStyle`
     body {
         font-family: 'Roboto', sans-serif;
     }
-
-    button {
-        background-color:transparent;
-        border: none;
-        justify-content:center;
-        border-radius: 30px;
-    }
-
-    button:hover {
-        background-color:rgb(235, 235, 235);
-    }
 `;
 
 export default GlobalStyle;
