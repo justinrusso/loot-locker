@@ -110,10 +110,9 @@ const ItemPage = () => {
 
       useEffect(() => {
             dispatch(getAnItem(itemId))
-      }, [])
+      }, [itemId])
 
       const item = useSelector(state => state.items.entities.item)
-      console.log("XXXXXXXXXXXXXXX", item.seller)
 
       const [showDescription, setShowDescription] = useState(true)
 
@@ -131,7 +130,7 @@ const ItemPage = () => {
                   </div>
                   <div id="item-info-container">
                         <div id="item-seller">{item.seller}</div>
-                        <div id="item-name">{testItem.name}</div>
+                        <div id="item-name">{item.name}</div>
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}

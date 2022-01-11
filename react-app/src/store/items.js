@@ -46,11 +46,7 @@ export const getItems = createAsyncThunk(
 export const getAnItem = createAsyncThunk(
     "items/getAnItem",
     async (itemId, thunkAPI) => {
-        const response = await fetch(`/api/items/${itemId}`, {
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
+        const response = await fetch(`/api/items/${itemId}`)
         const data = await response.json()
         if (response.ok && !data.errors) {
             return data;
@@ -121,7 +117,6 @@ const itemSlice = createSlice({
         state.entities.items = items;
       });
       builder.addCase(getAnItem.fulfilled, (state, action) => {
-        console.log("ACTION PAYLOAD", action.payload)
         state.entities.item = action.payload
       })
       builder.addCase(editItem.fulfilled, (state, action) => {
