@@ -42,10 +42,10 @@ function Category({ path, name, source }) {
 
     return (
         <CategoryBlock>
-            <a href={path}>
+            <Link href={path}>
                 <img src={source} className="circle"/>
-            </a>
-            <a href={path}>{name}</a>
+            </Link>
+            <Link href={path}>{name}</Link>
         </CategoryBlock>
     )
 }
