@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = { entities: { items : {} } }
+const initialState = { entities: { items : {}, item: {} } }
 
 export const createItem = createAsyncThunk(
     "items/createItem",
@@ -41,6 +41,26 @@ export const getItems = createAsyncThunk(
         }
     }
 );
+
+// sets a single item to state for rendering in ItemInfo
+export const getAnItem = createAsyncThunk(
+    "items/getAnItem",
+    async (itemId, thunkAPI) => {
+        const response = await fetch(`/api/items/${itemId}`, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        const data = await response.json()
+        if (response.ok && !data.errors) {
+            return data;
+        } else if (response.status < 500) {
+            throw thunkAPI.rejectWithValue(data.errors);
+        } else {
+            throw thunkAPI.rejectWithValue(["An error occurred. Please try again."]);
+        }
+    }
+)
 
 export const editItem = createAsyncThunk(
     "items/editItem",
@@ -100,6 +120,10 @@ const itemSlice = createSlice({
         })
         state.items.entities.items = items;
       });
+      builder.addCase(getAnItem.fulfilled, (state, action) => {
+        console.log("ACTION PAYLOAD", action.payload)
+        state.entities.item = action.payload
+      })
       builder.addCase(editItem.fulfilled, (state, action) => {
         state.items.entities.items[action.payload.id] = action.payload;
       });

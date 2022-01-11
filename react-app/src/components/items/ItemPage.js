@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components"
-import { useDispatch } from 'react-redux';
+
+import { getAnItem } from "../../store/items"
 
 const StyledItemPageDiv = styled.div`
       display: flex;
@@ -101,6 +104,13 @@ const StyledItemPageDiv = styled.div`
 `
 
 const ItemPage = () => {
+      const { itemId } = useParams()
+      const dispatch = useDispatch();
+
+      useEffect(() => {
+            dispatch(getAnItem(itemId))
+      }, [])
+
       const [showDescription, setShowDescription] = useState(true)
 
       const testItem = {
