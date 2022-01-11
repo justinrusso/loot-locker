@@ -1,18 +1,17 @@
-from flask import Blueprint, abort
+from flask import Blueprint, abort, request
 from app.models import Item
 from sqlalchemy import or_
 
 item_routes = Blueprint("items", __name__)
 
 
-@item_routes.route("/<search_key>")
-def items(search_key):
-
-    if search_key:
-        items = Item.query.filter(
-            or_(Item.name.ilike(search_key), Item.description.ilike(search_key)).all())
-        return {"items": [item.to_dict() for item in items]}
-    items = Item.query.all()
+@item_routes.route("/")
+def items():
+    key = request.args.get("key")
+    if key:
+        items = Item.query.filter(Item.name.ilike(key)).all()
+    else:
+        items = Item.query.all()
     return {"items": [item.to_dict() for item in items]}
 
 
