@@ -97,6 +97,13 @@ const StyledItemPageDiv = styled.div`
             padding-left: 10%;
             padding-right: 10%;
       }
+
+      #item-description {
+            line-height: 2;
+            margin-top: 2vh;
+            overflow: hidden;
+            height: 20vh;
+      }
 `
 
 const ItemPage = () => {
@@ -105,7 +112,11 @@ const ItemPage = () => {
       const testItem = {
             user_id: 1,
             name: "Heart Container | +1 Heart",
-            description: "Heart Containers, also known as Bowls of Hearts, Heart-Shaped Stones, Life Hearts, and Crystal Hearts, are recurring Items in The Legend of Zelda series. They increase Link's Life Gauge, which is represented by a set of Hearts, excluding The Adventure of Link, where his health is symbolized by a life bar.",
+            description:
+            `
+            Heart Containers, also known as Container Hearts, are recurring items in the Legend of Zelda series. These heart-shaped containers are visual representations of Link's current health. The more Heart Containers Link collects, the more health he will have. The number of Heart Containers Link has reflects the maximum amount of health he can have at one time, traditionally displayed in the upper left corner of the screen. When Link's health is full, the Heart Containers are red. As Link loses health, they lose their color or disappear. In some games, Link can lose quarter hearts or half hearts.
+            Link usually starts his adventure with three Heart Containers; the limit for how many Heart Containers Link can obtain in all depends on the game, though the most common maximum is twenty. Heart Containers are typically left behind by bosses upon defeat. Link can also "create" Heart Containers by collecting Pieces of Heart; the most common number of Pieces of Heart needed to complete another Heart Container is four, however, exceptions exist. Some games omit Pieces of Heart in favor of completed Heart Containers. Occasionally, Link will need a specific number of Heart Containers to complete certain tasks.
+            `,
             image: "https://purenintendo.com/wp-content/uploads/2012/03/LOZ_OoT_3D_HeartPiece.png",
             price: 500,
             stock: 5
