@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components"
 
+import { addCartItem } from "../../store/cart-items";
 import { getAnItem } from "../../store/items"
 
 const StyledItemPageDiv = styled.div`
@@ -119,6 +120,13 @@ const ItemPage = () => {
             setShowDescription(!showDescription)
       }
 
+      const handleAddToCart = async () => {
+            await dispatch(addCartItem({
+                  itemId,
+                  quantity: 1
+            }))
+      }
+
       if (!item) {
             return <></>
       }
@@ -139,7 +147,7 @@ const ItemPage = () => {
                               {item.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
-                        <button id="add-to-cart-button">
+                        <button id="add-to-cart-button" onClick={handleAddToCart}>
                               <span>Add to cart </span>
                               {item.stock < 6 && <>| Only {item.stock} available</>}
                         </button>
