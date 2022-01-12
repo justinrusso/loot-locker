@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from "react-redux";
-import { NavLink, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from "styled-components"
 
 import CartButton from './cart/CartButton';
@@ -98,9 +98,9 @@ const NavBar = () => {
     <StyledNavElement>
       <ul id="nav-ul">
         <li className="nav-li">
-          <NavLink to='/' exact={true} activeClassName='active'>
+          <Link to='/' exact={true} activeClassName='active'>
             <span id="logo">Logo</span>
-          </NavLink>
+          </Link>
         </li>
         <li className="nav-li" id="search-section">
           <form onSubmit={searchSubmit}>
