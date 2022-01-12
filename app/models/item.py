@@ -8,6 +8,7 @@ class Item(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"), nullable=False)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     image = db.Column(db.String, nullable=False)
@@ -15,9 +16,9 @@ class Item(db.Model):
     stock = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
-    seller = db.relationship('User', back_populates='items')
 
-    category_to_item = db.relationship('CategoryToItem', back_populates="item")
+    category = db.relationship('Category', back_populates='items')
+    seller = db.relationship('User', back_populates='items')
 
     def to_dict(self):
         return {

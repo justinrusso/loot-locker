@@ -4,4 +4,3 @@ from .item import Item
 from .user import User
 from .review import Review
 from .categories import Category
-from .categories_to_items import CategoryToItem
