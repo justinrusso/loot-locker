@@ -98,7 +98,7 @@ const NavBar = () => {
     <StyledNavElement>
       <ul id="nav-ul">
         <li className="nav-li">
-          <Link to="/" exact={true} activeClassName="active">
+          <Link to="/">
             <span id="logo">Logo</span>
           </Link>
         </li>
