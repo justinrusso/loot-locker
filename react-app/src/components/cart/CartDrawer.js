@@ -8,6 +8,7 @@ import IconButton from "../common/IconButton";
 import Portal from "../common/Portal";
 import { useCart } from "../../context/CartProvider";
 import {
+  checkout,
   clearCartLocally,
   fetchCartItems,
   selectCartItems,
@@ -187,6 +188,10 @@ const CartDrawer = () => {
     return null;
   }
 
+  const handleCheckout = () => {
+    dispatch(checkout()).unwrap().then(cart.hide);
+  };
+
   return (
     <Portal>
       <DrawerRoot>
@@ -213,7 +218,9 @@ const CartDrawer = () => {
                   {subtotal}
                 </span>
               </h3>
-              <Button className="checkout">Checkout</Button>
+              <Button className="checkout" onClick={handleCheckout}>
+                Checkout
+              </Button>
             </div>
           </div>
         </DrawerContent>

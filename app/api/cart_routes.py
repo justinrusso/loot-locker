@@ -49,3 +49,34 @@ def remove_cart_item(item_id):
             return {"id": item_id}
         return {"errors": ["Requested item to remove is not in your cart"]}, 400
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+@cart_routes.route('/checkout', methods=['POST'])
+@login_required
+def checkout():
+    form = DeleteCartItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        cart_items = CartItem.query.filter(CartItem.user_id == current_user.id).join(Item).all()
+
+        invalid = []
+        for cart_item in cart_items:
+            if cart_item.item.stock < cart_item.quantity:
+                invalid.push(f'{cart_item.item.id}: not enough stock')
+        if len(invalid) > 0:
+            return {'errors': invalid}, 400
+        
+        purchased_items = []
+
+        # Enough are still in stock, reduce the counts and save
+        for cart_item in cart_items:
+            purchased_items.append({
+                'itemId': cart_item.item.id,
+                'quantity': cart_item.quantity
+            })
+            cart_item.item.stock -= cart_item.quantity
+            db.session.add(cart_item.item)
+            db.session.delete(cart_item)
+        db.session.commit()
+        return {'purchasedItems': purchased_items}, 200
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
