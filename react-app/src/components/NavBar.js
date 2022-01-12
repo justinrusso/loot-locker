@@ -1,13 +1,11 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from "react-redux";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import styled from "styled-components"
 
 import CartButton from './cart/CartButton';
 import ProfileButton from './profile/ProfileButton'
 import LoginFormModal from './auth/LoginFormModal';
-// import SignUpFormModal from './auth/SignUpModal';
 
 const StyledNavElement = styled.nav`
   display: flex;
@@ -80,7 +78,21 @@ const StyledNavElement = styled.nav`
 `
 
 const NavBar = () => {
+  const history = useHistory();
+
   let user = useSelector(state => state.session.user)
+
+  const [searchKey, setSearchKey] = useState('');
+
+  const searchSubmit = (e) => {
+    e.preventDefault();
+    setSearchKey('');
+    history.push(`/search?key=${searchKey}`);
+  }
+
+  const updateKey = (e) => {
+    setSearchKey(e.target.value);
+  };
 
   return (
     <StyledNavElement>
@@ -91,10 +103,17 @@ const NavBar = () => {
           </NavLink>
         </li>
         <li className="nav-li" id="search-section">
-          <form>
-            <input id="search-input" placeholder="Search for loot"></input>
+          <form onSubmit={searchSubmit}>
+            <input
+              id="search-input"
+              placeholder="Search for loot"
+              value={searchKey}
+              onChange={updateKey}
+            ></input>
+            <button>
+              <i className="fas fa-search" id="search-icon"></i>
+            </button>
           </form>
-          <i className="fas fa-search" id="search-icon"></i>
         </li>
         {user && <li className="nav-li">
           <ProfileButton user={user} />

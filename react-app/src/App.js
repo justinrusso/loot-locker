@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import HomePage from "./components/HomePage"
+import Results from "./components/search/Results"
 import { authenticate } from "./store/session";
 import Footer from "./components/Footer";
 
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route path="/" exact={true}>
             <HomePage />
+          </Route>
+          <Route path="/search">
+            <Results />
           </Route>
         </Switch>
         <Footer />
