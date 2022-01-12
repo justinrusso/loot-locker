@@ -42,13 +42,13 @@ const StyledNavElement = styled.header`
     border-radius: 30px;
     flex: 1 1 100%;
     order: 2;
-    
+
     @media (min-width: 900px) {
       flex-basis: 0%;
       order: 0;
       padding-right: 16px;
     }
-  
+
     form {
       border: 2px solid black;
       border-radius: 96px;
@@ -152,7 +152,7 @@ const NavBar = () => {
                 value={searchKey}
                 onChange={updateKey}
               />
-              <IconButton>
+              <IconButton disabled={!searchKey}>
                 <i className="fas fa-search" id="search-icon"></i>
               </IconButton>
             </form>

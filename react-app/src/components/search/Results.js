@@ -57,13 +57,14 @@ const Results = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     let query = useQuery();
-    const key = query.get("key");
+    const categoryId = query.get("category");
+    const searchKey = query.get("searchKey");
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getItems(key)).then(() => setIsLoaded(true));
-    }, [dispatch, key])
+        dispatch(getItems({categoryId, searchKey})).then(() => setIsLoaded(true));
+    }, [dispatch, categoryId, searchKey])
 
     const results = useSelector(state => state.items.entities.items);
 
@@ -72,7 +73,7 @@ const Results = () => {
             <Content>
                 {isLoaded &&
                     <>
-                        <span id='search-header'>Results for '{key}'</span>
+                        <span id='search-header'>Results for "{searchKey}"</span>
                         <span id='search-count'>{Object.values(results).length === 1 ?
                             '1 result' :
                             `${Object.values(results).length} results`
