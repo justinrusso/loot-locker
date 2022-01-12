@@ -35,5 +35,4 @@ class Item(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
             'seller': self.seller.to_dict(),
-            'reviews': [review.to_dict() for review in self.reviews],
         }
