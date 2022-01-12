@@ -20,6 +20,8 @@ class Item(db.Model):
 
     category_to_item = db.relationship('CategoryToItem', back_populates="item")
 
+    reviews = db.relationship('Review', back_populates='items')
+
     def to_dict(self):
         return {
             'id': self.id,
