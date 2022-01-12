@@ -21,8 +21,10 @@ const AuthModals = () => {
   return (
     <Dialog onClose={close}>
       <FormWrapper>
-        {loginVisible && <LoginForm toSignUp={switchForms} />}
-        {signupVisible && <SignUpForm toLogin={switchForms} />}
+        {loginVisible && <LoginForm onSuccess={close} toSignUp={switchForms} />}
+        {signupVisible && (
+          <SignUpForm onSuccess={close} toLogin={switchForms} />
+        )}
       </FormWrapper>
     </Dialog>
   );

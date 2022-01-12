@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 
+import Button from "../common/Button";
+import CartListItem from "./CartListItem";
+import IconButton from "../common/IconButton";
 import Portal from "../common/Portal";
 import { useCart } from "../../context/CartProvider";
 import {
@@ -41,9 +44,60 @@ const DrawerContent = styled.div`
   top: 0;
   right: 0;
   transition: transform ${transitionDuration}ms cubic-bezier(0, 0, 0.2, 1);
+  width: 100%;
+
+  @media (min-width: 600px) {
+    width: auto;
+  }
 
   .inner {
-    width: 400px;
+    width: 100%;
+    padding: 56px 44px 36px 44px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    position: relative;
+
+    @media (min-width: 600px) {
+      width: 500px;
+    }
+  }
+
+  .close-button-wrapper {
+    position: absolute;
+    font-size: 18px;
+    top: 12px;
+    right: 12px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 0.35em;
+  }
+
+  .divider {
+    width: 100%;
+    border-bottom: 1px solid ${(props) => props.theme.divider};
+  }
+
+  ul {
+    list-style-type: none;
+    overflow-y: auto;
+  }
+
+  .subtotal {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+
+    i {
+      padding-right: 0.5ch;
+    }
+  }
+
+  ${Button}.checkout {
+    width: 100%;
   }
 `;
 
@@ -97,11 +151,14 @@ const CartDrawer = () => {
       cartItems.ids.map((id) => {
         const cartItem = cartItems.entities[id];
         return (
-          <li key={cartItem.item.id}>
-            <div>Name: {cartItem.item.name}</div>
-            <div>Quantity: {cartItem.quantity}</div>
-            <div>Price: ${cartItem.item.price / 100}</div>
-          </li>
+          <CartListItem
+            key={cartItem.item.id}
+            imgSrc={cartItem.item.image}
+            itemId={cartItem.item.id}
+            name={cartItem.item.name}
+            price={cartItem.item.price / 100}
+            quantity={cartItem.quantity}
+          />
         );
       }),
     [cartItems]
@@ -117,6 +174,15 @@ const CartDrawer = () => {
     [cartItems]
   );
 
+  const totalItems = useMemo(
+    () =>
+      Object.values(cartItems.entities).reduce(
+        (currentTotal, cartItem) => currentTotal + cartItem.quantity,
+        0
+      ),
+    [cartItems]
+  );
+
   if (!mounted) {
     return null;
   }
@@ -129,10 +195,26 @@ const CartDrawer = () => {
           style={{ transform: visible ? "translateZ(0)" : "translateX(100%)" }}
         >
           <div className="inner">
-            <h2>Your Cart</h2>
-            <ul>{cartItemElements}</ul>
-            <div>Subtotal: ${subtotal}</div>
-            <button>Checkout</button>
+            <div className="close-button-wrapper">
+              <IconButton onClick={() => cart.hide()}>
+                <i class="fas fa-times" />
+              </IconButton>
+            </div>
+            <div>
+              <h2>Your Cart ({totalItems})</h2>
+              <div className="divider" />
+              <ul>{cartItemElements}</ul>
+            </div>
+            <div>
+              <h3 className="subtotal">
+                Subtotal
+                <span>
+                  <i className="fas fa-coins" />
+                  {subtotal}
+                </span>
+              </h3>
+              <Button className="checkout">Checkout</Button>
+            </div>
           </div>
         </DrawerContent>
       </DrawerRoot>

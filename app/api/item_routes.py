@@ -1,8 +1,7 @@
 from flask import Blueprint, abort, request
-from app.models import db, Item, Review
+from app.models import db, Item, Category
 from app.forms import ReviewForm, validation_errors_to_error_messages
 from flask_login import current_user, login_required
-
 
 item_routes = Blueprint("items", __name__)
 
@@ -10,10 +9,13 @@ item_routes = Blueprint("items", __name__)
 @item_routes.route("/")
 def items():
     key = request.args.get("key")
+    category_id = request.args.get("category")
+    filters = []
+    if category_id:
+        filters.append(Item.category_id == category_id)
     if key:
-        items = Item.query.filter(Item.name.ilike(f"%{key}%")).all()
-    else:
-        items = Item.query.all()
+        filters.append(Item.name.ilike(f"%{key}%"))
+    items = Item.query.filter(*filters).all()
     return {"items": [item.to_dict() for item in items]}
 
 

@@ -49,9 +49,9 @@ const ProfileButton = ({ user }) => {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
 
-  const openMenu = () => {
-    if (showMenu) return;
-    setShowMenu(true);
+  const handleButtonClick = (e) => {
+    e.stopPropagation();
+    setShowMenu((prev) => !prev);
   };
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const ProfileButton = ({ user }) => {
 
   return (
     <ProfileButtonRoot>
-      <ProfileIconButton id="profile-button" onClick={openMenu}>
+      <ProfileIconButton onClick={handleButtonClick}>
         <i className="fas fa-user-circle" id="profile-icon" />
         <i className="fas fa-caret-down" id="expand-icon" />
       </ProfileIconButton>
