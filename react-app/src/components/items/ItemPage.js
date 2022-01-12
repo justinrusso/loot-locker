@@ -6,6 +6,7 @@ import styled from "styled-components"
 import { addCartItem } from "../../store/cart-items";
 import { getAnItem } from "../../store/items"
 import { selectUser } from "../../store/session";
+import { useAuthModal } from "../../context/AuthModalProvider";
 
 const StyledItemPageDiv = styled.div`
       display: flex;
@@ -125,6 +126,7 @@ const getCartButtonMessage = (stock) => {
 
 const ItemPage = () => {
       const { itemId } = useParams()
+      const authModal = useAuthModal();
       const dispatch = useDispatch();
 
       useEffect(() => {
@@ -141,6 +143,10 @@ const ItemPage = () => {
       }
 
       const handleAddToCart = async () => {
+            if (!user) {
+                  authModal.show();
+                  return;
+            }
             await dispatch(addCartItem({
                   itemId,
                   quantity: 1
