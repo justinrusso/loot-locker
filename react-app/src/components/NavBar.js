@@ -1,99 +1,150 @@
-import React, { useState } from 'react';
+import styled from "styled-components";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useHistory } from 'react-router-dom';
-import styled from "styled-components"
+import { Link, useHistory } from "react-router-dom";
 
-import CartButton from './cart/CartButton';
-import ProfileButton from './profile/ProfileButton'
-import LoginFormModal from './auth/LoginFormModal';
+import Button from "./common/Button";
+import CartButton from "./cart/CartButton";
+import Container from "./common/Container";
+import IconButton from "./common/IconButton";
+import ProfileButton from "./profile/ProfileButton";
+import { selectUser } from "../store/session";
+import { useAuthModal } from "../context/AuthModalProvider";
 
-const StyledNavElement = styled.nav`
-  display: flex;
-  height: 10vh;
-  padding-left: 10vw;
-  padding-right: 10vw;
-  align-items: center;
-  border-bottom: 2px solid lightgrey;
-
-  li {
-    list-style: none;
-    padding: none;
-  }
+const StyledNavElement = styled.header`
+  width: 100%;
+  border-bottom: 2px solid ${(props) => props.theme.divider};
 
   a {
     text-decoration: none;
   }
 
-  #nav-ul {
-    padding: 0;
+  .nav-inner {
     display flex;
-    height: 100%;
-    width: 100vw;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    padding-top: 6px;
+    padding-bottom: 12px;
+    row-gap: 8px;
+
+    @media (min-width: 900px) {
+      padding-top: 12px;
+    }
   }
 
-  .nav-li {
-    display: flex;
+  .logo {
+    font-size: 24px;
+    padding-right: 12px;
   }
 
-  #logo {
-    font-size: x-large;
-  }
-
-  #search-section {
-    height: 50%;
-    align-items: center;
-    border: 2px solid black;
+  .search-wrapper {
     border-radius: 30px;
+<<<<<<< HEAD
 
     button {
       background-color: transparent;
       border: none;
+=======
+    flex: 1 1 100%;
+    order: 2;
+    
+    @media (min-width: 900px) {
+      flex-basis: 0%;
+      order: 0;
+      padding-right: 16px;
+    }
+  
+    form {
+      border: 2px solid black;
+      border-radius: 96px;
+      background-color: rgba(0, 0, 0, 0.05);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      posiiton: relative;
+    }
+
+    input {
+      background-color: transparent;
+      border-bottom-left-radius: 96px;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: 96px;
+      border-top-right-radius: 0;
+      border: none;
+      flex: 1;
+      height: 48px;
+      line-height: 28px;
+      min-width: 0;
+      outline: none;
+      padding-bottom: 9px;
+      padding-left: 18px;
+      padding-right: 42px;
+      padding-top: 9px;
+      width: 100%;
+
+      & + ${IconButton} {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        padding-bottom: 12px;
+        padding-left: 15px;
+        padding-right: 21px;
+        padding-top: 12px;
+      }
+
+      &:focus {
+        background-color: ${(props) => props.theme.backgroundColor};
+
+        & + ${IconButton} {
+          color: ${(props) => props.theme.backgroundColor};
+
+          &:after {
+            background-color: ${(props) => props.theme.color};
+            transform: scaleX(1.015) scaleY(1.035);
+          }
+        }
+      }
+>>>>>>> 0cfbb3c743d47004da7d368ad313f5ca8f5727f3
     }
   }
 
-  #search-input {
-    font-size: large;
-    border: none;
-    width: 60vw;
-    border-radius: 20px;
-    padding-left: 1vw;
+  .cart-button {
+    font-size: 24px;
   }
 
-  #search-input:focus {
-    outline: none;
+  .main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
   }
 
-  #search-icon {
-    align-self: center;
-    padding-right: 1vw;
-  }
-
-  #login-button {
-    font-size: larger;
-    padding: 15% 1vw;
-  }
-
+<<<<<<< HEAD
   #cart-button {
     padding: 1vh 1.5vw;
+=======
+  .auth-button {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    padding: 9px 15px;
+>>>>>>> 0cfbb3c743d47004da7d368ad313f5ca8f5727f3
   }
-
-`
+`;
 
 const NavBar = () => {
+  const authModal = useAuthModal();
   const history = useHistory();
 
-  let user = useSelector(state => state.session.user)
+  const user = useSelector(selectUser());
 
-  const [searchKey, setSearchKey] = useState('');
+  const [searchKey, setSearchKey] = useState("");
 
   const searchSubmit = (e) => {
     e.preventDefault();
-    setSearchKey('');
+    setSearchKey("");
     history.push(`/search?key=${searchKey}`);
-  }
+  };
 
   const updateKey = (e) => {
     setSearchKey(e.target.value);
@@ -101,37 +152,40 @@ const NavBar = () => {
 
   return (
     <StyledNavElement>
-      <ul id="nav-ul">
-        <li className="nav-li">
-          <NavLink to='/' exact={true} activeClassName='active'>
-            <span id="logo">Logo</span>
-          </NavLink>
-        </li>
-        <li className="nav-li" id="search-section">
-          <form onSubmit={searchSubmit}>
-            <input
-              id="search-input"
-              placeholder="Search for loot"
-              value={searchKey}
-              onChange={updateKey}
-            ></input>
-            <button>
-              <i className="fas fa-search" id="search-icon"></i>
-            </button>
-          </form>
-        </li>
-        {user && <li className="nav-li">
-          <ProfileButton user={user} />
-        </li>}
-        {!user && <li className="nav-li">
-          <LoginFormModal />
-        </li>}
-        <li className="nav-li">
-          <CartButton />
-        </li>
-      </ul>
+      <Container>
+        <div className="nav-inner">
+          <div className="logo">
+            <Link to="/">Loot Locker</Link>
+          </div>
+          <div className="search-wrapper">
+            <form onSubmit={searchSubmit}>
+              <input
+                placeholder="Search for loot"
+                value={searchKey}
+                onChange={updateKey}
+              />
+              <IconButton>
+                <i className="fas fa-search" id="search-icon"></i>
+              </IconButton>
+            </form>
+          </div>
+          <nav className="main-nav">
+            {user && <ProfileButton user={user} />}
+            {!user && (
+              <Button
+                className="auth-button"
+                variant="text"
+                onClick={() => authModal.show()}
+              >
+                Sign in
+              </Button>
+            )}
+            <CartButton className="cart-button" />
+          </nav>
+        </div>
+      </Container>
     </StyledNavElement>
   );
-}
+};
 
 export default NavBar;

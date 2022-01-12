@@ -29,21 +29,22 @@ const ResultLi = styled.li`
     }
 
     span {
-        color: black;
         margin-top: 2.5px;
     }
 `
 
 const ItemName = styled.span`
-
+    color: black;
 `
 
 const ItemPrice = styled.span`
     font-weight: bold;
+    color: black;
 `
 
 const ItemUser = styled.span`
     font-size: small;
+    color: grey;
 `
 
 const ResultCard = ({ item }) => {
@@ -53,7 +54,7 @@ const ResultCard = ({ item }) => {
                 <img src={item.image} alt={item.name} />
                 <ItemName>{item.name}</ItemName>
                 <ItemPrice>{item.price}</ItemPrice>
-                <ItemUser>Warrior of Light</ItemUser>
+                <ItemUser>{item.seller}</ItemUser>
             </Link>
         </ResultLi>
     )

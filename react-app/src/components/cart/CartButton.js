@@ -1,8 +1,8 @@
-import styled from "styled-components"
-
+import IconButton from "../common/IconButton";
 import CartDrawer from "./CartDrawer";
 import { useCart } from "../../context/CartProvider";
 
+<<<<<<< HEAD
 const StyledCartDiv = styled.div`
   #cart-icon {
     font-size: x-large;
@@ -21,15 +21,18 @@ const StyledCartDiv = styled.div`
 `
 
 const CartButton = () => {
+=======
+const CartButton = ({ className }) => {
+>>>>>>> 0cfbb3c743d47004da7d368ad313f5ca8f5727f3
   const cart = useCart();
 
   return (
-    <StyledCartDiv>
-      <button id="cart-button" onClick={cart.show}>
+    <>
+      <IconButton className={className} onClick={cart.show}>
         <i class="fas fa-shopping-cart" id="cart-icon"></i>
-      </button>
+      </IconButton>
       <CartDrawer />
-    </StyledCartDiv>
+    </>
   );
 };
 
