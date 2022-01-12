@@ -1,5 +1,5 @@
 from flask import Blueprint, abort, request
-from app.models import Item, Category, category
+from app.models import Item, Category
 from sqlalchemy import or_
 
 item_routes = Blueprint("items", __name__)
