@@ -80,6 +80,7 @@ const StyledItemPageDiv = styled.div`
             font-size: xx-large;
 
             .edit {
+                  bottom: -55px;
                   right: 2vw;
             }
 
@@ -90,17 +91,50 @@ const StyledItemPageDiv = styled.div`
             }
       }
 
+      #edit-icon-arrow-box-container {
+            position: relative;
+            // background-color: blue;
+            display: flex;
+            flex-direction: column;
+            width: 5vw;
+            height: 5vh;
+            // justify-content: center;
+            align-items: center;
+
+            .edit-button {
+                  margin: 0;
+                  padding: 0;
+            }
+
+            .arrow_box {
+                  // position: relative;
+                  left: 0;
+
+            }
+      }
+
       #item-price {
             display: flex;
+            position: relative;
             align-items: center;
             font-size: xx-large;
             font-weight: bolder;
 
-            span {
+            .is-in-stock-span {
                   font-size: large;
                   font-weight: normal;
                   position: relative;
                   left: 15vw;
+            }
+
+            .edit-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
+            }
+
+            .arrow_box {
+                  // visibility: visible
             }
       }
 
@@ -163,15 +197,16 @@ const StyledItemPageDiv = styled.div`
             background-color: black;
             color: #fff;
             position: absolute;
-            bottom: -60px;
+            bottom: -5.8vh;
             border-radius: 10px;
             visibility: hidden;
       }
+
       .arrow_box:after {
             content: " ";
             position: absolute;
-            right: 55px;
-            top: -15px;
+            right: 2.7vw;
+            top: -1vh;
             border-top: none;
             border-right: 15px solid transparent;
             border-left: 15px solid transparent;
@@ -190,7 +225,7 @@ const StyledItemPageDiv = styled.div`
             cursor: pointer;
             padding: 2px;
             display: flex;
-            height: 4vh;
+            height: 5vh;
             margin-left: 0.5vw;
             position: relative;
             bottom: 2px;
@@ -239,23 +274,28 @@ const ItemPage = () => {
                               <img id="dragon-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
                               <span>Incinerate this item</span>
                               <div className="arrow_box">
-                                    <span id="delete-span">Delete item</span>
+                                    <span>Delete item</span>
                               </div>
                         </button>
                         <div id="item-seller">{item.seller}</div>
                         <div id="item-name">
                               {item.name}
-                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
-                              <div className="arrow_box edit">
-                                    <span id="delete-span">Edit name</span>
+                              <div id="edit-icon-arrow-box-container">
+                                    <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                                    <div className="arrow_box edit">
+                                          <span>Edit name</span>
+                                    </div>
                               </div>
                         </div>
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
                               <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
-                              {item.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
-                              {item.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
+                              <div className="arrow_box edit">
+                                    <span>Edit price</span>
+                              </div>
+                              {item.stock > 0 && <span className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
+                              {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
                         <div id="item-stock">
                               <span id="stock-span">Stock: {item.stock}</span>
