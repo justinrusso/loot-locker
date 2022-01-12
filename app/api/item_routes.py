@@ -25,7 +25,7 @@ def item(item_id):
     return item.to_dict()
 
 
-@item_routes.route("/category=<int:category_id>")
+@item_routes.route("/categories/<int:category_id>")
 def items_in_category(category_id):
     key = request.args.get("key")
     category = Category.query.get(category_id)
