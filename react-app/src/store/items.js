@@ -46,30 +46,6 @@ export const getItems = createAsyncThunk(
     }
 );
 
-// gets items in a given category, with an optional search key
-export const getItemsInCategory = createAsyncThunk(
-    "items/getItemsInCategory",
-    async ({searchKey, categoryId}, thunkAPI) => {
-        let url = `/api/items/categories/${categoryId}`;
-        if (searchKey) {
-            url += `?key=${searchKey}`;
-        }
-        const response = await fetch(url, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const data = await response.json();
-        if (response.ok && !data.errors) {
-            return data.items;
-        } else if (response.status < 500) {
-            throw thunkAPI.rejectWithValue(data.errors);
-        } else {
-            throw thunkAPI.rejectWithValue(["An error occurred. Please try again."]);
-        }
-    }
-);
-
 // sets a single item to state for rendering in ItemInfo
 export const getAnItem = createAsyncThunk(
     "items/getAnItem",
@@ -138,13 +114,6 @@ const itemSlice = createSlice({
             state.entities.items[action.payload.id] = action.payload;
         });
         builder.addCase(getItems.fulfilled, (state, action) => {
-            const items = {}
-            action.payload.forEach((item) => {
-                items[item.id] = item
-            })
-            state.entities.items = items;
-        });
-        builder.addCase(getItemsInCategory.fulfilled, (state, action) => {
             const items = {}
             action.payload.forEach((item) => {
                 items[item.id] = item

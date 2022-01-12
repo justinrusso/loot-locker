@@ -1,5 +1,5 @@
 from flask import Blueprint, abort, request
-from app.models import Item, Category
+from app.models import Item, Category, category
 from sqlalchemy import or_
 
 item_routes = Blueprint("items", __name__)
@@ -8,10 +8,13 @@ item_routes = Blueprint("items", __name__)
 @item_routes.route("/")
 def items():
     key = request.args.get("key")
+    category_id = request.args.get("category")
+    filters = []
+    if category_id:
+        filters.append(Item.category_id == category_id)
     if key:
-        items = Item.query.filter(Item.name.ilike(f"%{key}%")).all()
-    else:
-        items = Item.query.all()
+        filters.append(Item.name.ilike(f"%{key}%"))
+    items = Item.query.filter(*filters).all()
     return {"items": [item.to_dict() for item in items]}
 
 
@@ -23,18 +26,3 @@ def item(item_id):
         return abort(404)
 
     return item.to_dict()
-
-
-@item_routes.route("/categories/<int:category_id>")
-def items_in_category(category_id):
-    key = request.args.get("key")
-    category = Category.query.get(category_id)
-
-    if not category:
-        return abort(404)
-
-    if key:
-        items = Item.query.filter(Item.category_id == category_id).filter(Item.name.ilike(f"%{key}%")).all()
-    else:
-        items = category.items
-    return {"items": [item.to_dict() for item in items]}
