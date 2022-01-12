@@ -110,25 +110,25 @@ const itemSlice = createSlice({
     name: "items",
     initialState,
     extraReducers: (builder) => {
-      builder.addCase(createItem.fulfilled, (state, action) => {
-        state.entities.items[action.payload.id] = action.payload;
-      });
-      builder.addCase(getItems.fulfilled, (state, action) => {
-        const items = {}
-        action.payload.forEach((item) => {
-            items[item.id] = item
+        builder.addCase(createItem.fulfilled, (state, action) => {
+            state.entities.items[action.payload.id] = action.payload;
+        });
+        builder.addCase(getItems.fulfilled, (state, action) => {
+            const items = {}
+            action.payload.forEach((item) => {
+                items[item.id] = item
+            })
+            state.entities.items = items;
+        });
+        builder.addCase(getAnItem.fulfilled, (state, action) => {
+            state.entities.items[action.payload.id] = action.payload
         })
-        state.entities.items = items;
-      });
-      builder.addCase(getAnItem.fulfilled, (state, action) => {
-        state.entities.items[action.payload.id] = action.payload
-      })
-      builder.addCase(editItem.fulfilled, (state, action) => {
-        state.entities.items[action.payload.id] = action.payload;
-      });
-      builder.addCase(deleteItem.fulfilled, (state, action) => {
-        delete state.entities.items[action.payload.id];
-      });
+        builder.addCase(editItem.fulfilled, (state, action) => {
+            state.entities.items[action.payload.id] = action.payload;
+        });
+        builder.addCase(deleteItem.fulfilled, (state, action) => {
+            delete state.entities.items[action.payload.id];
+        });
     },
 });
 

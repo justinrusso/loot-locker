@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useHistory } from 'react-router-dom';
-import styled from "styled-components"
+import { NavLink, useHistory } from "react-router-dom";
+import styled from "styled-components";
 
-import CartButton from './cart/CartButton';
-import ProfileButton from './profile/ProfileButton'
-import LoginFormModal from './auth/LoginFormModal';
+import CartButton from "./cart/CartButton";
+import ProfileButton from "./profile/ProfileButton";
+import { useAuthModal } from "../context/AuthModalProvider";
 
 const StyledNavElement = styled.nav`
   display: flex;
@@ -75,20 +75,21 @@ const StyledNavElement = styled.nav`
     padding: 15% 1vw;
   }
 
-`
+`;
 
 const NavBar = () => {
+  const authModal = useAuthModal();
   const history = useHistory();
 
-  let user = useSelector(state => state.session.user)
+  let user = useSelector((state) => state.session.user);
 
-  const [searchKey, setSearchKey] = useState('');
+  const [searchKey, setSearchKey] = useState("");
 
   const searchSubmit = (e) => {
     e.preventDefault();
-    setSearchKey('');
+    setSearchKey("");
     history.push(`/search?key=${searchKey}`);
-  }
+  };
 
   const updateKey = (e) => {
     setSearchKey(e.target.value);
@@ -98,7 +99,7 @@ const NavBar = () => {
     <StyledNavElement>
       <ul id="nav-ul">
         <li className="nav-li">
-          <NavLink to='/' exact={true} activeClassName='active'>
+          <NavLink to="/" exact={true} activeClassName="active">
             <span id="logo">Logo</span>
           </NavLink>
         </li>
@@ -115,18 +116,22 @@ const NavBar = () => {
             </button>
           </form>
         </li>
-        {user && <li className="nav-li">
-          <ProfileButton user={user} />
-        </li>}
-        {!user && <li className="nav-li">
-          <LoginFormModal />
-        </li>}
+        {user && (
+          <li className="nav-li">
+            <ProfileButton user={user} />
+          </li>
+        )}
+        {!user && (
+          <li className="nav-li">
+            <button onClick={() => authModal.show()}>Log In</button>
+          </li>
+        )}
         <li className="nav-li">
           <CartButton />
         </li>
       </ul>
     </StyledNavElement>
   );
-}
+};
 
 export default NavBar;
