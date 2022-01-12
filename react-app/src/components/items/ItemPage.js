@@ -241,7 +241,33 @@ const StyledItemPageDiv = styled.div`
             height: 20vh;
       }
 `
+const StyledReviewsSectionDiv = styled.div`
+      background-color: lime;
+      margin-top: 5vh;
+      padding: 0 1vw;
 
+      #reviews-div {
+            height: 6vh;
+            display: flex
+      }
+
+      #reviews-amt {
+            font-size: xx-large;
+            display: flex;
+            align-items: center;
+      }
+
+      #reviews-stars-div {
+            display: flex;
+            background-color: cyan;
+      }
+
+      .star {
+            height: 100%;
+            background-color: pink;
+            display: flex;
+      }
+`
 /**
  *
  * @param {number} stock The amount of stock remaining of the item
@@ -308,6 +334,18 @@ const ItemPage = () => {
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                               </button>
                         </div>
+                        <StyledReviewsSectionDiv>
+                              <div id="reviews-div">
+                                    <span id="reviews-amt">50 shop reviews</span>
+                                    <div id="reviews-stars-div">
+                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
+                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
+                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
+                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
+                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
+                                    </div>
+                              </div>
+                        </StyledReviewsSectionDiv>
                   </div>
                   <div id="item-info-container">
                         {item.userId === user.id && <button id="delete-item-button" onClick={handleDeleteItem}>
