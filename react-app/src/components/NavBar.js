@@ -4,77 +4,91 @@ import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 import CartButton from "./cart/CartButton";
-import ProfileButton from "./profile/ProfileButton";
+import Container from "./common/Container";
+import IconButton from "./common/IconButton";
 import LoginFormModal from "./auth/LoginFormModal";
+import ProfileButton from "./profile/ProfileButton";
 
-const StyledNavElement = styled.nav`
-  display: flex;
-  height: 10vh;
-  padding-left: 10vw;
-  padding-right: 10vw;
-  align-items: center;
+const StyledNavElement = styled.header`
+  width: 100%;
   border-bottom: 2px solid lightgrey;
-
-  li {
-    list-style: none;
-    padding: none;
-  }
 
   a {
     text-decoration: none;
   }
 
-  #nav-ul {
-    padding: 0;
+  .nav-inner {
     display flex;
-    height: 100%;
-    width: 100vw;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    @media (min-width: 900px) {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
   }
 
-  .nav-li {
-    display: flex;
+  .logo {
+    font-size: 24px;
+    padding-right: 12px;
   }
 
-  #logo {
-    font-size: x-large;
-  }
-
-  #search-section {
-    height: 50%;
-    align-items: center;
-    border: 2px solid black;
+  .search-wrapper {
+    flex: 1 1 0%;
     border-radius: 30px;
-  }
+    padding-right: 16px;
+    
+    form {
+      border: 2px solid black;
+      border-radius: 96px;
+      background-color: rgba(0, 0, 0, 0.05);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      posiiton: relative;
+    }
 
-  #search-input {
-    font-size: large;
-    border: none;
-    width: 60vw;
-    border-radius: 20px;
-    padding-left: 1vw;
-  }
+    input {
+      background-color: transparent;
+      border-bottom-left-radius: 96px;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: 96px;
+      border-top-right-radius: 0;
+      border: none;
+      flex: 1;
+      height: 48px;
+      line-height: 28px;
+      min-width: 0;
+      outline: none;
+      padding-bottom: 9px;
+      padding-left: 18px;
+      padding-right: 42px;
+      padding-top: 9px;
+      width: 100%;
 
-  #search-input:focus {
-    outline: none;
-  }
+      & + ${IconButton} {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        padding-bottom: 12px;
+        padding-left: 15px;
+        padding-right: 21px;
+        padding-top: 12px;
+      }
 
-  #search-icon {
-    align-self: center;
-    padding-right: 1vw;
-  }
+      &:focus {
+        background-color: ${(props) => props.theme.backgroundColor};
 
-  #login-button {
-    font-size: larger;
-    padding: 15% 1vw;
-  }
+        & + ${IconButton} {
+          color: ${(props) => props.theme.backgroundColor};
 
-  #cart-button {
-    padding: 15% 1vw;
+          &:after {
+            background-color: ${(props) => props.theme.color};
+            transform: scaleX(1.015) scaleY(1.035);
+          }
+        }
+      }
+    }
   }
-
 `;
 
 const NavBar = () => {
@@ -96,39 +110,28 @@ const NavBar = () => {
 
   return (
     <StyledNavElement>
-      <ul id="nav-ul">
-        <li className="nav-li">
-          <Link to="/">
-            <span id="logo">Logo</span>
-          </Link>
-        </li>
-        <li className="nav-li" id="search-section">
-          <form onSubmit={searchSubmit}>
-            <input
-              id="search-input"
-              placeholder="Search for loot"
-              value={searchKey}
-              onChange={updateKey}
-            ></input>
-            <button>
-              <i className="fas fa-search" id="search-icon"></i>
-            </button>
-          </form>
-        </li>
-        {user && (
-          <li className="nav-li">
-            <ProfileButton user={user} />
-          </li>
-        )}
-        {!user && (
-          <li className="nav-li">
-            <LoginFormModal />
-          </li>
-        )}
-        <li className="nav-li">
+      <Container>
+        <div className="nav-inner">
+          <div className="logo">
+            <Link to="/">Loot Locker</Link>
+          </div>
+          <div className="search-wrapper">
+            <form onSubmit={searchSubmit}>
+              <input
+                placeholder="Search for loot"
+                value={searchKey}
+                onChange={updateKey}
+              />
+              <IconButton>
+                <i className="fas fa-search" id="search-icon"></i>
+              </IconButton>
+            </form>
+          </div>
+          {user && <ProfileButton user={user} />}
+          {!user && <LoginFormModal />}
           <CartButton />
-        </li>
-      </ul>
+        </div>
+      </Container>
     </StyledNavElement>
   );
 };
