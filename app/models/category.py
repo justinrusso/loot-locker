@@ -15,6 +15,3 @@ class Category(db.Model):
             'id': self.id,
             'name': self.name
         }
-
-    def get_items(self):
-        return {'items': [item.to_dict() for item in self.items]}
