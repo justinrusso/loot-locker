@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
 from app.forms import CartItemForm, validation_errors_to_error_messages
+from app.forms.delete_cart_item_form import DeleteCartItemForm
 
 from app.models import CartItem, Item, db
 
@@ -33,4 +34,18 @@ def add_cart_item():
         db.session.add(cart_item)
         db.session.commit()
         return cart_item.to_dict()
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+@cart_routes.route('/<int:item_id>', methods=['DELETE'])
+@login_required
+def remove_cart_item(item_id):
+    form = DeleteCartItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        cart_item = CartItem.query.get({"user_id": current_user.id, "item_id": item_id})
+        if cart_item:
+            db.session.delete(cart_item)
+            db.session.commit()
+            return {"id": item_id}
+        return {"errors": ["Requested item to remove is not in your cart"]}, 400
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400

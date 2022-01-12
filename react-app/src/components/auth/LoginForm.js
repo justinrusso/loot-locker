@@ -10,7 +10,7 @@ const Actions = styled.div`
   padding-top: 16px;
 `;
 
-const LoginForm = ({ toSignUp }) => {
+const LoginForm = ({ onSuccess, toSignUp }) => {
   const [errors, setErrors] = useState([]);
   const [cred, setCred] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +20,8 @@ const LoginForm = ({ toSignUp }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     dispatch(login({ cred, password }))
-      .unwrap().then()
+      .unwrap()
+      .then(onSuccess)
       .catch((data) => {
         if (data) {
           setErrors(data);
@@ -30,8 +31,8 @@ const LoginForm = ({ toSignUp }) => {
 
   const handleLoginDemo = async (e) => {
     e.preventDefault();
-    dispatch(loginDemo())
-  }
+    dispatch(loginDemo()).unwrap().then(onSuccess);
+  };
 
   const updateCred = (e) => {
     setCred(e.target.value);
