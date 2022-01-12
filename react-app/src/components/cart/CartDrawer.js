@@ -118,6 +118,7 @@ const CartDrawer = () => {
     })();
   }, [dispatch, user]);
 
+  const [errors, setErrors] = useState([]);
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -189,7 +190,14 @@ const CartDrawer = () => {
   }
 
   const handleCheckout = () => {
-    dispatch(checkout()).unwrap().then(cart.hide);
+    dispatch(checkout())
+      .unwrap()
+      .then(cart.hide)
+      .catch((data) => {
+        if (data) {
+          setErrors(data);
+        }
+      });
   };
 
   return (
@@ -208,6 +216,13 @@ const CartDrawer = () => {
             <div>
               <h2>Your Cart ({totalItems})</h2>
               <div className="divider" />
+              {errors.length > 0 && (
+                <div>
+                  {errors.map((error, ind) => (
+                    <div key={ind}>{error}</div>
+                  ))}
+                </div>
+              )}
               <ul>{cartItemElements}</ul>
             </div>
             <div>
