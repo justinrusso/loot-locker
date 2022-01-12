@@ -6,9 +6,9 @@ import { Link, useHistory } from "react-router-dom";
 import CartButton from "./cart/CartButton";
 import Container from "./common/Container";
 import IconButton from "./common/IconButton";
-import LoginFormModal from "./auth/LoginFormModal";
 import ProfileButton from "./profile/ProfileButton";
 import { selectUser } from "../store/session";
+import { useAuthModal } from "../context/AuthModalProvider";
 
 const StyledNavElement = styled.header`
   width: 100%;
@@ -113,6 +113,7 @@ const StyledNavElement = styled.header`
 `;
 
 const NavBar = () => {
+  const authModal = useAuthModal();
   const history = useHistory();
 
   const user = useSelector(selectUser());
@@ -150,7 +151,11 @@ const NavBar = () => {
           </div>
           <nav className="main-nav">
             {user && <ProfileButton user={user} />}
-            {!user && <LoginFormModal />}
+            {!user && (
+              <li className="nav-li">
+                <button onClick={() => authModal.show()}>Log In</button>
+              </li>
+            )}
             <CartButton className="cart-button" />
           </nav>
         </div>
