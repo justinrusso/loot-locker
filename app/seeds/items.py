@@ -6,6 +6,7 @@ def seed_items():
 
     heart_container = Item(
         user_id=1,
+        category_id=5,
         name="Heart Container | +1 Heart",
         description="""
         Heart Containers, also known as Container Hearts, are recurring items in the Legend of Zelda series. These heart-shaped containers are visual representations of Link's current health. The more Heart Containers Link collects, the more health he will have. The number of Heart Containers Link has reflects the maximum amount of health he can have at one time, traditionally displayed in the upper left corner of the screen. When Link's health is full, the Heart Containers are red. As Link loses health, they lose their color or disappear. In some games, Link can lose quarter hearts or half hearts.
@@ -20,6 +21,7 @@ def seed_items():
 
     bow = Item(
         user_id=2,
+        category_id=1,
         name="Ultimate Gandiva",
         description="Bard's bow in the image of a shaper of time.",
         image="https://attire.jp/wp-content/uploads/2021/09/ffxiv_20210910_012025_252.jpg",
@@ -31,6 +33,7 @@ def seed_items():
 
     helm = Item(
         user_id=2,
+        category_id=2,
         name="Law's Order Helm of Maiming",
         description="Final Fantasy XII was a masterpiece and you can't tell me otherwise.",
         image="http://attire.jp/wp-content/uploads/2021/06/ffxiv_20210603_140940_485.png",
@@ -42,6 +45,7 @@ def seed_items():
 
     minion = Item(
         user_id=3,
+        category_id=3,
         name="Minion of Light",
         description="Tiny explosions.",
         image="https://pbs.twimg.com/media/FHYhfHZXIAcC6aI?format=jpg&name=large",
@@ -53,6 +57,7 @@ def seed_items():
 
     fantasia = Item(
         user_id=1,
+        category_id=5,
         name="Phial of Fantasia",
         description="It's all cat girls? Always has been.",
         image="https://onlinestore-img.finalfantasyxiv.com/onlinestore/item/2048d09293f96c8fe0ec4746a79572aed973962cf008f2b37506566ba727db1c/0000/b8fd228346654a8cee3e920c32017493f0e99cf8266b6d9e1e9b30f7ed245eab_m_detail.jpg",
@@ -64,6 +69,7 @@ def seed_items():
 
     gunblade = Item(
         user_id=1,
+        category_id=1,
         name="Squall's Gunblade Replica",
         description="Whatever.",
         image="https://assets.vg247.com/current//2017/12/Final_Fantasy_8_Gunblade.jpg",
