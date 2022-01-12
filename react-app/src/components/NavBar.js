@@ -94,6 +94,11 @@ const StyledNavElement = styled.header`
   .cart-button {
     font-size: 24px;
   }
+
+  .main-nav {
+    display: flex;
+    gap: 8px;
+  }
 `;
 
 const NavBar = () => {
@@ -132,9 +137,11 @@ const NavBar = () => {
               </IconButton>
             </form>
           </div>
-          {user && <ProfileButton user={user} />}
-          {!user && <LoginFormModal />}
-          <CartButton className="cart-button" />
+          <nav className="main-nav">
+            {user && <ProfileButton user={user} />}
+            {!user && <LoginFormModal />}
+            <CartButton className="cart-button" />
+          </nav>
         </div>
       </Container>
     </StyledNavElement>
