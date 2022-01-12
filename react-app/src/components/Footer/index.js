@@ -13,6 +13,7 @@ const FooterStyling = styled.div`
         font-size: 16px;
         line-height: 20px;
         font-weight: 700;
+        margin-bottom: 20px;
     }
 
     ul {
