@@ -1,7 +1,6 @@
 from flask import Blueprint, abort, request
-from wtforms import validators
 from app.models import db, Item, Review
-from app.forms import ReviewSubmitForm, validation_errors_to_error_messages
+from app.forms import ReviewForm, validation_errors_to_error_messages
 from flask_login import current_user, login_required
 
 
@@ -31,7 +30,7 @@ def item(item_id):
 @item_routes.route('/<int:item_id>/reviews', methods=['POST'])
 @login_required
 def post_review(item_id):
-    form = ReviewSubmitForm()
+    form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():

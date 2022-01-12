@@ -3,7 +3,7 @@ from wtforms import RadioField, TextAreaField
 from wtforms.validators import DataRequired
 
 
-class ReviewSubmitForm(FlaskForm):
+class ReviewForm(FlaskForm):
     rating = RadioField('Rating', choices=[
                         (1, '1'),
                         (2, '2'),

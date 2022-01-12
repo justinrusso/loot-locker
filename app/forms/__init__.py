@@ -1,7 +1,7 @@
 from .cart_item_form import CartItemForm
 from .login_form import LoginForm
 from .signup_form import SignUpForm
-from .review_submit_form import ReviewSubmitForm
+from .review_form import ReviewForm
 
 
 def validation_errors_to_error_messages(validation_errors):
