@@ -31,5 +31,5 @@ class Item(db.Model):
             'stock': self.stock,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
-            'seller': self.seller.username,
+            'seller': self.seller.to_dict(),
         }
