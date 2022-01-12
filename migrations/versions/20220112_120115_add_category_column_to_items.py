@@ -18,7 +18,15 @@ depends_on = None
 
 def upgrade():
     op.add_column('items', sa.Column('category_id', sa.Integer, nullable=False))
-
+    op.drop_table('categories_to_items')
 
 def downgrade():
     op.drop_column('items', 'category_id')
+    op.create_table('categories_to_items',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('item_id', sa.Integer(), nullable=False),
+    sa.Column('category_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
+    sa.ForeignKeyConstraint(['item_id'], ['items.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
