@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components"
 
 import { addCartItem } from "../../store/cart-items";
-import { getAnItem } from "../../store/items"
+import { getAnItem, deleteItem } from "../../store/items"
 import { selectUser } from "../../store/session";
 import { useAuthModal } from "../../context/AuthModalProvider";
 
@@ -304,7 +304,7 @@ const ItemPage = () => {
                         </div>
                   </div>
                   <div id="item-info-container">
-                        <button id="delete-item-button">
+                        <button id="delete-item-button" onClick={() => dispatch(deleteItem(itemId))}>
                               <img id="dragon-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
                               <span>Incinerate this item</span>
                               <div className="arrow_box">

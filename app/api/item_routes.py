@@ -32,5 +32,5 @@ def item(item_id):
 def delete_item(item_id):
     item = Item.query.get(item_id)
     if item.user_id != current_user.id:
-        abort(403, description="Unauthorized deletion")
+        return abort(403, description="Unauthorized deletion")
     return current_user.to_dict()
