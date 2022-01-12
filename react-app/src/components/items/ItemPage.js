@@ -29,8 +29,9 @@ const StyledItemPageDiv = styled.div`
       }
 
       #edit-image-button {
+            padding: 3px;
             border: 1px solid black;
-            border-radius: 50%;
+            border-radius: 40%;
             position: absolute;
             right: 1vw;
             top: 2vh;
@@ -102,6 +103,7 @@ const StyledItemPageDiv = styled.div`
             margin-top: 10vh;
             font-size: large;
             border: 2px solid black;
+            border-radius: 30px;
       }
 
       #delete-item-button {
@@ -116,6 +118,8 @@ const StyledItemPageDiv = styled.div`
                   color: crimson;
                   margin-right: 0.5vw;
             }
+            border-radius: 30px;
+            justify-content: center;
       }
 
       #dragon-icon {

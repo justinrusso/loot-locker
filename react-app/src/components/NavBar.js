@@ -47,6 +47,11 @@ const StyledNavElement = styled.nav`
     align-items: center;
     border: 2px solid black;
     border-radius: 30px;
+
+    button {
+      background-color: transparent;
+      border: none;
+    }
   }
 
   #search-input {
@@ -72,7 +77,7 @@ const StyledNavElement = styled.nav`
   }
 
   #cart-button {
-    padding: 15% 1vw;
+    padding: 1vh 1.5vw;
   }
 
 `

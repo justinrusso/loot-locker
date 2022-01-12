@@ -8,6 +8,16 @@ const StyledCartDiv = styled.div`
     font-size: x-large;
     color: grey;
   }
+
+  #cart-button {
+    border: none;
+    background-color: transparent;
+    border-radius: 30px;
+  }
+
+  #cart-button:hover {
+    background-color:rgb(235, 235, 235);
+  }
 `
 
 const CartButton = () => {

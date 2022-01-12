@@ -5,12 +5,14 @@ import { logout } from '../../store/session';
 
 const ProfileDropdownDiv = styled.div`
       #profile-button {
-            background-color:transparent;
+            background-color: transparent;
+            padding-left: 1vw;
+            padding-right: 1vw;
             border: none;
             display: flex;
             justify-content:center;
             flex-direction: row;
-            border-radius: 35%
+            border-radius: 30px;
       }
 
       #profile-button:hover {
@@ -35,6 +37,7 @@ const ProfileDropdownDiv = styled.div`
       }
 
       #profile-dropdown {
+            z-index: 2;
             position: absolute;
             display: flex;
             flex-direction: column;
