@@ -90,6 +90,10 @@ const StyledNavElement = styled.header`
       }
     }
   }
+
+  .cart-button {
+    font-size: 24px;
+  }
 `;
 
 const NavBar = () => {
@@ -130,7 +134,7 @@ const NavBar = () => {
           </div>
           {user && <ProfileButton user={user} />}
           {!user && <LoginFormModal />}
-          <CartButton />
+          <CartButton className="cart-button" />
         </div>
       </Container>
     </StyledNavElement>
