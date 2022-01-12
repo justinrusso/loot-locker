@@ -1,7 +1,14 @@
+import styled from 'styled-components'
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login, loginDemo } from '../../store/session';
+
+const Actions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+`;
 
 const LoginForm = ({ toSignUp }) => {
   const [errors, setErrors] = useState([]);
@@ -65,11 +72,13 @@ const LoginForm = ({ toSignUp }) => {
           required
         />
       </div>
-      <button type='submit'>Login</button>
-      <button type='button' onClick={toSignUp}>Register</button>
       <button type="button" onClick={handleLoginDemo}>
         Demo Login
       </button>
+      <Actions>
+        <button type='button' onClick={toSignUp}>Register</button>
+        <button type='submit'>Login</button>
+      </Actions>
     </form>
   );
 };
