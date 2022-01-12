@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
+import Button from "./common/Button";
 import CartButton from "./cart/CartButton";
 import Container from "./common/Container";
 import IconButton from "./common/IconButton";
@@ -110,6 +111,13 @@ const StyledNavElement = styled.header`
     justify-content: space-between;
     gap: 8px;
   }
+
+  .auth-button {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    padding: 9px 15px;
+  }
 `;
 
 const NavBar = () => {
@@ -152,9 +160,13 @@ const NavBar = () => {
           <nav className="main-nav">
             {user && <ProfileButton user={user} />}
             {!user && (
-              <li className="nav-li">
-                <button onClick={() => authModal.show()}>Log In</button>
-              </li>
+              <Button
+                className="auth-button"
+                variant="text"
+                onClick={() => authModal.show()}
+              >
+                Sign in
+              </Button>
             )}
             <CartButton className="cart-button" />
           </nav>
