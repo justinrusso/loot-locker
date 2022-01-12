@@ -22,10 +22,13 @@ const StyledNavElement = styled.header`
     display flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    padding-top: 6px;
+    padding-bottom: 12px;
+    row-gap: 8px;
 
     @media (min-width: 900px) {
       padding-top: 12px;
-      padding-bottom: 12px;
     }
   }
 
@@ -35,10 +38,16 @@ const StyledNavElement = styled.header`
   }
 
   .search-wrapper {
-    flex: 1 1 0%;
     border-radius: 30px;
-    padding-right: 16px;
+    flex: 1 1 100%;
+    order: 2;
     
+    @media (min-width: 900px) {
+      flex-basis: 0%;
+      order: 0;
+      padding-right: 16px;
+    }
+  
     form {
       border: 2px solid black;
       border-radius: 96px;
