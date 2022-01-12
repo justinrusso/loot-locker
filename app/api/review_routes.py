@@ -22,7 +22,7 @@ def update_review(review_id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-@review_routes.route('/<int:review id>', methods=['DELETE'])
+@review_routes.route('/<int:review_id>', methods=['DELETE'])
 @login_required
 def delete_review(review_id):
     form = DeleteReviewForm()
