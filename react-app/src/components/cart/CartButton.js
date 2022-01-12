@@ -1,25 +1,17 @@
-import styled from "styled-components"
-
+import IconButton from "../common/IconButton";
 import CartDrawer from "./CartDrawer";
 import { useCart } from "../../context/CartProvider";
 
-const StyledCartDiv = styled.div`
-  #cart-icon {
-    font-size: x-large;
-    color: grey;
-  }
-`
-
-const CartButton = () => {
+const CartButton = ({ className }) => {
   const cart = useCart();
 
   return (
-    <StyledCartDiv>
-      <button id="cart-button" onClick={cart.show}>
+    <>
+      <IconButton className={className} onClick={cart.show}>
         <i class="fas fa-shopping-cart" id="cart-icon"></i>
-      </button>
+      </IconButton>
       <CartDrawer />
-    </StyledCartDiv>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@ const theme = {
   color: "#000",
   backgroundColor: "#fff",
   borderRadius: 6,
+  divider: "rgba(0, 0, 0, 0.12)",
   transitions: {
     easing: {
       easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
