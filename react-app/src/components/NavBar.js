@@ -12,7 +12,7 @@ import { selectUser } from "../store/session";
 
 const StyledNavElement = styled.header`
   width: 100%;
-  border-bottom: 2px solid lightgrey;
+  border-bottom: 2px solid ${(props) => props.theme.divider};
 
   a {
     text-decoration: none;
