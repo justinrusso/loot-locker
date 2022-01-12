@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 
+import Button from "../common/Button";
 import Portal from "../common/Portal";
 import { useCart } from "../../context/CartProvider";
 import {
@@ -44,6 +45,40 @@ const DrawerContent = styled.div`
 
   .inner {
     width: 400px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+
+    @media (min-width: 900px) {
+      padding: 36px;
+    }
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 0.35em;
+  }
+
+  .divider {
+    width: 100%;
+    border-bottom: 1px solid ${(props) => props.theme.divider};
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 16px 0;
+  }
+
+  .subtotal {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+
+  ${Button}.checkout {
+    width: 100%;
   }
 `;
 
@@ -117,6 +152,15 @@ const CartDrawer = () => {
     [cartItems]
   );
 
+  const totalItems = useMemo(
+    () =>
+      Object.values(cartItems.entities).reduce(
+        (currentTotal, cartItem) => currentTotal + cartItem.quantity,
+        0
+      ),
+    [cartItems]
+  );
+
   if (!mounted) {
     return null;
   }
@@ -129,10 +173,17 @@ const CartDrawer = () => {
           style={{ transform: visible ? "translateZ(0)" : "translateX(100%)" }}
         >
           <div className="inner">
-            <h2>Your Cart</h2>
-            <ul>{cartItemElements}</ul>
-            <div>Subtotal: ${subtotal}</div>
-            <button>Checkout</button>
+            <div>
+              <h2>Your Cart ({totalItems})</h2>
+              <div className="divider" />
+              <ul>{cartItemElements}</ul>
+            </div>
+            <div>
+              <h3 className="subtotal">
+                Subtotal<span>${subtotal}</span>
+              </h3>
+              <Button className="checkout">Checkout</Button>
+            </div>
           </div>
         </DrawerContent>
       </DrawerRoot>
