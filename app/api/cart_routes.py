@@ -22,13 +22,14 @@ def add_cart_item():
     if form.validate_on_submit():
         cart_item = CartItem.query.get({"user_id": current_user.id, "item_id": form.data['itemId']})
         if cart_item:
-            return {"errors": ["Item is already added to cart"]}, 400
-
-        cart_item = CartItem(
-            user_id=current_user.id,
-            item_id=form.data['itemId'],
-            quantity=form.data['quantity']
-        )
+            # We gracefully handle this by just incrementing the quantity
+            cart_item.quantity += form.data['quantity']
+        else:
+            cart_item = CartItem(
+                user_id=current_user.id,
+                item_id=form.data['itemId'],
+                quantity=form.data['quantity']
+            )
         db.session.add(cart_item)
         db.session.commit()
         return cart_item.to_dict()
