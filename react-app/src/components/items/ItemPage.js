@@ -3,7 +3,10 @@ import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components"
 
+import { addCartItem } from "../../store/cart-items";
 import { getAnItem } from "../../store/items"
+import { selectUser } from "../../store/session";
+import { useAuthModal } from "../../context/AuthModalProvider";
 
 const StyledItemPageDiv = styled.div`
       display: flex;
@@ -103,8 +106,27 @@ const StyledItemPageDiv = styled.div`
       }
 `
 
+/**
+ * 
+ * @param {number} stock The amount of stock remaining of the item
+ */
+const getCartButtonMessage = (stock) => {
+      if (stock === 0) {
+            return 'Out of stock'
+      }
+
+      let messageBase = 'Add to cart';
+
+      if (stock <= 5) {
+            messageBase += ` | Only ${stock} available`
+      }
+
+      return messageBase;
+}
+
 const ItemPage = () => {
       const { itemId } = useParams()
+      const authModal = useAuthModal();
       const dispatch = useDispatch();
 
       useEffect(() => {
@@ -112,11 +134,23 @@ const ItemPage = () => {
       }, [itemId])
 
       const item = useSelector(state => state.items.entities.items[itemId])
+      const user = useSelector(selectUser())
 
       const [showDescription, setShowDescription] = useState(true)
 
       const handleSetShowDescription = () => {
             setShowDescription(!showDescription)
+      }
+
+      const handleAddToCart = async () => {
+            if (!user) {
+                  authModal.show();
+                  return;
+            }
+            await dispatch(addCartItem({
+                  itemId,
+                  quantity: 1
+            }))
       }
 
       if (!item) {
@@ -131,7 +165,7 @@ const ItemPage = () => {
                         </div>
                   </div>
                   <div id="item-info-container">
-                        <div id="item-seller">{item.seller}</div>
+                        <div id="item-seller">{item.seller.username}</div>
                         <div id="item-name">{item.name}</div>
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
@@ -139,10 +173,15 @@ const ItemPage = () => {
                               {item.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
-                        <button id="add-to-cart-button">
-                              <span>Add to cart </span>
-                              {item.stock < 6 && <>| Only {item.stock} available</>}
-                        </button>
+                        {user?.id !== item.seller.id && (
+                              <button
+                                    id="add-to-cart-button"
+                                    disabled={item.stock === 0}
+                                    onClick={handleAddToCart}
+                              >
+                                    {getCartButtonMessage(item.stock)}
+                              </button>
+                        )}
                         <button onClick={handleSetShowDescription}id="description-button">
                               <span>Description</span>
                               {!showDescription && <i className="fas fa-chevron-down"></i>}
