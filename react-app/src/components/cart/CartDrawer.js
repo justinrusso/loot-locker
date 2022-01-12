@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import Button from "../common/Button";
 import CartListItem from "./CartListItem";
+import IconButton from "../common/IconButton";
 import Portal from "../common/Portal";
 import { useCart } from "../../context/CartProvider";
 import {
@@ -51,19 +52,23 @@ const DrawerContent = styled.div`
 
   .inner {
     width: 100%;
-    padding: 24px;
+    padding: 56px 44px 36px 44px;
     display: flex;
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
+    position: relative;
 
     @media (min-width: 600px) {
       width: 500px;
     }
+  }
 
-    @media (min-width: 900px) {
-      padding: 36px;
-    }
+  .close-button-wrapper {
+    position: absolute;
+    font-size: 18px;
+    top: 12px;
+    right: 12px;
   }
 
   h2 {
@@ -186,6 +191,11 @@ const CartDrawer = () => {
           style={{ transform: visible ? "translateZ(0)" : "translateX(100%)" }}
         >
           <div className="inner">
+            <div className="close-button-wrapper">
+              <IconButton onClick={() => cart.hide()}>
+                <i class="fas fa-times" />
+              </IconButton>
+            </div>
             <div>
               <h2>Your Cart ({totalItems})</h2>
               <div className="divider" />
