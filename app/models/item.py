@@ -14,13 +14,14 @@ class Item(db.Model):
     price = db.Column(db.Integer, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
-    updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
+    updated_at = db.Column(
+        db.DateTime, server_default=func.now(), onupdate=func.now())
 
     seller = db.relationship('User', back_populates='items')
 
     category_to_item = db.relationship('CategoryToItem', back_populates="item")
 
-    reviews = db.relationship('Review', back_populates='items')
+    reviews = db.relationship('Review', back_populates='item')
 
     def to_dict(self):
         return {
