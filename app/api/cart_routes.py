@@ -34,3 +34,13 @@ def add_cart_item():
         db.session.commit()
         return cart_item.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+@cart_routes.route('/<int:item_id>', methods=['DELETE'])
+@login_required
+def remove_cart_item(item_id):
+    cart_item = CartItem.query.get({"user_id": current_user.id, "item_id": item_id})
+    if cart_item:
+        db.session.delete(cart_item)
+        db.session.commit()
+        return {"id": item_id}
+    return {"errors": ["Requested item to remove is not in your cart"]}, 400

@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removeCartItem } from "../../store/cart-items";
+import Button from "../common/Button";
 
 const CartListItemRoot = styled.li`
   display: flex;
@@ -22,6 +25,13 @@ const CartListItemRoot = styled.li`
     gap: 16px;
   }
 
+  .actions {
+    display: flex;
+    padding: 8px 0;
+    gap: 16px;
+    align-items: center;
+  }
+
   .price i {
     padding-right: 0.5ch;
   }
@@ -38,6 +48,12 @@ const CartListItemRoot = styled.li`
  * }} props
  */
 const CartListItem = ({ imgSrc, itemId, name, price, quantity }) => {
+  const dispatch = useDispatch();
+
+  const handleRemove = async () => {
+    await dispatch(removeCartItem(itemId));
+  };
+
   return (
     <CartListItemRoot>
       <img src={imgSrc} alt="" />
@@ -46,8 +62,11 @@ const CartListItem = ({ imgSrc, itemId, name, price, quantity }) => {
           <Link to={`/items/${itemId}`}>
             <h3>{name}</h3>
           </Link>
-          <div>
+          <div className="actions">
             <div>Quantity: {quantity}</div>
+            <Button variant="text" onClick={handleRemove}>
+              Remove
+            </Button>
           </div>
         </div>
         <div className="price">
