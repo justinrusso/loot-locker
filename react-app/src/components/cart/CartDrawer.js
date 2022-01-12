@@ -43,14 +43,23 @@ const DrawerContent = styled.div`
   top: 0;
   right: 0;
   transition: transform ${transitionDuration}ms cubic-bezier(0, 0, 0.2, 1);
+  width: 100%;
+
+  @media (min-width: 600px) {
+    width: auto;
+  }
 
   .inner {
-    width: 400px;
+    width: 100%;
     padding: 24px;
     display: flex;
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
+
+    @media (min-width: 600px) {
+      width: 500px;
+    }
 
     @media (min-width: 900px) {
       padding: 36px;
