@@ -25,10 +25,13 @@ export const createItem = createAsyncThunk(
 
 export const getItems = createAsyncThunk(
     "items/getItems",
-    async (searchKey, thunkAPI) => {
+    async ({searchKey, category_id}, thunkAPI) => {
         let url = "/api/items";
+        if (category_id) {
+            url += `?category=${category_id}`;
+        }
         if (searchKey) {
-            url += `?key=${searchKey}`;
+            url += (category_id ? "&" : "?") + `key=${searchKey}`;
         }
         const response = await fetch(url, {
             headers: {
