@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 
 import Button from "../common/Button";
+import CartListItem from "./CartListItem";
 import Portal from "../common/Portal";
 import { useCart } from "../../context/CartProvider";
 import {
@@ -68,7 +69,7 @@ const DrawerContent = styled.div`
 
   ul {
     list-style-type: none;
-    padding: 16px 0;
+    overflow-y: auto;
   }
 
   .subtotal {
@@ -132,11 +133,14 @@ const CartDrawer = () => {
       cartItems.ids.map((id) => {
         const cartItem = cartItems.entities[id];
         return (
-          <li key={cartItem.item.id}>
-            <div>Name: {cartItem.item.name}</div>
-            <div>Quantity: {cartItem.quantity}</div>
-            <div>Price: ${cartItem.item.price / 100}</div>
-          </li>
+          <CartListItem
+            key={cartItem.item.id}
+            imgSrc={cartItem.item.image}
+            itemId={cartItem.item.id}
+            name={cartItem.item.name}
+            price={cartItem.item.price / 100}
+            quantity={cartItem.quantity}
+          />
         );
       }),
     [cartItems]
