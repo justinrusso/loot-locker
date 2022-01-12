@@ -3,59 +3,37 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 import { logout } from "../../store/session";
+import IconButton from "../common/IconButton";
 
-const ProfileDropdownDiv = styled.div`
-  #profile-button {
-    background-color: transparent;
-    border: none;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    border-radius: 35%;
-  }
+const ProfileButtonRoot = styled.div`
+  position: relative;
+`;
 
-  #profile-button:hover {
-    background-color: rgb(235, 235, 235);
-  }
+const ProfileIconButton = styled(IconButton)`
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+`;
 
-  #profile-icon,
-  #expand-icon {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  #profile-icon {
-    padding-left: 0;
-    color: grey;
-    font-size: x-large;
-  }
-
-  #expand-icon {
-    color: grey;
-    margin-left: 7px;
-    align-self: center;
-  }
-
-  #profile-dropdown {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    background-color: rgb(235, 235, 235);
-    list-style: none;
-    margin-top: 0;
-    padding-left: 0;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0px 1px 5px 1px grey;
-  }
+const ProfileDropdown = styled.ul`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  background-color: rgb(235, 235, 235);
+  list-style: none;
+  margin-top: 0;
+  padding-left: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0px 1px 5px 1px grey;
 
   .profile-dropdown-li {
     cursor: pointer;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 8px;
     display: flex;
-    border-bottom: 1px solid lightgrey;
+    align-items: center;
+    border-bottom: 1px solid ${(props) => props.theme.divider};
   }
 
   .profile-dropdown-li:hover {
@@ -63,8 +41,7 @@ const ProfileDropdownDiv = styled.div`
   }
 
   .dropdown-icon {
-    margin-left: 5%;
-    margin-right: 5%;
+    padding-right: 8px;
   }
 `;
 
@@ -95,13 +72,13 @@ const ProfileButton = ({ user }) => {
   };
 
   return (
-    <ProfileDropdownDiv>
-      <button id="profile-button" onClick={openMenu}>
+    <ProfileButtonRoot>
+      <ProfileIconButton id="profile-button" onClick={openMenu}>
         <i className="fas fa-user-circle" id="profile-icon" />
-        <i className="fas fa-caret-down" id="expand-icon"></i>
-      </button>
+        <i className="fas fa-caret-down" id="expand-icon" />
+      </ProfileIconButton>
       {showMenu && (
-        <ul id="profile-dropdown">
+        <ProfileDropdown>
           <li className="profile-dropdown-li">
             <i className="far fa-user dropdown-icon"></i>
             <span>{user.username}</span>
@@ -114,9 +91,9 @@ const ProfileButton = ({ user }) => {
             <i className="fas fa-sign-out-alt dropdown-icon"></i>
             <span onClick={handleLogout}>Sign out</span>
           </li>
-        </ul>
+        </ProfileDropdown>
       )}
-    </ProfileDropdownDiv>
+    </ProfileButtonRoot>
   );
 };
 
