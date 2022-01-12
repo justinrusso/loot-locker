@@ -90,6 +90,10 @@ const DrawerContent = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 16px 0;
+
+    i {
+      padding-right: 0.5ch;
+    }
   }
 
   ${Button}.checkout {
@@ -203,7 +207,11 @@ const CartDrawer = () => {
             </div>
             <div>
               <h3 className="subtotal">
-                Subtotal<span>${subtotal}</span>
+                Subtotal
+                <span>
+                  <i className="fas fa-coins" />
+                  {subtotal}
+                </span>
               </h3>
               <Button className="checkout">Checkout</Button>
             </div>
