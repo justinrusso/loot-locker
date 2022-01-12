@@ -10,7 +10,7 @@ const Actions = styled.div`
   padding-top: 16px;
 `;
 
-const SignUpForm = ({ toLogin }) => {
+const SignUpForm = ({ onSuccess, toLogin }) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -23,11 +23,14 @@ const SignUpForm = ({ toLogin }) => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      dispatch(signUp({ username, email, password, location })).unwrap().catch((data) => {
-        if (data) {
-          setErrors(data);
-        }
-      });
+      dispatch(signUp({ username, email, password, location }))
+        .unwrap()
+        .then(onSuccess)
+        .catch((data) => {
+          if (data) {
+            setErrors(data);
+          }
+        });
     }
   };
 
