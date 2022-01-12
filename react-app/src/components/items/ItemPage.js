@@ -310,36 +310,41 @@ const ItemPage = () => {
                         </div>
                   </div>
                   <div id="item-info-container">
-                        <button id="delete-item-button" onClick={handleDeleteItem}>
+                        {item.userId === user.id && <button id="delete-item-button" onClick={handleDeleteItem}>
                               <img id="dragon-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
                               <span>Incinerate this item</span>
                               <div className="arrow_box">
                                     <span>Delete item</span>
                               </div>
-                        </button>
+                        </button>}
                         <div id="item-seller">{item.seller.username}</div>
                         <div id="item-name">
                               {item.name}
-                              <div id="edit-icon-arrow-box-container">
+                              {item.userId === user.id && <div id="edit-icon-arrow-box-container">
                                     <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                                     <div className="arrow_box edit">
                                           <span>Edit name</span>
                                     </div>
-                              </div>
+                              </div>}
                         </div>
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
-                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
-                              <div className="arrow_box edit">
-                                    <span>Edit price</span>
-                              </div>
+                              {item.userId === user.id && <>
+                                    <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                                    <div className="arrow_box edit">
+                                          <span>Edit price</span>
+                                    </div>
+                              </>}
+
                               {item.stock > 0 && <span className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
                         <div id="item-stock">
                               <span id="stock-span">Stock: {item.stock}</span>
-                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                              {item.userId === user.id && <>
+                                    <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                              </>}
                         </div>
                         {user?.id !== item.seller.id && (
                               <button
