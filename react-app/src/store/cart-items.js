@@ -17,6 +17,28 @@ export const fetchCartItems = createAsyncThunk(
   }
 );
 
+export const addCartItem = createAsyncThunk(
+  "cartItems/addItem",
+  async (cartItemDetails, thunkAPI) => {
+    const response = await fetch("/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cartItemDetails),
+    });
+
+    if (response.ok) {
+      return await response.json();
+    } else if (response.status < 500) {
+      const data = await response.json();
+      throw thunkAPI.rejectWithValue(data.errors);
+    } else {
+      throw thunkAPI.rejectWithValue(["An error occurred. Please try again."]);
+    }
+  }
+);
+
 const cartItemsAdapter = createEntityAdapter({
   selectId: (cartItem) => cartItem.item.id,
   sortComparer: (itemA, itemB) => {
@@ -35,6 +57,7 @@ const cartItemsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCartItems.fulfilled, cartItemsAdapter.upsertMany);
+    builder.addCase(addCartItem.fulfilled, cartItemsAdapter.addOne);
   },
 });
 

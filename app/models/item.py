@@ -15,6 +15,7 @@ class Item(db.Model):
     stock = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
+
     seller = db.relationship('User', back_populates='items')
 
     category_to_item = db.relationship('CategoryToItem', back_populates="item")
@@ -30,5 +31,5 @@ class Item(db.Model):
             'stock': self.stock,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
-            'seller': self.seller.username,
+            'seller': self.seller.to_dict(),
         }
