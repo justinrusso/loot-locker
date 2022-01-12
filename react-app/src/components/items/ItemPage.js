@@ -29,7 +29,7 @@ const StyledItemPageDiv = styled.div`
       }
 
       #edit-image-button {
-            border: 2px solid black;
+            border: 1px solid black;
             border-radius: 50%;
             position: absolute;
             right: 1vw;
@@ -133,6 +133,7 @@ const StyledItemPageDiv = styled.div`
       }
 
       .edit-button {
+            cursor: pointer;
             padding: 2px;
             display: flex;
             height: 4vh;
@@ -158,7 +159,6 @@ const ItemPage = () => {
       const item = useSelector(state => state.items.entities.items[itemId])
 
       const [showDescription, setShowDescription] = useState(true)
-      const [showEditImg, setShowEditImg] = useState(false)
 
       const handleSetShowDescription = () => {
             setShowDescription(!showDescription)
@@ -171,13 +171,11 @@ const ItemPage = () => {
       return(
             <StyledItemPageDiv>
                   <div id="left-side-page-container">
-                        <div id="item-image-container"
-                        onMouseOver={() => setShowEditImg(true)}
-                        onMouseOut={() => setShowEditImg(false)}>
+                        <div id="item-image-container">
                               <img id="item-image" src={item.image}></img>
-                              {showEditImg && <button id="edit-image-button">
+                              <button id="edit-image-button">
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
-                              </button>}
+                              </button>
                         </div>
                   </div>
                   <div id="item-info-container">
@@ -197,6 +195,7 @@ const ItemPage = () => {
                               {item.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
+                        <div id="item-stock">Stock: {item.stock}</div>
                         <button id="add-to-cart-button">
                               <span>Add to cart </span>
                               {item.stock < 6 && <>| Only {item.stock} available</>}
