@@ -40,21 +40,15 @@ const StyledNavElement = styled.header`
 
   .search-wrapper {
     border-radius: 30px;
-<<<<<<< HEAD
-
-    button {
-      background-color: transparent;
-      border: none;
-=======
     flex: 1 1 100%;
     order: 2;
-    
+
     @media (min-width: 900px) {
       flex-basis: 0%;
       order: 0;
       padding-right: 16px;
     }
-  
+
     form {
       border: 2px solid black;
       border-radius: 96px;
@@ -104,7 +98,6 @@ const StyledNavElement = styled.header`
           }
         }
       }
->>>>>>> 0cfbb3c743d47004da7d368ad313f5ca8f5727f3
     }
   }
 
