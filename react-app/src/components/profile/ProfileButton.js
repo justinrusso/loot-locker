@@ -80,15 +80,15 @@ const ProfileButton = ({ user }) => {
       {showMenu && (
         <ProfileDropdown>
           <li className="profile-dropdown-li">
-            <i className="far fa-user dropdown-icon"></i>
+            <i className="far fa-user dropdown-icon" />
             <span>{user.username}</span>
           </li>
           <li className="profile-dropdown-li">
-            <i className="far fa-envelope dropdown-icon"></i>
+            <i className="far fa-envelope dropdown-icon" />
             <span>{user.email}</span>
           </li>
           <li className="profile-dropdown-li">
-            <i className="fas fa-sign-out-alt dropdown-icon"></i>
+            <i className="fas fa-sign-out-alt dropdown-icon" />
             <span onClick={handleLogout}>Sign out</span>
           </li>
         </ProfileDropdown>
