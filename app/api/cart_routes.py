@@ -61,7 +61,7 @@ def checkout():
         invalid = []
         for cart_item in cart_items:
             if cart_item.item.stock < cart_item.quantity:
-                invalid.push(f'{cart_item.item.id}: not enough stock')
+                invalid.append(f'{cart_item.item.name}: not enough stock')
         if len(invalid) > 0:
             return {'errors': invalid}, 400
         
