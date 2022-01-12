@@ -11,7 +11,4 @@ class Category(db.Model):
     items = db.relationship('Item', back_populates='category')
 
     def get_items(self):
-        return {
-            'name': self.name,
-            'items': [item.to_dict() for item in self.items]
-        }
+        return {'items': [item.to_dict() for item in self.items]}
