@@ -36,5 +36,5 @@ class Item(db.Model):
             'updatedAt': self.updated_at,
             'seller': self.seller.to_dict(),
             'category': self.category.name,
-            'reviews': self.reviews
+            'reviews': [review.to_dict() for review in self.reviews],
         }

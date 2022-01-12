@@ -27,5 +27,4 @@ class Review(db.Model):
             "rating": self.rating,
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,
-            "item": self.item
         }
