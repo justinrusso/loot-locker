@@ -8,6 +8,7 @@ import Container from "./common/Container";
 import IconButton from "./common/IconButton";
 import LoginFormModal from "./auth/LoginFormModal";
 import ProfileButton from "./profile/ProfileButton";
+import { selectUser } from "../store/session";
 
 const StyledNavElement = styled.header`
   width: 100%;
@@ -94,7 +95,7 @@ const StyledNavElement = styled.header`
 const NavBar = () => {
   const history = useHistory();
 
-  const user = useSelector((state) => state.session.user);
+  const user = useSelector(selectUser());
 
   const [searchKey, setSearchKey] = useState("");
 
