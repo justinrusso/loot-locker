@@ -51,7 +51,7 @@ const CartListItem = ({ imgSrc, itemId, name, price, quantity }) => {
           </div>
         </div>
         <div className="price">
-          <i className="fas fa-coins" id="coins-icon" />
+          <i className="fas fa-coins" />
           {price}
         </div>
       </div>
