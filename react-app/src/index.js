@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 
 import App from "./App";
 import store from "./store";
-import { ModalProvider } from "./context/Modal";
 import GlobalStyle from "./theme/GlobalStyle";
 import theme from "./theme";
 import { ThemeProvider } from "styled-components";
@@ -14,9 +13,7 @@ ReactDOM.render(
     <GlobalStyle />
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <ModalProvider>
-          <App />
-        </ModalProvider>
+        <App />
       </Provider>
     </ThemeProvider>
   </React.StrictMode>,
