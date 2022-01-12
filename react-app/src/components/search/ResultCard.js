@@ -54,7 +54,7 @@ const ResultCard = ({ item }) => {
                 <img src={item.image} alt={item.name} />
                 <ItemName>{item.name}</ItemName>
                 <ItemPrice>{item.price}</ItemPrice>
-                <ItemUser>{item.seller}</ItemUser>
+                <ItemUser>{item.seller.username}</ItemUser>
             </Link>
         </ResultLi>
     )
