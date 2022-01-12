@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components"
 
@@ -264,6 +264,7 @@ const ItemPage = () => {
       const { itemId } = useParams()
       const authModal = useAuthModal();
       const dispatch = useDispatch();
+      const history = useHistory();
 
       useEffect(() => {
             dispatch(getAnItem(itemId))
@@ -289,6 +290,11 @@ const ItemPage = () => {
             }))
       }
 
+      const handleDeleteItem = async () => {
+            dispatch(deleteItem(itemId))
+            history.push("/")
+      }
+
       if (!item) {
             return <></>
       }
@@ -304,7 +310,7 @@ const ItemPage = () => {
                         </div>
                   </div>
                   <div id="item-info-container">
-                        <button id="delete-item-button" onClick={() => dispatch(deleteItem(itemId))}>
+                        <button id="delete-item-button" onClick={handleDeleteItem}>
                               <img id="dragon-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
                               <span>Incinerate this item</span>
                               <div className="arrow_box">

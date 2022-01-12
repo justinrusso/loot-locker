@@ -124,8 +124,8 @@ const itemSlice = createSlice({
             state.entities.items[action.payload.id] = action.payload;
         });
         builder.addCase(deleteItem.fulfilled, (state, action) => {
-            // delete state.entities.items[action.payload.id];
-            state.entities.items["testDelete"] = action.payload;
+            delete state.entities.items[action.payload.id];
+            // state.entities.items["testDelete"] = action.payload;
         });
     },
 });
