@@ -29,9 +29,9 @@ const StyledItemPageDiv = styled.div`
       }
 
       #edit-image-button {
-            padding: 3px;
+            padding: 4px;
             border: 1px solid black;
-            border-radius: 40%;
+            border-radius: 50%;
             position: absolute;
             right: 1vw;
             top: 2vh;
@@ -74,9 +74,20 @@ const StyledItemPageDiv = styled.div`
 
       #item-name {
             display: flex;
+            position: relative;
             align-items: center;
             margin-bottom: 2vh;
             font-size: xx-large;
+
+            .edit {
+                  right: 2vw;
+            }
+
+            .edit-button:hover {
+                  + .edit {
+                        visibility: visible;
+                  }
+            }
       }
 
       #item-price {
@@ -97,6 +108,13 @@ const StyledItemPageDiv = styled.div`
             margin-right: 0.5vw
       }
 
+      #item-stock {
+            display: flex;
+            align-items: center;
+            margin-top: 2vh;
+            font-size: xx-large;
+      }
+
       #add-to-cart-button, #description-button, #delete-item-button {
             margin-bottom: 1vh;
             padding: 1.5vh 0;
@@ -108,7 +126,7 @@ const StyledItemPageDiv = styled.div`
 
       #delete-item-button {
             height: 5vh;
-            overflow: hidden;
+            // overflow: hidden;
             position: relative;
             display: flex;
             align-items: center;
@@ -122,10 +140,42 @@ const StyledItemPageDiv = styled.div`
             justify-content: center;
       }
 
+      #delete-item-button:hover {
+            .arrow_box {
+                  visibility: visible;
+            }
+      }
+
       #dragon-icon {
             display: flex;
             height: 5vh;
             margin-right: 0.5vw;
+      }
+
+      .arrow_box {
+            z-index: 2;
+            display: flex;
+            font-size: small;
+            justify-content: center;
+            align-items: center;
+            width: 7vw;
+            height: 4vh;
+            background-color: black;
+            color: #fff;
+            position: absolute;
+            bottom: -60px;
+            border-radius: 10px;
+            visibility: hidden;
+      }
+      .arrow_box:after {
+            content: " ";
+            position: absolute;
+            right: 55px;
+            top: -15px;
+            border-top: none;
+            border-right: 15px solid transparent;
+            border-left: 15px solid transparent;
+            border-bottom: 15px solid black;
       }
 
       #description-button {
@@ -142,6 +192,8 @@ const StyledItemPageDiv = styled.div`
             display: flex;
             height: 4vh;
             margin-left: 0.5vw;
+            position: relative;
+            bottom: 2px;
       }
 
       #item-description {
@@ -186,11 +238,17 @@ const ItemPage = () => {
                         <button id="delete-item-button">
                               <img id="dragon-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
                               <span>Incinerate this item</span>
+                              <div className="arrow_box">
+                                    <span id="delete-span">Delete item</span>
+                              </div>
                         </button>
                         <div id="item-seller">{item.seller}</div>
                         <div id="item-name">
                               {item.name}
                               <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                              <div className="arrow_box edit">
+                                    <span id="delete-span">Edit name</span>
+                              </div>
                         </div>
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
@@ -199,7 +257,10 @@ const ItemPage = () => {
                               {item.stock > 0 && <span><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
-                        <div id="item-stock">Stock: {item.stock}</div>
+                        <div id="item-stock">
+                              <span id="stock-span">Stock: {item.stock}</span>
+                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                        </div>
                         <button id="add-to-cart-button">
                               <span>Add to cart </span>
                               {item.stock < 6 && <>| Only {item.stock} available</>}
