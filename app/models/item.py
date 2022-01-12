@@ -24,6 +24,7 @@ class Item(db.Model):
         return {
             'id': self.id,
             'userId': self.user_id,
+            'categoryId': self.category_id,
             'name': self.name,
             'description': self.description,
             'image': self.image,
@@ -32,4 +33,5 @@ class Item(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
             'seller': self.seller.to_dict(),
+            'category':self.category.name
         }
