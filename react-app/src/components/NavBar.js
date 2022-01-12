@@ -112,16 +112,11 @@ const StyledNavElement = styled.header`
     gap: 8px;
   }
 
-<<<<<<< HEAD
-  #cart-button {
-    padding: 1vh 1.5vw;
-=======
   .auth-button {
     font-size: 13px;
     font-weight: 700;
     line-height: 1.4;
     padding: 9px 15px;
->>>>>>> 0cfbb3c743d47004da7d368ad313f5ca8f5727f3
   }
 `;
 

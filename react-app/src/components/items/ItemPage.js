@@ -304,9 +304,9 @@ const ItemPage = () => {
                   <div id="left-side-page-container">
                         <div id="item-image-container">
                               <img id="item-image" src={item.image}></img>
-                              <button id="edit-image-button">
+                              {item.userId === user.id && <button id="edit-image-button">
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
-                              </button>
+                              </button>}
                         </div>
                   </div>
                   <div id="item-info-container">
@@ -340,12 +340,10 @@ const ItemPage = () => {
                               {item.stock > 0 && <span className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
-                        <div id="item-stock">
+                        {item.userId === user.id && <div id="item-stock">
                               <span id="stock-span">Stock: {item.stock}</span>
-                              {item.userId === user.id && <>
-                                    <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
-                              </>}
-                        </div>
+                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                        </div>}
                         {user?.id !== item.seller.id && (
                               <button
                                     id="add-to-cart-button"

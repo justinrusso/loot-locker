@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, request
 from flask_login import current_user, login_required
-from app.models import Item, User, db
+from app.models import Item, Category, User, db
 from sqlalchemy import or_
 
 item_routes = Blueprint("items", __name__)
@@ -34,7 +34,7 @@ def delete_item(item_id):
 
     if item.user_id != current_user.id:
         return abort(403, description="Unauthorized deletion")
-        
+
     db.session.delete(item)
     db.session.commit()
     return item.to_dict()
