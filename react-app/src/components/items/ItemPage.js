@@ -311,7 +311,7 @@ const ItemPage = () => {
                                     <span>Delete item</span>
                               </div>
                         </button>
-                        <div id="item-seller">{item.seller}</div>
+                        <div id="item-seller">{item.seller.username}</div>
                         <div id="item-name">
                               {item.name}
                               <div id="edit-icon-arrow-box-container">

@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, request, jsonify
+from flask import Blueprint, abort, request
 from flask_login import current_user, login_required
 from app.models import Item, User
 from sqlalchemy import or_
@@ -28,7 +28,9 @@ def item(item_id):
 # delete an item via supplied user_id from session
 # if does not match userId of item to delete, do not allow
 @item_routes.route("/<int:item_id>", methods=["DELETE"])
+@login_required
 def delete_item(item_id):
-    # item = Item.query.get(item_id)
-    print("SESSION USER", current_user)
-    return current_user.jsonify()
+    item = Item.query.get(item_id)
+    if item.user_id != current_user.id:
+        abort(403, description="Unauthorized deletion")
+    return current_user.to_dict()
