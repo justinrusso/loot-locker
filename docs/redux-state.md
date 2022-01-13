@@ -56,9 +56,9 @@
                     location: "somewhere"
                 }
             },
-            new: [4],
-            picks: [5],
-        }
+        },
+        new: [4],
+        picks: [5],
     },
     categories: {
         1: {

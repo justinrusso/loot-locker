@@ -1,8 +1,9 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Category from "./Category";
 import styled from "styled-components";
+import { getHomepageItems } from "../../store/items";
 
 const HomeStyling = styled.div`
     display: flex;
@@ -85,31 +86,22 @@ const HomeStyling = styled.div`
 
 function HomePage() {
 
-    function randomize(arr) {
-        const arrCopy = arr.slice(0);
-        let currIndex = arr.length;
+    const [isLoaded, setIsLoaded] = useState(false);
 
-        while (currIndex > 0) {
-          let randIndex = Math.floor(Math.random() * currIndex);
-          currIndex--;
-
-          [arrCopy[currIndex], arrCopy[randIndex]] = [arrCopy[randIndex], arrCopy[currIndex]];
-        }
-        return arrCopy;
-    }
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getHomepageItems()).then(() => setIsLoaded(true))
+    }, [dispatch])
 
     const user = useSelector((state) => state.session.user)
-    const items = useSelector((state) => Object.values(state.items.entities.items))
-
-    const newItems = useMemo(() => items.sort((a,b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0,6), [items]);
-    const randItems = useMemo(() => randomize(items).slice(0,7), [items]);
-
-
+    const items = useSelector((state) => state.items.entities.items)
+    const newIds = useSelector((state) => state.items.new);
+    const pickedIds = useSelector((state) => state.items.picks);
 
     return (
         <HomeStyling>
             <div id="home-top">
-                <h1 id="header-1">{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
+                <h1 id="header-1">{user !== undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
 
                 <div id="category-container">
                     <Category categoryNum="1" name="Arms" source='https://images.mapletip.com/maplestory-monsters/01302020.png' />
@@ -121,28 +113,31 @@ function HomePage() {
             </div>
 
 
-            <div>
-                <p className="section-title">New!</p>
-                {/* NOTE: SORT ITEMS BY DATE ADDED */}
-                {newItems.map(item => (
-                    <Link to={`items/${item.id}`}>
-                        <div>
-                            <img src={item.image} alt="item image" key={item.id} />
-                        </div>
-                    </Link>
-                ))}
-            </div>
+            {isLoaded &&
+                <>
+                    <div>
+                        <p className="section-title">New!</p>
+                        {newIds.map(id => (
+                            <Link to={`items/${id}`}>
+                                <div>
+                                    <img src={items[id].image} alt={`new item: ${id}`} key={`n: ${id}`} />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
 
-            <div>
-                <p className="section-title">Editors' Picks</p>
-                {randItems.map(item => (
-                    <Link to={`items/${item.id}`}>
-                        <div>
-                            <img src={item.image} alt="item image" key={item.id} />
-                        </div>
-                    </Link>
-                ))}
-            </div>
+                    <div>
+                        <p className="section-title">Editors' Picks</p>
+                        {pickedIds.map(id => (
+                            <Link to={`items/${id}`}>
+                                <div>
+                                    <img src={items[id].image} alt={`picked item: ${id}`} key={`p: ${id}`} />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </>
+            }
 
 
             <div id="about">

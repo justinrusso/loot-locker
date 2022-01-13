@@ -17,17 +17,7 @@ def items():
         filters.append(Item.name.ilike(f"%{key}%"))
     items = Item.query.filter(*filters).all()
     return {"items": [item.to_dict() for item in items]}
-
-
-@item_routes.route("/<int:item_id>")
-def item(item_id):
-    item = Item.query.get(item_id)
-
-    if not item:
-        return abort(404)
-
-    return item.to_dict()
-
+    
 
 @item_routes.route("/homepage")
 def new_items():
@@ -44,3 +34,13 @@ def new_items():
         "new": new_ids,
         "picks": picked_ids
     }
+
+
+@item_routes.route("/<int:item_id>")
+def item(item_id):
+    item = Item.query.get(item_id)
+
+    if not item:
+        return abort(404)
+
+    return item.to_dict()

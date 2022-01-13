@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = { entities: { items: {} } }
+const initialState = { entities: { items: {}, new: [], picks: [] } }
 
 export const createItem = createAsyncThunk(
     "items/createItem",
@@ -33,11 +33,8 @@ export const getItems = createAsyncThunk(
         if (searchKey) {
             url += (categoryId ? "&" : "?") + `key=${searchKey}`;
         }
-        const response = await fetch(url, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+
+        const response = await fetch(url);
         const data = await response.json();
         if (response.ok && !data.errors) {
             return data.items;
@@ -48,6 +45,21 @@ export const getItems = createAsyncThunk(
         }
     }
 );
+
+export const getHomepageItems = createAsyncThunk(
+    "items/getHomepageItems",
+    async (_args, thunkAPI) => {
+        const response = await fetch(`/api/items/homepage`)
+        const data = await response.json()
+        if (response.ok && !data.errors) {
+            return data;
+        } else if (response.status < 500) {
+            throw thunkAPI.rejectWithValue(data.errors);
+        } else {
+            throw thunkAPI.rejectWithValue(["An error occurred. Please try again."]);
+        }
+    }
+)
 
 // sets a single item to state for rendering in ItemInfo
 export const getAnItem = createAsyncThunk(
@@ -122,6 +134,15 @@ const itemSlice = createSlice({
                 items[item.id] = item
             })
             state.entities.items = items;
+        });
+        builder.addCase(getHomepageItems.fulfilled, (state, action) => {
+            const items = {}
+            action.payload.items.forEach((item) => {
+                items[item.id] = item
+            })
+            state.entities.items = items;
+            state.new = action.payload.new;
+            state.picks = action.payload.picks;
         });
         builder.addCase(getAnItem.fulfilled, (state, action) => {
             state.entities.items[action.payload.id] = action.payload
