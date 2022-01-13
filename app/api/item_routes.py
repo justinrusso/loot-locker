@@ -2,7 +2,7 @@ from flask import Blueprint, abort, request
 from flask_login import current_user, login_required
 from app.models import Item, Category, User, db, Review
 from sqlalchemy import or_
-from app.forms import ReviewForm, validation_errors_to_error_messages
+from app.forms import DeleteItemForm, ReviewForm, validation_errors_to_error_messages
 
 
 item_routes = Blueprint("items", __name__)
@@ -36,15 +36,19 @@ def item(item_id):
 @item_routes.route("/<int:item_id>", methods=["DELETE"])
 @login_required
 def delete_item(item_id):
-    item = Item.query.get(item_id)
+    form = DeleteItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    if item.user_id != current_user.id:
-        return abort(403, description="Unauthorized deletion")
+    if form.validate_on_submit():
+        item = Item.query.get(item_id)
 
-    db.session.delete(item)
-    db.session.commit()
-    return item.to_dict()
+        if item.user_id != current_user.id:
+            return abort(403, description="Unauthorized deletion")
 
+        db.session.delete(item)
+        db.session.commit()
+        return { "itemId": item.id, "message": "Success" }
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 @item_routes.route('/<int:item_id>/reviews', methods=['POST'])
 @login_required
@@ -63,4 +67,3 @@ def post_review(item_id):
         db.session.commit()
         return review.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
-

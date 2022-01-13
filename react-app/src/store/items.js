@@ -90,10 +90,7 @@ export const deleteItem = createAsyncThunk(
     "items/deleteItem",
     async (itemId, thunkAPI) => {
         const response = await fetch(`/api/items/${itemId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            }
+            method: "DELETE"
         });
         const data = await response.json();
         if (response.ok && !data.errors) {
@@ -127,7 +124,7 @@ const itemSlice = createSlice({
             state.entities.items[action.payload.id] = action.payload;
         });
         builder.addCase(deleteItem.fulfilled, (state, action) => {
-            delete state.entities.items[action.payload.id];
+            delete state.entities.items[action.payload.itemId];
         });
     },
 });
