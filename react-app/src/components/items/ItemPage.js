@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components"
 
 import { addCartItem } from "../../store/cart-items";
-import { getAnItem, deleteItem } from "../../store/items"
+import { getAnItem, deleteItem, editItem } from "../../store/items"
 import { selectUser } from "../../store/session";
 import { useAuthModal } from "../../context/AuthModalProvider";
 
@@ -67,6 +67,22 @@ const StyledItemPageDiv = styled.div`
             background-color: grey;
             display: flex;
             align-items: center;
+
+            form {
+                  display: flex;
+                  align-items: center;
+                  height: 100%;
+                  width: 80%;
+            }
+
+            input {
+                  padding-left: 1vw;
+                  border: 2px solid black;
+                  border-radius: 30px;
+                  // background-color: cyan;
+                  height: 80%;
+                  width: 100%;
+            }
       }
 
       #item-seller {
@@ -411,6 +427,7 @@ const ItemPage = () => {
       const user = useSelector(selectUser())
 
       const [showDescription, setShowDescription] = useState(true)
+      const [showEditName, setShowEditName] = useState(false)
 
       const handleSetShowDescription = () => {
             setShowDescription(!showDescription)
@@ -425,6 +442,11 @@ const ItemPage = () => {
                   itemId,
                   quantity: 1
             }))
+      }
+
+      const handleNewItemName = async () => {
+            let newName = document.querySelector('#new-item-name').value
+            setShowEditName(false)
       }
 
       const handleDeleteItem = async () => {
@@ -495,20 +517,22 @@ const ItemPage = () => {
                               </div>
                         </button>}
                         <div id="item-seller">{item.seller.username}</div>
-                        {true && <div id="item-name">
+                        {!showEditName && <div id="item-name">
                               <span id="item-name-span">Heart Container | +1 Heart hello hello hello hello hello hello hello hello hello hello hello hello</span>
                               {item.userId === user?.id && <div id="edit-icon-arrow-box-container">
-                                    <img id="name-edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                                    <img id="name-edit-button"
+                                    onClick={() => setShowEditName(true)}
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                                     <div className="arrow_box edit">
                                           <span>Edit name</span>
                                     </div>
                               </div>}
                         </div>}
-                        {false && <div className="edit-item-div">
+                        {showEditName && <div className="edit-item-div">
                               <form>
-                                    <input placeholder="Give your product a new name"></input>
+                                    <input id="new-item-name" placeholder="Give your item a new name"></input>
                               </form>
-                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
+                              <img className="edit-button" onClick={handleNewItemName} src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
                         </div>
 }
                         <div id="item-price">
