@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Category from "./Category";
 import styled from "styled-components";
 import { getHomepageItems } from "../../store/items";
+import NewItem from "./NewItem";
 
 const HomeStyling = styled.div`
     display: flex;
@@ -118,22 +119,15 @@ function HomePage() {
                     <div>
                         <p className="section-title">New!</p>
                         {newIds.map(id => (
-                            <Link to={`items/${id}`}>
-                                <div>
-                                    <img src={items[id].image} alt={`new item: ${id}`} key={`n: ${id}`} />
-                                </div>
-                            </Link>
+                            <NewItem item={items[id]} key={`n:${id}}`}/>
                         ))}
                     </div>
 
                     <div>
+                        {/* NOTE: CREATE NEW COMPONENT FOR PICKED ITEM */}
                         <p className="section-title">Editors' Picks</p>
                         {pickedIds.map(id => (
-                            <Link to={`items/${id}`}>
-                                <div>
-                                    <img src={items[id].image} alt={`picked item: ${id}`} key={`p: ${id}`} />
-                                </div>
-                            </Link>
+                            <NewItem item={items[id]} key={`p:${id}}`} />
                         ))}
                     </div>
                 </>
