@@ -43,11 +43,16 @@ const QuantitySelector = ({ onChange, value }) => {
 
   const handleButtonClick = (modifier) => {
     if (!isValidValue(currentValue)) {
-      updateValue("1");
-      return;
+      return updateValue("1");
     }
     const parsedValue = parseInt(currentValue, 10);
-    updateValue(String(parsedValue + modifier));
+    const newValue = parsedValue + modifier;
+
+    // Prevent value going below 1
+    if (newValue <= 0) {
+      return updateValue("1");
+    }
+    updateValue(String(newValue));
   };
 
   return (
