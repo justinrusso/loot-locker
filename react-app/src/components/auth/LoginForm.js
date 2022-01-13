@@ -3,6 +3,14 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login, loginDemo } from '../../store/session';
+import InputField from '../common/InputField';
+
+const InputsWrapper = styled.div`
+  gap: 8px;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+`;
 
 const Actions = styled.div`
   display: flex;
@@ -34,14 +42,6 @@ const LoginForm = ({ onSuccess, toSignUp }) => {
     dispatch(loginDemo()).unwrap().then(onSuccess);
   };
 
-  const updateCred = (e) => {
-    setCred(e.target.value);
-  };
-
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
   if (user) {
     return <Redirect to='/' />;
   }
@@ -53,26 +53,32 @@ const LoginForm = ({ onSuccess, toSignUp }) => {
           <div key={ind}>{error}</div>
         ))}
       </div>
-      <div>
-        <label htmlFor='cred'>Username or Email</label>
-        <input
-          name='cred'
-          type='text'
+      <InputsWrapper>
+        <InputField
+          fullWidth
+          label="Username or Email"
           value={cred}
-          onChange={updateCred}
+          id="cred"
+          onChange={(e) => setCred(e.target.value)}
+          inputProps={{
+            autoFocus: true,
+            type: "text",
+          }}
           required
         />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
+        <InputField
+          fullWidth
+          label="Password"
           value={password}
-          onChange={updatePassword}
+          id="password"
+          onChange={(e) => setPassword(e.target.value)}
+          inputProps={{
+            autoFocus: true,
+            type: "text",
+          }}
           required
         />
-      </div>
+      </InputsWrapper>
       <button type="button" onClick={handleLoginDemo}>
         Demo Login
       </button>
