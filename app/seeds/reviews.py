@@ -1,4 +1,4 @@
-from app.models import db, Review
+from app.models import db, Review, ReviewSummary
 
 
 def seed_reviews():
@@ -28,13 +28,22 @@ def seed_reviews():
         updated_at="Sat, 08 Jan 2022 19:28:00 GMT",
     )
 
+    summary = ReviewSummary(
+        item_id=1,
+        num_of_reviews=3,
+        ratings_total=12,
+    )
+
     db.session.add(first)
     db.session.add(second)
     db.session.add(third)
+
+    db.session.add(summary)
 
     db.session.commit()
 
 
 def undo_reviews():
     db.session.execute("TRUNCATE reviews RESTART IDENTITY CASCADE;")
+    db.session.execute("TRUNCATE review_summaries RESTART IDENTITY CASCADE;")
     db.session.commit()
