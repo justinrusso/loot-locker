@@ -87,6 +87,8 @@ const QuantitySelector = ({ onChange, value }) => {
       return;
     } else if (event.ctrlKey && event.key === "a") {
       return;
+    } else if (/arrow(left|right)/i.test(event.key)) {
+      return;
     }
     event.preventDefault();
   };
