@@ -14,11 +14,14 @@ const StyledItemPageDiv = styled.div`
       padding-right: 10vw;
       margin-top: 4vh;
 
+      #left-side-page-container {
+            width: 45vw;
+      }
+
       #item-image-container {
             position: relative;
             display: flex;
             justify-content: center;
-            width: 45vw;
             border: 1px solid lightgrey;
             border-radius: 8px;
             box-shadow: 2px 2px 5px grey;
@@ -270,6 +273,7 @@ const StyledReviewsSectionDiv = styled.div`
       }
       `
 const StyledReviewCard = styled.div`
+      width: 100%;
       // background-color: lightgrey;
       // margin-top: 2vh;
       margin-bottom: 6vh;
@@ -316,6 +320,12 @@ const StyledReviewCard = styled.div`
       }
 
       .review-comment {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            // background-color: green;
             font-size: large;
             padding: 0 1vw;
       }
@@ -348,7 +358,16 @@ const ItemPage = () => {
       const testReview = {
             poster: "Link",
             rating: 5,
-            comment:"Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one",
+            comment:
+            `
+            Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one
+            Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda Zelda
+            Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda
+            Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda
+            Zelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda Zelda
+            Zelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda Zelda
+            Zelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda Zelda
+            `,
             created_at: "2021-09-08 19:24:00"
       }
 
@@ -407,7 +426,7 @@ const ItemPage = () => {
                   <div id="left-side-page-container">
                         <div id="item-image-container">
                               <img id="item-image" src={item.image}></img>
-                              {item.userId === user.id && <button id="edit-image-button">
+                              {item.userId === user?.id && <button id="edit-image-button">
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                               </button>}
                         </div>
@@ -452,7 +471,7 @@ const ItemPage = () => {
                         </StyledReviewCard>
                   </div>
                   <div id="item-info-container">
-                        {item.userId === user.id && <button id="delete-item-button" onClick={handleDeleteItem}>
+                        {item.userId === user?.id && <button id="delete-item-button" onClick={handleDeleteItem}>
                               <img id="dragon-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
                               <span>Incinerate this item</span>
                               <div className="arrow_box">
@@ -462,7 +481,7 @@ const ItemPage = () => {
                         <div id="item-seller">{item.seller.username}</div>
                         <div id="item-name">
                               {item.name}
-                              {item.userId === user.id && <div id="edit-icon-arrow-box-container">
+                              {item.userId === user?.id && <div id="edit-icon-arrow-box-container">
                                     <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                                     <div className="arrow_box edit">
                                           <span>Edit name</span>
@@ -472,7 +491,7 @@ const ItemPage = () => {
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
-                              {item.userId === user.id && <>
+                              {item.userId === user?.id && <>
                                     <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                                     <div className="arrow_box edit">
                                           <span>Edit price</span>
@@ -482,7 +501,7 @@ const ItemPage = () => {
                               {item.stock > 0 && <span className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>
-                        {item.userId === user.id && <div id="item-stock">
+                        {item.userId === user?.id && <div id="item-stock">
                               <span id="stock-span">Stock: {item.stock}</span>
                               <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                         </div>}
