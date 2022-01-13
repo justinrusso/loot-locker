@@ -31,7 +31,7 @@ def item(item_id):
 
 @item_routes.route('/<int:item_id>/reviews', methods=['GET'])
 def get_reviews(item_id):
-    reviews = Item.get(item_id).reviews
+    reviews = Item.query.get(item_id).reviews
     return {'reviews': [review.to_dict() for review in reviews]}
 
 
