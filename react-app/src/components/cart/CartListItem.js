@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeCartItem } from "../../store/cart-items";
 import Button from "../common/Button";
+import QuantitySelector from "./QuantitySelector";
 
 const CartListItemRoot = styled.li`
   display: flex;
@@ -63,7 +64,10 @@ const CartListItem = ({ imgSrc, itemId, name, price, quantity }) => {
             <h3>{name}</h3>
           </Link>
           <div className="actions">
-            <div>Quantity: {quantity}</div>
+            <QuantitySelector
+              value={quantity}
+              onChange={(newValue) => console.log(newValue)}
+            />
             <Button variant="text" onClick={handleRemove}>
               Remove
             </Button>
