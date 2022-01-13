@@ -48,7 +48,7 @@ const InputLabel = styled.label`
 
 const InputRoot = styled.div`
   align-items: center;
-  border-radius: ${(props) => props.theme.borderRadius}px;
+  border-radius: ${(props) => props.theme.borderRadius.main}px;
   color: ${(props) => props.theme.palette.text.primary};
   cursor: text;
   display: inline-flex;
