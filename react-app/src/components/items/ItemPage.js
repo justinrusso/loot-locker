@@ -244,11 +244,11 @@ const StyledItemPageDiv = styled.div`
 const StyledReviewsSectionDiv = styled.div`
       // background-color: lime;
       margin-top: 5vh;
-      padding: 0 0.5vw;
 
       #reviews-div {
             height: 6vh;
-            display: flex
+            display: flex;
+            margin-bottom: 4vh;
       }
 
       #reviews-amt {
@@ -268,9 +268,60 @@ const StyledReviewsSectionDiv = styled.div`
             padding: 0 1px;
             display: flex;
       }
-`
-/**
- *
+      `
+const StyledReviewCard = styled.div`
+      // background-color: lightgrey;
+      // margin-top: 2vh;
+      margin-bottom: 6vh;
+
+
+      span {
+            font-size: x-large;
+      }
+
+      .review-user-and-date {
+            // background-color: teal;
+            display: flex;
+            align-items: center;
+            height: 5vh;
+            margin-bottom: 0.8vh;
+      }
+
+      .profile-icon {
+            // background-color: teal;
+            height: 110%;
+            border: 1px solid black;
+            margin-right: 0.5vw;
+            padding: 5px;
+            border-radius: 50%;
+      }
+
+      .review-post-date {
+            color: grey;
+            margin-left: 1vw;
+      }
+
+      .review-star-rating {
+            // background-color: salmon;
+            padding: 0 1vw;
+            display: flex;
+            align-items: center;
+            height: 5vh;
+      }
+
+      .star {
+            height: 50%;
+            padding: 0 1px;
+            display: flex;
+      }
+
+      .review-comment {
+            font-size: large;
+            padding: 0 1vw;
+      }
+      `
+      /**
+       *
  * @param {number} stock The amount of stock remaining of the item
  */
 const getCartButtonMessage = (stock) => {
@@ -292,6 +343,31 @@ const ItemPage = () => {
       const authModal = useAuthModal();
       const dispatch = useDispatch();
       const history = useHistory();
+
+
+      const testReview = {
+            poster: "Link",
+            rating: 5,
+            comment:"Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one",
+            created_at: "2021-09-08 19:24:00"
+      }
+
+      const testDate = new Date(testReview.created_at)
+
+      const renderStarRating = (rating) => {
+            let content = []
+            let key = 5
+            // breaks when rating = 1
+            for (let i = 0; i < rating; i++) {
+                  content.push(<img key={i} className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>)
+            }
+            //if rating < 5, populate rest of stars div with grey ones
+            while (content.length < 5) {
+                  content.push(<img key={key} className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/931062582440255538/star-grey.png"></img>)
+                  key++
+            }
+            return content
+      }
 
       useEffect(() => {
             dispatch(getAnItem(itemId))
@@ -347,6 +423,33 @@ const ItemPage = () => {
                                     </div>
                               </div>
                         </StyledReviewsSectionDiv>
+                        <StyledReviewCard>
+                              <div className="review-user-and-date">
+                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
+                                    <span className="reviewer-name">{testReview.poster}</span>
+                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
+                              </div>
+                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
+                              <div className="review-comment">{testReview.comment}</div>
+                        </StyledReviewCard>
+                        <StyledReviewCard>
+                              <div className="review-user-and-date">
+                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
+                                    <span className="reviewer-name">{testReview.poster}</span>
+                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
+                              </div>
+                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
+                              <div className="review-comment">{testReview.comment}</div>
+                        </StyledReviewCard>
+                        <StyledReviewCard>
+                              <div className="review-user-and-date">
+                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
+                                    <span className="reviewer-name">{testReview.poster}</span>
+                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
+                              </div>
+                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
+                              <div className="review-comment">{testReview.comment}</div>
+                        </StyledReviewCard>
                   </div>
                   <div id="item-info-container">
                         {item.userId === user.id && <button id="delete-item-button" onClick={handleDeleteItem}>
