@@ -30,7 +30,7 @@ def update_review(review_id):
 
 
 @review_routes.route('/<int:review_id>', methods=['DELETE'])
-@login_required
+# @login_required
 def delete_review(review_id):
     form = DeleteReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -39,7 +39,7 @@ def delete_review(review_id):
         review = Review.query.get(review_id)
         summary = ReviewSummary.query.get(review.item_id)
 
-        summary.num_of_ratings -= 1
+        summary.num_of_reviews -= 1
         summary.ratings_total -= review.rating
 
         db.session.delete(review)

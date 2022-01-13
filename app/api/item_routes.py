@@ -69,16 +69,17 @@ def post_review(item_id):
         review = Review(
             user_id=current_user.id,
             item_id=item_id,
-            rating=form.data['rating'],
+            rating=int(form.data['rating']),
             comment=form.data['comment']
         )
         db.session.add(review)
 
         summary = ReviewSummary.query.get(item_id)
         if not summary:
-            summary = ReviewSummary()
+            summary = ReviewSummary(
+                item_id=item_id, num_of_reviews=0, ratings_total=0)
         summary.num_of_reviews += 1
-        summary.ratings_total += form.data['rating']
+        summary.ratings_total += int(form.data['rating'])
 
         db.session.add(summary)
         db.session.commit()
