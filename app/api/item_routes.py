@@ -1,5 +1,5 @@
 from flask import Blueprint, abort, request
-from app.models import db, Item, Category, Review, ReviewSummary, User
+from app.models import db, Item, Review, ReviewSummary
 from flask_login import current_user, login_required
 from app.forms import DeleteItemForm, ReviewForm, validation_errors_to_error_messages
 
@@ -40,11 +40,13 @@ def delete_item(item_id):
 
     if form.validate_on_submit():
         item = Item.query.get(item_id)
+        summary = Review.query.get(item_id)
 
         if item.user_id != current_user.id:
             return abort(403, description="Unauthorized deletion")
 
         db.session.delete(item)
+        db.session.delete(summary)
         db.session.commit()
         return {"itemId": item.id, "message": "Success"}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
