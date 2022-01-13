@@ -2,8 +2,9 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { removeCartItem } from "../../store/cart-items";
+import { changeCartItemQuantity, removeCartItem } from "../../store/cart-items";
 import Button from "../common/Button";
+import QuantitySelector from "./QuantitySelector";
 
 const CartListItemRoot = styled.li`
   display: flex;
@@ -50,6 +51,13 @@ const CartListItemRoot = styled.li`
 const CartListItem = ({ imgSrc, itemId, name, price, quantity }) => {
   const dispatch = useDispatch();
 
+  const handleQuantityChange = async (newValue) => {
+    if (newValue === quantity) {
+      return;
+    }
+    await dispatch(changeCartItemQuantity({ itemId, quantity: newValue }));
+  };
+
   const handleRemove = async () => {
     await dispatch(removeCartItem(itemId));
   };
@@ -63,7 +71,10 @@ const CartListItem = ({ imgSrc, itemId, name, price, quantity }) => {
             <h3>{name}</h3>
           </Link>
           <div className="actions">
-            <div>Quantity: {quantity}</div>
+            <QuantitySelector
+              value={quantity}
+              onChange={handleQuantityChange}
+            />
             <Button variant="text" onClick={handleRemove}>
               Remove
             </Button>

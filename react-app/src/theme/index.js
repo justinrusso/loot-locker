@@ -1,7 +1,10 @@
 const theme = {
   color: "#000",
   backgroundColor: "#fff",
-  borderRadius: 6,
+  borderRadius: {
+    main: 6,
+    button: 24,
+  },
   divider: "rgba(0, 0, 0, 0.12)",
   palette: {
     primary: {

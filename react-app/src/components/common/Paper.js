@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 const roundedEdges = css`
-  border-radius: ${(props) => props.theme.borderRadius}px;
+  border-radius: ${(props) => props.theme.borderRadius.main}px;
 `;
 
 const Paper = styled.div`
