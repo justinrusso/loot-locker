@@ -3,8 +3,16 @@ import debounce from "lodash.debounce";
 import styled from "styled-components";
 import { useEffect, useMemo, useState } from "react";
 
+const maximumCharacters = 3;
+
 const QuantitySelectorRoot = styled.div`
   position: relative;
+
+  input {
+    box-sizing: content-box;
+    text-align: center;
+    width: ${maximumCharacters}ch;
+  }
 `;
 
 /**
@@ -38,6 +46,10 @@ const QuantitySelector = ({ onChange, value }) => {
   };
 
   const handleChange = (e) => {
+    // Prevent more than 3
+    if (e.target.value.length > maximumCharacters) {
+      return;
+    }
     updateValue(e.target.value);
   };
 
@@ -52,7 +64,15 @@ const QuantitySelector = ({ onChange, value }) => {
     if (newValue <= 0) {
       return updateValue("1");
     }
-    updateValue(String(newValue));
+
+    let newValueStr = String(newValue);
+    if (newValueStr.length > maximumCharacters) {
+      newValueStr = "9";
+      for (let i = 1; i < maximumCharacters; i++) {
+        newValueStr += "9";
+      }
+    }
+    updateValue(newValueStr);
   };
 
   /**
