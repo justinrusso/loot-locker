@@ -40,7 +40,7 @@ def new_items():
     picked_ids=[item.id for item in picked_items]
 
     return {
-        "items": [item.to_dict() for item in (new_items + picked_items)],
+        "items": [item.to_dict() for item in set(new_items + picked_items)],
         "new": new_ids,
         "picks": picked_ids
     }
