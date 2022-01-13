@@ -30,7 +30,7 @@ def update_review(review_id):
 
 
 @review_routes.route('/<int:review_id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_review(review_id):
     form = DeleteReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']

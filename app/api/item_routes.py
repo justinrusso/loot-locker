@@ -32,8 +32,6 @@ def item(item_id):
 
 # delete an item via supplied user_id from session
 # if does not match userId of item to delete, do not allow
-
-
 @item_routes.route("/<int:item_id>", methods=["DELETE"])
 @login_required
 def delete_item(item_id):
