@@ -96,7 +96,7 @@ const Results = () => {
                     <>
                         {searchKey &&
                             <CategorySelect value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-                                <option value={undefined}>All Categories</option>
+                                <option value="">All Categories</option>
                                 {Object.values(categories).map(category => (
                                     <option value={category.id} key={category.id}>{category.name}</option>
                                 ))}
