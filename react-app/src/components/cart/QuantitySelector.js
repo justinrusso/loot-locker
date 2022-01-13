@@ -81,6 +81,10 @@ const QuantitySelector = ({ onChange, value }) => {
       return updateValue("1");
     }
 
+    if (newValue.length > maximumCharacters) {
+      return updateValue(getMaxValueString());
+    }
+
     setCurrentValue(newValue);
     if (isValidValue(newValue)) {
       debouncedOnChange(parseInt(newValue));
@@ -88,10 +92,6 @@ const QuantitySelector = ({ onChange, value }) => {
   };
 
   const handleChange = (e) => {
-    // Prevent more than 3
-    if (e.target.value.length > maximumCharacters) {
-      return updateValue(getMaxValueString());
-    }
     updateValue(e.target.value);
   };
 
@@ -101,12 +101,7 @@ const QuantitySelector = ({ onChange, value }) => {
     }
     const parsedValue = parseInt(currentValue, 10);
     const newValue = parsedValue + modifier;
-
-    let newValueStr = String(newValue);
-    if (newValueStr.length > maximumCharacters) {
-      newValueStr = getMaxValueString();
-    }
-    updateValue(newValueStr);
+    updateValue(String(newValue));
   };
 
   /**
