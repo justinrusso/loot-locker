@@ -1,20 +1,56 @@
-import styled from 'styled-components'
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { login, loginDemo } from '../../store/session';
+import styled from "styled-components";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-const Actions = styled.div`
+import Button from "../common/Button";
+import InputField from "../common/InputField";
+import { login, loginDemo } from "../../store/session";
+
+const Heading = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: 16px;
+  width: 100%;
+  padding-bottom: 24px;
+
+  button {
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 9px 15px;
+  }
+`;
+
+const InputsWrapper = styled.div`
+  gap: 12px;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+`;
+
+const SignInButton = styled(Button)`
+  width: 100%;
+  margin-bottom: 16px;
+`;
+
+const DemoCTA = styled.p`
+  text-align: center;
+  color: ${(props) => props.theme.palette.text.secondary};
+`;
+
+const DemoLoginButton = styled.button`
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-decoration: underline;
 `;
 
 const LoginForm = ({ onSuccess, toSignUp }) => {
   const [errors, setErrors] = useState([]);
-  const [cred, setCred] = useState('');
-  const [password, setPassword] = useState('');
-  const user = useSelector(state => state.session.user);
+  const [cred, setCred] = useState("");
+  const [password, setPassword] = useState("");
+  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
@@ -34,53 +70,60 @@ const LoginForm = ({ onSuccess, toSignUp }) => {
     dispatch(loginDemo()).unwrap().then(onSuccess);
   };
 
-  const updateCred = (e) => {
-    setCred(e.target.value);
-  };
-
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor='cred'>Username or Email</label>
-        <input
-          name='cred'
-          type='text'
-          value={cred}
-          onChange={updateCred}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          value={password}
-          onChange={updatePassword}
-          required
-        />
-      </div>
-      <button type="button" onClick={handleLoginDemo}>
-        Demo Login
-      </button>
-      <Actions>
-        <button type='button' onClick={toSignUp}>Register</button>
-        <button type='submit'>Login</button>
-      </Actions>
-    </form>
+    <>
+      <Heading>
+        <h2>Sign in</h2>
+        <Button type="button" variant="outlined" onClick={toSignUp}>
+          Register
+        </Button>
+      </Heading>
+      <form onSubmit={onLogin}>
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <InputsWrapper>
+          <InputField
+            fullWidth
+            label="Username or Email"
+            value={cred}
+            id="cred"
+            onChange={(e) => setCred(e.target.value)}
+            inputProps={{
+              autoFocus: true,
+              type: "text",
+            }}
+            required
+          />
+          <InputField
+            fullWidth
+            label="Password"
+            value={password}
+            id="password"
+            onChange={(e) => setPassword(e.target.value)}
+            inputProps={{
+              type: "text",
+            }}
+            required
+          />
+        </InputsWrapper>
+        <SignInButton type="submit" variant="contained" fullWidth>
+          Sign in
+        </SignInButton>
+        <DemoCTA>
+          Looking to test out the site?{" "}
+          <DemoLoginButton type="button" onClick={handleLoginDemo}>
+            Login as Demo
+          </DemoLoginButton>
+        </DemoCTA>
+      </form>
+    </>
   );
 };
 
