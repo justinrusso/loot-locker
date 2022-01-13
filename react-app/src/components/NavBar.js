@@ -80,6 +80,7 @@ const StyledNavElement = styled.header`
       & + ${IconButton} {
         border-bottom-left-radius: 0;
         border-top-left-radius: 0;
+        line-height: inherit;
         padding-bottom: 12px;
         padding-left: 15px;
         padding-right: 21px;
