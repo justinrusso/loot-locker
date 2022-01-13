@@ -64,7 +64,7 @@ def post_review(item_id):
 
     if form.validate_on_submit():
 
-        # Dummy key value passes for testing purposes commented out
+        # Dummy values for testing purposes commented out
 
         review = Review(
             # user_id=1,

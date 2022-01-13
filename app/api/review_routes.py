@@ -44,4 +44,5 @@ def delete_review(review_id):
 
         db.session.delete(review)
         db.session.commit()
-        return {'message': f'Review {review_id} successfully deleted.'}
+        return {'message': 'Review successfully deleted.',
+                'reviewId': review_id}
