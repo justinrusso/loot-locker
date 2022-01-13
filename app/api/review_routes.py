@@ -1,8 +1,8 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, abort
 from flask_login import current_user, login_required
 from app.forms import ReviewForm, DeleteReviewForm, validation_errors_to_error_messages
 
-from app.models import db, Review, ReviewSummary
+from app.models import db, Review, ReviewSummary, Item
 
 review_routes = Blueprint('reviews', __name__)
 
@@ -46,3 +46,20 @@ def delete_review(review_id):
         db.session.commit()
         return {'message': 'Review successfully deleted.',
                 'reviewId': review_id}
+
+
+@review_routes.route('/data/<int:review_summary_id>', methods=['GET'])
+def get_summary(review_summary_id):
+    summary = ReviewSummary.query.get(review_summary_id)
+
+    if not summary:
+        return abort(404)
+
+    return summary.to_dict()
+
+
+@review_routes.route('/data/test', methods=['GET'])
+def get_data():
+    item = Item.query.get(1)
+
+    return {'data': item.review_data[0].to_dict()}

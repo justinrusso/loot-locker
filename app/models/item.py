@@ -21,7 +21,8 @@ class Item(db.Model):
 
     category = db.relationship('Category', back_populates='items')
     seller = db.relationship('User', back_populates='items')
-    review_data = db.relationship('ReviewSummary', back_populates='item')
+    review_data = db.relationship(
+        'ReviewSummary', back_populates='item', uselist=False)
 
     def to_dict(self):
         return {
@@ -37,5 +38,5 @@ class Item(db.Model):
             'updatedAt': self.updated_at,
             'seller': self.seller.to_dict(),
             'category': self.category.name,
-            'review_data': self.review_data.to_dict()
+            'review_data': self.review_data.to_dict() if self.review_data else None
         }

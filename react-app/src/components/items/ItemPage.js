@@ -299,7 +299,7 @@ const ItemPage = () => {
             return <></>
       }
 
-      return(
+      return (
             <StyledItemPageDiv>
                   <div id="left-side-page-container">
                         <div id="item-image-container">
@@ -353,7 +353,7 @@ const ItemPage = () => {
                                     {getCartButtonMessage(item.stock)}
                               </button>
                         )}
-                        <button onClick={handleSetShowDescription}id="description-button">
+                        <button onClick={handleSetShowDescription} id="description-button">
                               <span>Description</span>
                               {!showDescription && <i className="fas fa-chevron-down"></i>}
                               {showDescription && <i className="fas fa-chevron-up"></i>}
