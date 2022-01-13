@@ -53,24 +53,20 @@ const StyledItemPageDiv = styled.div`
             display: flex;
             flex-direction: column;
             width: 30vw;
-            padding-top: 1%;
-            padding-left:2vw;
-
-
-            div {
-                  padding-left: 5%;
-                  padding-right: 5%;
-            }
-
-
-            button {
-                  margin-left: 5%;
-                  margin-right: 5%;
-            }
+            // padding-top: 1%;
+            // padding-left:2vw;
+            margin-left: 5%;
 
             span {
                   font-weight: bolder;
             }
+      }
+
+      .edit-item-div {
+            height: 7vh;
+            background-color: grey;
+            display: flex;
+            align-items: center;
       }
 
       #item-seller {
@@ -79,11 +75,30 @@ const StyledItemPageDiv = styled.div`
       }
 
       #item-name {
+            // background-color: grey;
             display: flex;
             position: relative;
-            align-items: center;
             margin-bottom: 2vh;
             font-size: xx-large;
+
+            #item-name-span {
+                  display: -webkit-box;
+                  -webkit-line-clamp: 3;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  width: 70%;
+                  font-weight: normal;
+                  padding-left: 0;
+            }
+
+            #name-edit-button {
+                  position: relative;
+                  cursor: pointer;
+                  // background-color: lime;
+                  padding: 0;
+                  height: 5vh;
+            }
 
             .edit {
                   bottom: -55px;
@@ -321,7 +336,7 @@ const StyledReviewCard = styled.div`
 
       .review-comment {
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -427,7 +442,7 @@ const ItemPage = () => {
                         <div id="item-image-container">
                               <img id="item-image" src={item.image}></img>
                               {item.userId === user?.id && <button id="edit-image-button">
-                                    <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                                    <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>
                               </button>}
                         </div>
                         <StyledReviewsSectionDiv>
@@ -442,6 +457,7 @@ const ItemPage = () => {
                                     </div>
                               </div>
                         </StyledReviewsSectionDiv>
+                        {/* test review cards */}
                         <StyledReviewCard>
                               <div className="review-user-and-date">
                                     <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
@@ -479,15 +495,22 @@ const ItemPage = () => {
                               </div>
                         </button>}
                         <div id="item-seller">{item.seller.username}</div>
-                        <div id="item-name">
-                              {item.name}
+                        {true && <div id="item-name">
+                              <span id="item-name-span">Heart Container | +1 Heart hello hello hello hello hello hello hello hello hello hello hello hello</span>
                               {item.userId === user?.id && <div id="edit-icon-arrow-box-container">
-                                    <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                                    <img id="name-edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                                     <div className="arrow_box edit">
                                           <span>Edit name</span>
                                     </div>
                               </div>}
+                        </div>}
+                        {false && <div className="edit-item-div">
+                              <form>
+                                    <input placeholder="Give your product a new name"></input>
+                              </form>
+                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
                         </div>
+}
                         <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
