@@ -25,10 +25,13 @@ export const createItem = createAsyncThunk(
 
 export const getItems = createAsyncThunk(
     "items/getItems",
-    async (searchKey, thunkAPI) => {
+    async ({searchKey, categoryId}, thunkAPI) => {
         let url = "/api/items";
+        if (categoryId) {
+            url += `?category=${categoryId}`;
+        }
         if (searchKey) {
-            url += `?key=${searchKey}`;
+            url += (categoryId ? "&" : "?") + `key=${searchKey}`;
         }
         const response = await fetch(url, {
             headers: {
@@ -87,10 +90,7 @@ export const deleteItem = createAsyncThunk(
     "items/deleteItem",
     async (itemId, thunkAPI) => {
         const response = await fetch(`/api/items/${itemId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            }
+            method: "DELETE"
         });
         const data = await response.json();
         if (response.ok && !data.errors) {
@@ -124,7 +124,7 @@ const itemSlice = createSlice({
             state.entities.items[action.payload.id] = action.payload;
         });
         builder.addCase(deleteItem.fulfilled, (state, action) => {
-            delete state.entities.items[action.payload.id];
+            delete state.entities.items[action.payload.itemId];
         });
     },
 });
