@@ -72,7 +72,7 @@ const Results = () => {
 
     let query = useQuery();
     const searchKey = query.get("key");
-    const [categoryId, setCategoryId] = useState(query.get("category") ? query.get("category") : undefined);
+    const [categoryId, setCategoryId] = useState(query.get("category") ? query.get("category") : "");
 
     const dispatch = useDispatch()
 
