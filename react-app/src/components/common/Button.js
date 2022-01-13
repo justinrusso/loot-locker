@@ -39,6 +39,7 @@ const Button = styled.button`
   text-decoration: none;
   position: relative;
   cursor: pointer;
+  z-index: 1;
 
   &:before,
   &:after {
