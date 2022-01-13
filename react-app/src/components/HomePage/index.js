@@ -112,11 +112,11 @@ function HomePage() {
                 <h1 id="header-1">{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
 
                 <div id="category-container">
-                    <Category path="/category/1" name="Arms" source={false} />
-                    <Category path="/category/2" name="Armor" source={false} />
-                    <Category path="/category/3" name="Accessories" source={false} />
-                    <Category path="/category/4" name="Mounts" source={false} />
-                    <Category path="/category/5" name="Consumables" source={false}/>
+                    <Category categoryNum="1" name="Arms" source={false} />
+                    <Category categoryNum="2" name="Armor" source={false} />
+                    <Category categoryNum="3" name="Accessories" source={false} />
+                    <Category categoryNum="4" name="Mounts" source={false} />
+                    <Category categoryNum="5" name="Consumables" source={false}/>
                 </div>
             </div>
 

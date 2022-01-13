@@ -81,15 +81,15 @@ const Results = () => {
     return (
         <Container>
             <Content>
+                {searchKey ?
+                    <span id='search-header'>Results for "{searchKey}"</span>
+                    :
+                    <CategoryHeader>
+                        <h3>{categories[categoryId].name}</h3>
+                    </CategoryHeader>
+                }
                 {isLoaded &&
                     <>
-                        {searchKey ?
-                            <span id='search-header'>Results for "{searchKey}"</span>
-                            :
-                            <CategoryHeader>
-                                <h3>{categories[categoryId].name}</h3>
-                            </CategoryHeader>
-                        }
                         <span id='search-count'>{Object.values(results).length === 1 ?
                             '1 result' :
                             `${Object.values(results).length} results`
