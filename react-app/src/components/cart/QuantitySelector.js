@@ -51,6 +51,14 @@ const isValidValue = (value) => {
   return /^\d+$/.test(value);
 };
 
+const getMaxValueString = () => {
+  let maxValueString = "9";
+  for (let i = 1; i < maximumCharacters; i++) {
+    maxValueString += "9";
+  }
+  return maxValueString;
+};
+
 /**
  * @param {{
  *   onChange: (newValue) => void;
@@ -77,7 +85,7 @@ const QuantitySelector = ({ onChange, value }) => {
   const handleChange = (e) => {
     // Prevent more than 3
     if (e.target.value.length > maximumCharacters) {
-      return;
+      return updateValue(getMaxValueString());
     }
     updateValue(e.target.value);
   };
@@ -96,10 +104,7 @@ const QuantitySelector = ({ onChange, value }) => {
 
     let newValueStr = String(newValue);
     if (newValueStr.length > maximumCharacters) {
-      newValueStr = "9";
-      for (let i = 1; i < maximumCharacters; i++) {
-        newValueStr += "9";
-      }
+      newValueStr = getMaxValueString();
     }
     updateValue(newValueStr);
   };
