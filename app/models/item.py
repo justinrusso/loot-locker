@@ -40,5 +40,5 @@ class Item(db.Model):
             'updatedAt': self.updated_at,
             'seller': self.seller.to_dict(),
             'category': self.category.name,
-            'review_data': self.review_data.to_dict() if self.review_data else {'count': 0, 'rating': 0}
+            'reviewData': self.review_data.to_dict() if self.review_data else {'count': 0, 'rating': 0}
         }
