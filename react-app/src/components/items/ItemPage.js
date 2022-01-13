@@ -242,9 +242,9 @@ const StyledItemPageDiv = styled.div`
       }
 `
 const StyledReviewsSectionDiv = styled.div`
-      background-color: lime;
+      // background-color: lime;
       margin-top: 5vh;
-      padding: 0 1vw;
+      padding: 0 0.5vw;
 
       #reviews-div {
             height: 6vh;
@@ -252,19 +252,20 @@ const StyledReviewsSectionDiv = styled.div`
       }
 
       #reviews-amt {
-            font-size: xx-large;
+            font-size: x-large;
             display: flex;
             align-items: center;
       }
 
       #reviews-stars-div {
             display: flex;
-            background-color: cyan;
+            align-items: center;
+            margin-left: 1vw;
       }
 
       .star {
-            height: 100%;
-            background-color: pink;
+            height: 50%;
+            padding: 0 1px;
             display: flex;
       }
 `
