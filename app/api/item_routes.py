@@ -1,13 +1,9 @@
 from flask import Blueprint, abort, request
 from app.models import db, Item, Review, ReviewSummary
 from flask_login import current_user, login_required
-<<<<<<< HEAD
 from app.models import Item, Category, User, db, Review
 from sqlalchemy import or_
 from app.forms import DeleteItemForm, EditItemForm, ReviewForm, validation_errors_to_error_messages
-=======
-from app.forms import DeleteItemForm, ReviewForm, validation_errors_to_error_messages
->>>>>>> b5acf457af8fde333046cd9deb1d5dff20d10e1e
 
 
 item_routes = Blueprint("items", __name__)
