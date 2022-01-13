@@ -92,7 +92,7 @@ const reviewSlice = createSlice({
         builder.addCase(getReviews.fulfilled, (state, action) => {
             const reviews = {}
             action.payload.forEach((review) => {
-                reviews[review.user_id] = review
+                reviews[review.id] = review
             });
             state.entities.reviews = reviews;
         });
