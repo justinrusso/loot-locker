@@ -83,7 +83,7 @@ const QuantitySelector = ({ onChange, value }) => {
   const filterKeyPresses = (event) => {
     if (/\d/.test(event.key)) {
       return;
-    } else if (/(backspace|tab)/i.test(event.code)) {
+    } else if (/(backspace|delete|tab)/i.test(event.code)) {
       return;
     } else if (event.ctrlKey && event.key === "a") {
       return;
