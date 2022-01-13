@@ -1,8 +1,6 @@
 from flask import Blueprint, abort, request
 from app.models import db, Item, Category, Review, ReviewSummary, User
-from app.forms import ReviewForm, validation_errors_to_error_messages
 from flask_login import current_user, login_required
-from sqlalchemy import or_
 from app.forms import DeleteItemForm, ReviewForm, validation_errors_to_error_messages
 
 
