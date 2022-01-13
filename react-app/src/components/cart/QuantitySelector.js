@@ -55,12 +55,33 @@ const QuantitySelector = ({ onChange, value }) => {
     updateValue(String(newValue));
   };
 
+  /**
+   * Prevents keys from trigering a change unless they are considered valid.
+   * If the key/key combination pressed is not valid, the event is prevented.
+   * @param {React.KeyboardEvent<HTMLInputElement>} event
+   */
+  const filterKeyPresses = (event) => {
+    if (/\d/.test(event.key)) {
+      return;
+    } else if (/(backspace|tab)/i.test(event.code)) {
+      return;
+    } else if (event.ctrlKey && event.key === "a") {
+      return;
+    }
+    event.preventDefault();
+  };
+
   return (
     <QuantitySelectorRoot>
       <button type="button" onClick={() => handleButtonClick(-1)}>
         -
       </button>
-      <input type="text" value={currentValue} onChange={handleChange} />
+      <input
+        type="text"
+        value={currentValue}
+        onChange={handleChange}
+        onKeyDown={filterKeyPresses}
+      />
       <button type="button" onClick={() => handleButtonClick(1)}>
         +
       </button>
