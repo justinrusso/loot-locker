@@ -75,6 +75,7 @@ const Results = () => {
         dispatch(getItems({categoryId, searchKey})).then(() => setIsLoaded(true));
     }, [dispatch, categoryId, searchKey])
 
+    const categories = useSelector(state => state.categories);
     const results = useSelector(state => state.items.entities.items);
 
     return (
