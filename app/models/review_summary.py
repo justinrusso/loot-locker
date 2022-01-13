@@ -9,6 +9,8 @@ class ReviewSummary(db.Model):
     num_of_reviews = db.Column(db.Integer, nullable=False)
     ratings_total = db.Column(db.Integer, nullable=False)
 
+    item = db.relationship('Item', back_populates='reviews')
+
     def to_dict(self):
         return {
             'count': self.num_of_reviews,
