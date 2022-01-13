@@ -1,6 +1,7 @@
 from flask import Blueprint, abort, request
 from app.models import Item, Category
-from sqlalchemy import or_
+from sqlalchemy import or_, desc, asc
+from sqlalchemy.sql.expression import func
 
 item_routes = Blueprint("items", __name__)
 
@@ -26,3 +27,17 @@ def item(item_id):
         return abort(404)
 
     return item.to_dict()
+
+
+@item_routes.route("/new")
+def new_items():
+    items = Item.query.order_by(desc(Item.created_at)).limit(5).all()
+
+    return {item.id:item.to_dict() for item in items}
+
+
+@item_routes.route("/picks")
+def pick_items():
+    items = Item.query.order_by(func.random()).limit(6).all()
+
+    return {item.id:item.to_dict() for item in items}

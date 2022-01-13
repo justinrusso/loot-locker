@@ -29,7 +29,7 @@
                     name: 'Some Item',
                     reviews: [1, 2],
                     seller: 1
-                }
+                },
             },
             reviews: {
                 1: {
