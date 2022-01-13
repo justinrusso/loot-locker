@@ -6,9 +6,6 @@ import AuthModalProvider from "./context/AuthModalProvider";
 import CartProvider from "./context/CartProvider";
 import NavBar from "./components/NavBar";
 import ItemPage from "./components/items/ItemPage";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/UsersList";
-import User from "./components/User";
 import HomePage from "./components/HomePage";
 import Results from "./components/search/Results";
 import { authenticate } from "./store/session";
@@ -35,12 +32,6 @@ function App() {
         <CartProvider>
           <NavBar />
           <Switch>
-            <ProtectedRoute path="/users" exact={true}>
-              <UsersList />
-            </ProtectedRoute>
-            <ProtectedRoute path="/users/:userId" exact={true}>
-              <User />
-            </ProtectedRoute>
             <Route path="/items/:itemId">
               <ItemPage />
             </Route>
