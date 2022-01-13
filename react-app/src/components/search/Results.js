@@ -62,6 +62,7 @@ const useQuery = () => {
 }
 
 const Results = () => {
+    const categories = useSelector(state => state.categories.categories);
 
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -75,7 +76,6 @@ const Results = () => {
         dispatch(getItems({categoryId, searchKey})).then(() => setIsLoaded(true));
     }, [dispatch, categoryId, searchKey])
 
-    const categories = useSelector(state => state.categories);
     const results = useSelector(state => state.items.entities.items);
 
     return (
@@ -87,7 +87,7 @@ const Results = () => {
                             <span id='search-header'>Results for "{searchKey}"</span>
                             :
                             <CategoryHeader>
-                                <h3>Category Name</h3>
+                                <h3>{categories[categoryId].name}</h3>
                             </CategoryHeader>
                         }
                         <span id='search-count'>{Object.values(results).length === 1 ?
