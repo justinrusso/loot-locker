@@ -1,11 +1,26 @@
 const theme = {
   color: "#000",
   backgroundColor: "#fff",
-  borderRadius: 6,
+  borderRadius: {
+    main: 6,
+    button: 24,
+  },
   divider: "rgba(0, 0, 0, 0.12)",
+  palette: {
+    primary: {
+      main: "#000",
+    },
+    text: {
+      base: "0, 0, 0",
+      primary: "#000",
+      secondary: "rgba(0, 0, 0, 0.6)",
+    },
+    error: "#d32f2f",
+  },
   transitions: {
     easing: {
       easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
+      easeOut: "cubic-bezier(0, 0, 0.2, 1)",
     },
   },
   // MUI elevation shadows
