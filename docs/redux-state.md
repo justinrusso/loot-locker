@@ -30,6 +30,12 @@
                     reviews: [1, 2],
                     seller: 1
                 },
+                5: {
+                    id: 5,
+                    name: 'Some Other Item',
+                    reviews: [],
+                    seller: 2
+                },
             },
             reviews: {
                 1: {
@@ -50,6 +56,8 @@
                     location: "somewhere"
                 }
             },
+            new: [5],
+            picks: [5],
         }
     },
     categories: {
