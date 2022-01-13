@@ -21,7 +21,7 @@ const Heading = styled.div`
 `;
 
 const InputsWrapper = styled.div`
-  gap: 8px;
+  gap: 12px;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
@@ -31,7 +31,7 @@ const InputsWrapper = styled.div`
 const PasswordInputsWrapper = styled.div`
   width: 100%;
   display: grid;
-  gap: 8px;
+  gap: 12px;
 
   @media (min-width: 600px) {
     grid-template-columns: repeat(2, 1fr);

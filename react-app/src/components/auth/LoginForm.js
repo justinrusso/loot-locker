@@ -21,7 +21,7 @@ const Heading = styled.div`
 `;
 
 const InputsWrapper = styled.div`
-  gap: 8px;
+  gap: 12px;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
