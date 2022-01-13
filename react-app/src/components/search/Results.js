@@ -77,7 +77,7 @@ const Results = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        setCategoryId(query.get("category"));
+        setCategoryId(query.get("category") ? query.get("category") : undefined);
     },[])
 
     useEffect(() => {
