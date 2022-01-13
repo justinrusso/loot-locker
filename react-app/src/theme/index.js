@@ -3,6 +3,7 @@ const theme = {
   backgroundColor: "#fff",
   borderRadius: {
     main: 6,
+    button: 24,
   },
   divider: "rgba(0, 0, 0, 0.12)",
   transitions: {

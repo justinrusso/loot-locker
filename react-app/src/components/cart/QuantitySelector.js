@@ -3,15 +3,44 @@ import debounce from "lodash.debounce";
 import styled from "styled-components";
 import { useEffect, useMemo, useState } from "react";
 
+import IconButton from "../common/IconButton";
+
 const maximumCharacters = 3;
 
 const QuantitySelectorRoot = styled.div`
   position: relative;
 
   input {
+    border: 2px solid #000;
+    border-radius: ${(props) => props.theme.borderRadius.button}px;
     box-sizing: content-box;
+    padding: 6px 4ch;
     text-align: center;
     width: ${maximumCharacters}ch;
+  }
+
+  .decrement,
+  .increment {
+    border-radius: ${(props) => props.theme.borderRadius.button}px;
+    box-sizing: content-box;
+    height: 100%;
+    padding: 0 2px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3ch;
+  }
+
+  .decrement {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    left: 0;
+  }
+
+  .increment {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    right: 0;
   }
 `;
 
@@ -108,9 +137,13 @@ const QuantitySelector = ({ onChange, value }) => {
 
   return (
     <QuantitySelectorRoot>
-      <button type="button" onClick={() => handleButtonClick(-1)}>
+      <IconButton
+        type="button"
+        className="decrement"
+        onClick={() => handleButtonClick(-1)}
+      >
         -
-      </button>
+      </IconButton>
       <input
         type="text"
         value={currentValue}
@@ -120,9 +153,13 @@ const QuantitySelector = ({ onChange, value }) => {
           handleUpDown(e);
         }}
       />
-      <button type="button" onClick={() => handleButtonClick(1)}>
+      <IconButton
+        type="button"
+        className="increment"
+        onClick={() => handleButtonClick(1)}
+      >
         +
-      </button>
+      </IconButton>
     </QuantitySelectorRoot>
   );
 };
