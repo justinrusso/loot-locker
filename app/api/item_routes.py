@@ -50,7 +50,22 @@ def delete_item(item_id):
         return { "itemId": item.id, "message": "Success" }
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-# edit an item via supplied 
+# edit an item via supplied object of fields we want to update and their new values
+@item_routes.route("/<int:item_id>", methods=["PUT"])
+@login_required
+def update_item(item_id):
+    item = Item.query.get(item_id)
+    new_item_info = request.json # {'name': 'new name hello', 'stock': 2}, etc
+
+    for k, v in new_item_info.items():
+        print("KEY", k, "VALUE", v)
+        setattr(item, k, v)
+
+    db.session.commit()
+    return {"item": item.to_dict(), "message": "Success"}
+
+
+
 
 @item_routes.route('/<int:item_id>/reviews', methods=['POST'])
 @login_required

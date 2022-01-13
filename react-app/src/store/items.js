@@ -127,7 +127,7 @@ const itemSlice = createSlice({
             state.entities.items[action.payload.id] = action.payload
         })
         builder.addCase(editItem.fulfilled, (state, action) => {
-            state.entities.items[action.payload.id] = action.payload;
+            state.entities.items[action.payload.item.id] = action.payload.item;
         });
         builder.addCase(deleteItem.fulfilled, (state, action) => {
             delete state.entities.items[action.payload.itemId];
