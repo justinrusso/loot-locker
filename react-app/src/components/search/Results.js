@@ -58,7 +58,7 @@ const Results = () => {
 
     let query = useQuery();
     const categoryId = query.get("category");
-    const searchKey = query.get("searchKey");
+    const searchKey = query.get("key");
 
     const dispatch = useDispatch()
 
@@ -73,7 +73,7 @@ const Results = () => {
             <Content>
                 {isLoaded &&
                     <>
-                        <span id='search-header'>Results for '{searchKey}'</span>
+                        {searchKey && <span id='search-header'>Results for "{searchKey}"</span>}
                         <span id='search-count'>{Object.values(results).length === 1 ?
                             '1 result' :
                             `${Object.values(results).length} results`
