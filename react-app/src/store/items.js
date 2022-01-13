@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+import { checkout } from "./cart-items";
+
 const initialState = { entities: { items: {} } }
 
 export const createItem = createAsyncThunk(
@@ -125,6 +127,15 @@ const itemSlice = createSlice({
         });
         builder.addCase(deleteItem.fulfilled, (state, action) => {
             delete state.entities.items[action.payload.itemId];
+        });
+
+        // Update the stock of all items in state that were purchased
+        builder.addCase(checkout.fulfilled, (state, action) => {
+            action.payload.purchasedItems.forEach(entry => {
+                if (state.entities.items[entry.itemId]) {
+                    state.entities.items[entry.itemId].stock -= entry.quantity;
+                }
+            })
         });
     },
 });
