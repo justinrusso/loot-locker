@@ -108,7 +108,6 @@ const LoginForm = ({ onSuccess, toSignUp }) => {
             id="password"
             onChange={(e) => setPassword(e.target.value)}
             inputProps={{
-              autoFocus: true,
               type: "text",
             }}
             required
