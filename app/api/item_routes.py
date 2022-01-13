@@ -46,7 +46,7 @@ def post_review(item_id):
         review = Review(
             user_id=current_user.id,
             item_id=item_id,
-            rating=int(form.data['rating']),
+            rating=form.data['rating'],
             comment=form.data['comment']
         )
         db.session.add(review)
@@ -54,10 +54,10 @@ def post_review(item_id):
         summary = ReviewSummary.query.get(item_id)
         if not summary:
             summary = ReviewSummary()
-            db.session.add(summary)
         summary.num_of_reviews += 1
-        summary.ratings_total += int(form.data['rating'])
+        summary.ratings_total += form.data['rating']
 
+        db.session.add(summary)
         db.session.commit()
         return review.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
