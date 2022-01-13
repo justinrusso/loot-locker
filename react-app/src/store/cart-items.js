@@ -57,6 +57,24 @@ export const removeCartItem = createAsyncThunk(
   }
 );
 
+export const checkout = createAsyncThunk(
+  "cartItems/checkout",
+  async (_args, thunkAPI) => {
+    const response = await fetch("/api/cart/checkout", {
+      method: "POST",
+    });
+
+    if (response.ok) {
+      return await response.json();
+    } else if (response.status < 500) {
+      const data = await response.json();
+      throw thunkAPI.rejectWithValue(data.errors);
+    } else {
+      throw thunkAPI.rejectWithValue(["An error occurred. Please try again."]);
+    }
+  }
+);
+
 const cartItemsAdapter = createEntityAdapter({
   selectId: (cartItem) => cartItem.item.id,
   sortComparer: (itemA, itemB) => {
@@ -79,6 +97,7 @@ const cartItemsSlice = createSlice({
     builder.addCase(removeCartItem.fulfilled, (state, action) => {
       cartItemsAdapter.removeOne(state, action.payload.id);
     });
+    builder.addCase(checkout.fulfilled, cartItemsAdapter.removeAll);
   },
 });
 
