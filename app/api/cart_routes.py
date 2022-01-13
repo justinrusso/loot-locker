@@ -36,6 +36,24 @@ def add_cart_item():
         return cart_item.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
+@cart_routes.route('/<int:item_id>', methods=['PATCH'])
+@login_required
+def update_cart_item_quantity(item_id):
+    form = CartItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    form['itemId'].data = item_id
+    if form.validate_on_submit():
+        cart_item = CartItem.query.filter(CartItem.user_id == current_user.id, CartItem.item_id == item_id).first()
+        
+        if not cart_item:
+            return {"errors": ['Could not find the cart item for the current user']}, 400
+
+        cart_item.quantity = form.data['quantity']
+        db.session.add(cart_item)
+        db.session.commit()
+        return cart_item.to_dict()
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
 @cart_routes.route('/<int:item_id>', methods=['DELETE'])
 @login_required
 def remove_cart_item(item_id):
