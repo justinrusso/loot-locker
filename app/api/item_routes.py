@@ -50,6 +50,8 @@ def delete_item(item_id):
         return { "itemId": item.id, "message": "Success" }
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
+# edit an item via supplied 
+
 @item_routes.route('/<int:item_id>/reviews', methods=['POST'])
 @login_required
 def post_review(item_id):

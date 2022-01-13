@@ -64,7 +64,7 @@ const StyledItemPageDiv = styled.div`
 
       .edit-item-div {
             height: 7vh;
-            background-color: grey;
+            // background-color: grey;
             display: flex;
             align-items: center;
 
@@ -94,7 +94,6 @@ const StyledItemPageDiv = styled.div`
             // background-color: grey;
             display: flex;
             position: relative;
-            margin-bottom: 2vh;
             font-size: xx-large;
 
             #item-name-span {
@@ -103,7 +102,7 @@ const StyledItemPageDiv = styled.div`
                   -webkit-box-orient: vertical;
                   overflow: hidden;
                   text-overflow: ellipsis;
-                  width: 70%;
+                  // width: 70%;
                   font-weight: normal;
                   padding-left: 0;
             }
@@ -114,6 +113,7 @@ const StyledItemPageDiv = styled.div`
                   // background-color: lime;
                   padding: 0;
                   height: 5vh;
+                  bottom: 1vh;
             }
 
             .edit {
@@ -156,6 +156,7 @@ const StyledItemPageDiv = styled.div`
             align-items: center;
             font-size: xx-large;
             font-weight: bolder;
+            margin-top: 2vh;
 
             .is-in-stock-span {
                   font-size: large;
@@ -446,6 +447,10 @@ const ItemPage = () => {
 
       const handleNewItemName = async () => {
             let newName = document.querySelector('#new-item-name').value
+            
+            // item is an obj of any of the fields we changed with their new value
+            // changing name in this instance
+            dispatch(editItem({ itemId: itemId, item: { name: newName } }))
             setShowEditName(false)
       }
 
@@ -518,7 +523,7 @@ const ItemPage = () => {
                         </button>}
                         <div id="item-seller">{item.seller.username}</div>
                         {!showEditName && <div id="item-name">
-                              <span id="item-name-span">Heart Container | +1 Heart hello hello hello hello hello hello hello hello hello hello hello hello</span>
+                              <span id="item-name-span">{item.name}</span>
                               {item.userId === user?.id && <div id="edit-icon-arrow-box-container">
                                     <img id="name-edit-button"
                                     onClick={() => setShowEditName(true)}

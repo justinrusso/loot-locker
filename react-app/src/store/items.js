@@ -67,15 +67,19 @@ export const getAnItem = createAsyncThunk(
     }
 )
 
+// edit an individual item by supplying the itemId and any item info
+// you updated
+// args looks like {itemId: 1, item: {name: "new name", stock: 3}} etc
+// make request to PUT /api/items/${itemId}
 export const editItem = createAsyncThunk(
     "items/editItem",
-    async (itemDetails, thunkAPI) => {
-        const response = await fetch("/api/items/", {
+    async (args, thunkAPI) => {
+        const response = await fetch(`/api/items/${args.itemId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(itemDetails),
+            body: JSON.stringify(args.item),
         });
         const data = await response.json();
         if (response.ok && !data.errors) {
