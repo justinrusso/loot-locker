@@ -76,6 +76,11 @@ const QuantitySelector = ({ onChange, value }) => {
   }, [value]);
 
   const updateValue = (newValue) => {
+    // Prevent value going below 1
+    if (isValidValue(newValue) && parseInt(newValue, 10) <= 0) {
+      return updateValue("1");
+    }
+
     setCurrentValue(newValue);
     if (isValidValue(newValue)) {
       debouncedOnChange(parseInt(newValue));
@@ -96,11 +101,6 @@ const QuantitySelector = ({ onChange, value }) => {
     }
     const parsedValue = parseInt(currentValue, 10);
     const newValue = parsedValue + modifier;
-
-    // Prevent value going below 1
-    if (newValue <= 0) {
-      return updateValue("1");
-    }
 
     let newValueStr = String(newValue);
     if (newValueStr.length > maximumCharacters) {
