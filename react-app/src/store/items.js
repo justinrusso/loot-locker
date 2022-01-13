@@ -67,8 +67,7 @@ export const getAnItem = createAsyncThunk(
     }
 )
 
-// edit an individual item by supplying the itemId and any item info
-// you updated
+// edit an individual item by supplying the itemId and any item info you updated
 // args looks like {itemId: 1, item: {name: "new name", stock: 3}} etc
 // make request to PUT /api/items/${itemId}
 export const editItem = createAsyncThunk(

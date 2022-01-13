@@ -86,7 +86,7 @@ const StyledItemPageDiv = styled.div`
       }
 
       #item-seller {
-            margin-bottom: 10vh;
+            margin-bottom: 6vh;
             font-size: x-large;
       }
 
@@ -183,7 +183,8 @@ const StyledItemPageDiv = styled.div`
       #item-stock {
             display: flex;
             align-items: center;
-            margin-top: 2vh;
+            margin-top: 1vh;
+            margin-bottom: 10vh;
             font-size: xx-large;
       }
 
@@ -254,7 +255,7 @@ const StyledItemPageDiv = styled.div`
       #description-button {
             display: flex;
             justify-content: space-between;
-            margin-top: 1vh;
+            margin-top: 2vh;
             padding-left: 10%;
             padding-right: 10%;
       }
@@ -271,7 +272,7 @@ const StyledItemPageDiv = styled.div`
 
       #item-description {
             line-height: 2;
-            margin-top: 2vh;
+            margin-top: 1vh;
             overflow: hidden;
             height: 20vh;
       }
@@ -392,13 +393,7 @@ const ItemPage = () => {
             rating: 5,
             comment:
             `
-            Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one
-            Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda Zelda
-            Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda
-            Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda Zelda
-            Zelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda Zelda
-            Zelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda Zelda
-            Zelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda ZeldaZelda Zelda Zelda
+            Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one.
             `,
             created_at: "2021-09-08 19:24:00"
       }
@@ -406,9 +401,9 @@ const ItemPage = () => {
       const testDate = new Date(testReview.created_at)
 
       const renderStarRating = (rating) => {
+            // TODO: add support for half star ratings, can probably just adjust this logic
             let content = []
             let key = 5
-            // breaks when rating = 1
             for (let i = 0; i < rating; i++) {
                   content.push(<img key={i} className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>)
             }
@@ -429,6 +424,9 @@ const ItemPage = () => {
 
       const [showDescription, setShowDescription] = useState(true)
       const [showEditName, setShowEditName] = useState(false)
+      const [showEditPrice, setShowEditPrice] = useState(false)
+      const [showEditStock, setShowEditStock] = useState(false)
+      const [showEditImg, setShowEditImg] = useState(false)
 
       const handleSetShowDescription = () => {
             setShowDescription(!showDescription)
@@ -447,7 +445,7 @@ const ItemPage = () => {
 
       const handleNewItemName = async () => {
             let newName = document.querySelector('#new-item-name').value
-            
+
             // item is an obj of any of the fields we changed with their new value
             // changing name in this instance
             dispatch(editItem({ itemId: itemId, item: { name: newName } }))
@@ -474,6 +472,10 @@ const ItemPage = () => {
                         </div>
                         <StyledReviewsSectionDiv>
                               <div id="reviews-div">
+                                    {/* currently just rendering 5 stars all the time for the average item review that goes here
+                                          TODO: connect this with the item reviews summary to figure out how many stars to render dynamically
+                                          perhaps connect it to the existing "renderStarRating" function once you know the avg rating
+                                    */}
                                     <span id="reviews-amt">50 shop reviews</span>
                                     <div id="reviews-stars-div">
                                           <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
@@ -484,7 +486,12 @@ const ItemPage = () => {
                                     </div>
                               </div>
                         </StyledReviewsSectionDiv>
-                        {/* test review cards */}
+                        {/* test review cards
+                              TODO: remove these & render everything between StyledReviewCard tags for each review,
+                              perhaps using a map and adding a key
+                              can optionally make the stuff between these tags a separate component for readability, would need to moved its styled-component
+                              rules as well
+                        */}
                         <StyledReviewCard>
                               <div className="review-user-and-date">
                                     <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
@@ -538,9 +545,8 @@ const ItemPage = () => {
                                     <input id="new-item-name" placeholder="Give your item a new name"></input>
                               </form>
                               <img className="edit-button" onClick={handleNewItemName} src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
-                        </div>
-}
-                        <div id="item-price">
+                        </div>}
+                        {true && <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
                               {item.userId === user?.id && <>
@@ -552,7 +558,16 @@ const ItemPage = () => {
 
                               {item.stock > 0 && <span className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
-                        </div>
+                        </div>}
+                        {/* setting up replacing other fields with a form input to supply new info
+                              IGNORE below for now
+                        */}
+                        {/* {false && <div className="edit-item-div">
+                              <form>
+                                    <input></input>
+                                    <img></img>
+                              </form>
+                        </div>} */}
                         {item.userId === user?.id && <div id="item-stock">
                               <span id="stock-span">Stock: {item.stock}</span>
                               <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>

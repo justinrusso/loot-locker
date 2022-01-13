@@ -2,7 +2,7 @@ from flask import Blueprint, abort, request
 from flask_login import current_user, login_required
 from app.models import Item, Category, User, db, Review
 from sqlalchemy import or_
-from app.forms import DeleteItemForm, ReviewForm, validation_errors_to_error_messages
+from app.forms import DeleteItemForm, EditItemForm, ReviewForm, validation_errors_to_error_messages
 
 
 item_routes = Blueprint("items", __name__)
@@ -54,15 +54,21 @@ def delete_item(item_id):
 @item_routes.route("/<int:item_id>", methods=["PUT"])
 @login_required
 def update_item(item_id):
-    item = Item.query.get(item_id)
-    new_item_info = request.json # {'name': 'new name hello', 'stock': 2}, etc
+    form = EditItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    for k, v in new_item_info.items():
-        print("KEY", k, "VALUE", v)
-        setattr(item, k, v)
+    if form.validate_on_submit():
+        item = Item.query.get(item_id)
+        new_item_info = request.json # {'name': 'new name hello', 'stock': 2}, etc
 
-    db.session.commit()
-    return {"item": item.to_dict(), "message": "Success"}
+        for k, v in new_item_info.items():
+            print("KEY", k, "VALUE", v)
+            setattr(item, k, v)
+
+        db.session.commit()
+        return {"item": item.to_dict(), "message": "Success"}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
 
 
 
