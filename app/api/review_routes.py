@@ -19,7 +19,7 @@ def update_review(review_id):
 
         summary.ratings_total -= review.rating
 
-        review.rating = form.data['rating']
+        review.rating = int(form.data['rating'])
         review.comment = form.data['comment']
 
         summary.ratings_total += review.rating
