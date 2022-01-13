@@ -18,6 +18,28 @@ const containedButtonStyles = css`
   }
 `;
 
+const outlinedButtonStyles = css`
+  &:before {
+    box-shadow: 0 4px 20px rgb(0, 0, 0, 0.15);
+    opacity: 0;
+  }
+
+  &:after {
+    border: 2px solid #000;
+  }
+
+  &:not(:disabled):hover {
+    &:before,
+    &:after {
+      transform: scaleX(1.015) scaleY(1.035);
+    }
+
+    &:before {
+      opacity: 1;
+    }
+  }
+`;
+
 const textButtonStyles = css`
   &:after {
     transform: scaleX(0.7) scaleY(0.7);
@@ -53,10 +75,12 @@ const Button = styled.button`
     height: 100%;
     z-index: -1;
     transition: transform 200ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
-      background 150ms ease-out, box-shadow 200ms ease-out;
+      background 150ms ease-out, box-shadow 200ms ease-out,
+      opacity 150ms ease-out;
   }
 
   ${(props) => props.variant === "contained" && containedButtonStyles}
+  ${(props) => props.variant === "outlined" && outlinedButtonStyles}
   ${(props) => props.variant === "text" && textButtonStyles}
 `;
 
