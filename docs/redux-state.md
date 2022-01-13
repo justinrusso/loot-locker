@@ -56,7 +56,7 @@
                     location: "somewhere"
                 }
             },
-            new: [5],
+            new: [4],
             picks: [5],
         }
     },
