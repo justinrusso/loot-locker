@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { checkout } from "./cart-items";
 
 const initialState = { entities: { items: {}, new: [], picks: [] } }
 
@@ -100,15 +101,9 @@ export const editItem = createAsyncThunk(
 
 export const deleteItem = createAsyncThunk(
     "items/deleteItem",
-    async ({ itemId }, thunkAPI) => {
-        const response = await fetch("/api/items/", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                itemId
-            }),
+    async (itemId, thunkAPI) => {
+        const response = await fetch(`/api/items/${itemId}`, {
+            method: "DELETE"
         });
         const data = await response.json();
         if (response.ok && !data.errors) {
@@ -151,7 +146,16 @@ const itemSlice = createSlice({
             state.entities.items[action.payload.id] = action.payload;
         });
         builder.addCase(deleteItem.fulfilled, (state, action) => {
-            delete state.entities.items[action.payload.id];
+            delete state.entities.items[action.payload.itemId];
+        });
+
+        // Update the stock of all items in state that were purchased
+        builder.addCase(checkout.fulfilled, (state, action) => {
+            action.payload.purchasedItems.forEach(entry => {
+                if (state.entities.items[entry.itemId]) {
+                    state.entities.items[entry.itemId].stock -= entry.quantity;
+                }
+            })
         });
     },
 });
