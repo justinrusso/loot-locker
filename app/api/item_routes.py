@@ -30,11 +30,6 @@ def item(item_id):
     return item.to_dict()
 
 
-@item_routes.route('/<int:item_id>/reviews', methods=['GET'])
-def get_reviews(item_id):
-    reviews = Item.query.get(item_id).reviews
-    return {'reviews': [review.to_dict() for review in reviews]}
-
 # delete an item via supplied user_id from session
 # if does not match userId of item to delete, do not allow
 
@@ -55,6 +50,12 @@ def delete_item(item_id):
         db.session.commit()
         return {"itemId": item.id, "message": "Success"}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+@item_routes.route('/<int:item_id>/reviews', methods=['GET'])
+def get_reviews(item_id):
+    reviews = Item.query.get(item_id).reviews
+    return {'reviews': [review.to_dict() for review in reviews]}
 
 
 @item_routes.route('/<int:item_id>/reviews', methods=['POST'])
