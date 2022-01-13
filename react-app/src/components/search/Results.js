@@ -5,6 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../store/items'
 import ResultCard from './ResultCard'
 
+const CategoryHeader = styled.div`
+    width: 100vw;
+    height: 150px;
+    background-color: #faecd5;
+    padding-left: 10%;
+    padding-top: 30px;
+    font-size: 30px;
+`
+
 const Container = styled.div`
     width: 100%;
     display: flex;
@@ -73,7 +82,13 @@ const Results = () => {
             <Content>
                 {isLoaded &&
                     <>
-                        {searchKey && <span id='search-header'>Results for "{searchKey}"</span>}
+                        {searchKey ?
+                            <span id='search-header'>Results for "{searchKey}"</span>
+                            :
+                            <CategoryHeader>
+                                <h3>Category Name</h3>
+                            </CategoryHeader>
+                        }
                         <span id='search-count'>{Object.values(results).length === 1 ?
                             '1 result' :
                             `${Object.values(results).length} results`

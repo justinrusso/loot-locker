@@ -49,7 +49,13 @@
                     username: "some seller",
                     location: "somewhere"
                 }
-            }
+            },
+        }
+    },
+    categories: {
+        1: {
+            id: 1,
+            name: 'some category',
         }
     }
 }
