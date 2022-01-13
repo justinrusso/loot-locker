@@ -29,15 +29,18 @@ def item(item_id):
     return item.to_dict()
 
 
-@item_routes.route("/new")
+@item_routes.route("/homepage")
 def new_items():
-    items = Item.query.order_by(desc(Item.created_at)).limit(5).all()
+    new_item_count = 5
+    new_items = Item.query.order_by(desc(Item.created_at)).limit(new_item_count).all()
+    new_ids=[item.id for item in new_items]
 
-    return {item.id:item.to_dict() for item in items}
+    picked_item_count = 6
+    picked_items = Item.query.order_by(func.random()).limit(picked_item_count).all()
+    picked_ids=[item.id for item in picked_items]
 
-
-@item_routes.route("/picks")
-def pick_items():
-    items = Item.query.order_by(func.random()).limit(6).all()
-
-    return {item.id:item.to_dict() for item in items}
+    return {
+        "items": [item.to_dict() for item in (new_items + picked_items)],
+        "new": new_ids,
+        "picks": picked_ids
+    }
