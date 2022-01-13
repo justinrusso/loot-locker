@@ -1,5 +1,5 @@
 from flask import Blueprint, abort, request
-from app.models import db, Item, Category, Review
+from app.models import db, Item, Category, Review, ReviewSummary
 from app.forms import ReviewForm, validation_errors_to_error_messages
 from flask_login import current_user, login_required
 
@@ -42,13 +42,22 @@ def post_review(item_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+
         review = Review(
             user_id=current_user.id,
             item_id=item_id,
-            rating=form.data['rating'],
+            rating=int(form.data['rating']),
             comment=form.data['comment']
         )
         db.session.add(review)
+
+        summary = ReviewSummary.query.get(item_id)
+        if not summary:
+            summary = ReviewSummary()
+            db.session.add(summary)
+        summary.num_of_reviews += 1
+        summary.ratings_total += int(form.data['rating'])
+
         db.session.commit()
         return review.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
