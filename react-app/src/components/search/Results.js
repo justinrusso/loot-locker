@@ -40,6 +40,10 @@ const Content = styled.div`
     }
 `
 
+const CategorySelect = styled.select`
+
+`
+
 const Grid = styled.ul`
     display: grid;
     margin: 0px;
@@ -65,12 +69,16 @@ const Results = () => {
     const categories = useSelector(state => state.categories.categories);
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [categoryId, setCategoryId] = useState(undefined);
 
     let query = useQuery();
-    const categoryId = query.get("category");
     const searchKey = query.get("key");
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        setCategoryId(query.get("category"));
+    },[])
 
     useEffect(() => {
         dispatch(getItems({categoryId, searchKey})).then(() => setIsLoaded(true));
@@ -90,6 +98,14 @@ const Results = () => {
                 }
                 {isLoaded &&
                     <>
+                        {searchKey &&
+                            <CategorySelect value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                                <option value={undefined}>All Categories</option>
+                                {Object.values(categories).map(category => (
+                                    <option value={category.id} key={category.id}>{category.name}</option>
+                                ))}
+                            </CategorySelect>
+                        }
                         <span id='search-count'>{Object.values(results).length === 1 ?
                             '1 result' :
                             `${Object.values(results).length} results`
