@@ -112,7 +112,7 @@ function HomePage() {
                 <h1 id="header-1">{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
 
                 <div id="category-container">
-                    <Category categoryNum="1" name="Arms" source={false} />
+                    <Category categoryNum="1" name="Arms" source='https://images.mapletip.com/maplestory-monsters/01302020.png' />
                     <Category categoryNum="2" name="Armor" source={false} />
                     <Category categoryNum="3" name="Accessories" source={false} />
                     <Category categoryNum="4" name="Mounts" source={false} />

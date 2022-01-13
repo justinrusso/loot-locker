@@ -69,16 +69,12 @@ const Results = () => {
     const categories = useSelector(state => state.categories.categories);
 
     const [isLoaded, setIsLoaded] = useState(false);
-    const [categoryId, setCategoryId] = useState(undefined);
 
     let query = useQuery();
     const searchKey = query.get("key");
+    const [categoryId, setCategoryId] = useState(query.get("category") ? query.get("category") : undefined);
 
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        setCategoryId(query.get("category") ? query.get("category") : undefined);
-    },[])
 
     useEffect(() => {
         dispatch(getItems({categoryId, searchKey})).then(() => setIsLoaded(true));
