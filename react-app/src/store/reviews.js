@@ -4,7 +4,7 @@ const initialState = { entities: { reviews: {} } }
 
 export const createReview = createAsyncThunk(
     'reviews/createReview',
-    async (itemId, formDetails, thunkAPI) => {
+    async ({ itemId, formDetails }, thunkAPI) => {
         const response = await fetch(`/api/items/${itemId}/reviews`, {
             method: 'POST',
             headers: {
@@ -42,7 +42,7 @@ export const getReviews = createAsyncThunk(
 
 export const editReview = createAsyncThunk(
     'reviews/editReview',
-    async (reviewId, formDetails, thunkAPI) => {
+    async ({ reviewId, formDetails }, thunkAPI) => {
         const response = await fetch(`/api/reviews/${reviewId}`, {
             method: 'PUT',
             headers: {

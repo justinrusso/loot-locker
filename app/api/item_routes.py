@@ -64,11 +64,7 @@ def post_review(item_id):
 
     if form.validate_on_submit():
 
-        # Dummy values for testing purposes commented out
-
         review = Review(
-            # user_id=1,
-            # item_id=1,
             user_id=current_user.id,
             item_id=item_id,
             rating=int(form.data['rating']),
@@ -80,7 +76,6 @@ def post_review(item_id):
         if not summary:
             summary = ReviewSummary(
                 item_id=item_id, num_of_reviews=0, ratings_total=0)
-            # item_id=1, num_of_reviews=0, ratings_total=0)
         summary.num_of_reviews += 1
         summary.ratings_total += int(form.data['rating'])
 
