@@ -1,7 +1,9 @@
 from flask import Blueprint, abort, request
-from app.models import db, Item, Category, Review
 from app.forms import ReviewForm, validation_errors_to_error_messages
 from flask_login import current_user, login_required
+from app.models import Item, Category, User, db, Review
+from app.forms import DeleteItemForm, ReviewForm, validation_errors_to_error_messages
+
 
 item_routes = Blueprint("items", __name__)
 
@@ -33,6 +35,27 @@ def item(item_id):
 def get_reviews(item_id):
     reviews = Item.query.get(item_id).reviews
     return {'reviews': [review.to_dict() for review in reviews]}
+
+# delete an item via supplied user_id from session
+# if does not match userId of item to delete, do not allow
+
+
+@item_routes.route("/<int:item_id>", methods=["DELETE"])
+@login_required
+def delete_item(item_id):
+    form = DeleteItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        item = Item.query.get(item_id)
+
+        if item.user_id != current_user.id:
+            return abort(403, description="Unauthorized deletion")
+
+        db.session.delete(item)
+        db.session.commit()
+        return {"itemId": item.id, "message": "Success"}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
 @item_routes.route('/<int:item_id>/reviews', methods=['POST'])
