@@ -1,5 +1,5 @@
 from flask import Blueprint, abort, request
-from app.models import db, Item, Category
+from app.models import db, Item, Category, Review
 from app.forms import ReviewForm, validation_errors_to_error_messages
 from flask_login import current_user, login_required
 
@@ -27,6 +27,12 @@ def item(item_id):
         return abort(404)
 
     return item.to_dict()
+
+
+@item_routes.route('/<int:item_id>/reviews', methods=['GET'])
+def get_reviews(item_id):
+    reviews = Item.get(item_id).reviews
+    return {'reviews': [review.to_dict() for review in reviews]}
 
 
 @item_routes.route('/<int:item_id>/reviews', methods=['POST'])
