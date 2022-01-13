@@ -22,7 +22,9 @@ class Item(db.Model):
     category = db.relationship('Category', back_populates='items')
     seller = db.relationship('User', back_populates='items')
     review_data = db.relationship(
-        'ReviewSummary', back_populates='item', uselist=False)
+        'ReviewSummary', back_populates='item', uselist=False, cascade='all, delete')
+    reviews = db.relationship(
+        'Review', back_populates='item', cascade='all, delete')
 
     def to_dict(self):
         return {

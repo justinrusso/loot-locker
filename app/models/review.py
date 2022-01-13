@@ -16,6 +16,8 @@ class Review(db.Model):
         db.DateTime, server_default=func.now(), onupdate=func.now(), nullable=False
     )
 
+    item = db.relationship('Item', back_populates='reviews')
+
     def to_dict(self):
         return {
             "id": self.id,
