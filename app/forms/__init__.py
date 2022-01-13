@@ -1,6 +1,10 @@
 from .cart_item_form import CartItemForm
 from .login_form import LoginForm
 from .signup_form import SignUpForm
+from .review_form import ReviewForm
+from .review_delete_form import DeleteReviewForm
+from .delete_item_form import DeleteItemForm
+
 
 def validation_errors_to_error_messages(validation_errors):
     """
