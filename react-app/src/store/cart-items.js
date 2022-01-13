@@ -115,7 +115,7 @@ const cartItemsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCartItems.fulfilled, cartItemsAdapter.upsertMany);
-    builder.addCase(addCartItem.fulfilled, cartItemsAdapter.addOne);
+    builder.addCase(addCartItem.fulfilled, cartItemsAdapter.upsertOne);
     builder.addCase(
       changeCartItemQuantity.fulfilled,
       cartItemsAdapter.updateOne
