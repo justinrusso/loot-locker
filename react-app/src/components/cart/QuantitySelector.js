@@ -87,10 +87,23 @@ const QuantitySelector = ({ onChange, value }) => {
       return;
     } else if (event.ctrlKey && event.key === "a") {
       return;
-    } else if (/arrow(left|right)/i.test(event.key)) {
+    } else if (/arrow(left|right|up|down)/i.test(event.key)) {
       return;
     }
     event.preventDefault();
+  };
+
+  /**
+   * Checks if the keypress is an up or down and replicates the functionality
+   * of pressing the + or - buttons
+   * @param {React.KeyboardEvent<HTMLInputElement>} event
+   */
+  const handleUpDown = (event) => {
+    if (/arrowup/i.test(event.key)) {
+      handleButtonClick(1);
+    } else if (/arrowdown/i.test(event.key)) {
+      handleButtonClick(-1);
+    }
   };
 
   return (
@@ -102,7 +115,10 @@ const QuantitySelector = ({ onChange, value }) => {
         type="text"
         value={currentValue}
         onChange={handleChange}
-        onKeyDown={filterKeyPresses}
+        onKeyDown={(e) => {
+          filterKeyPresses(e);
+          handleUpDown(e);
+        }}
       />
       <button type="button" onClick={() => handleButtonClick(1)}>
         +
