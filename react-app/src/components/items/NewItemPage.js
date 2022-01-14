@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
+import Button from "../common/Button";
 import Container from "../common/Container";
 import InputField from "../common/InputField";
 import Paper from "../common/Paper";
 import { createItem } from "../../store/items";
-import { useHistory } from "react-router-dom";
-import Button from "../common/Button";
+import { selectSortedCategoriesArray } from "../../store/categories";
 
 const NewItemPageContainer = styled.div`
   padding: 24px 0;
@@ -44,6 +45,7 @@ const PreviewImage = styled.img`
 `;
 
 const NewItemPage = () => {
+  const categories = useSelector(selectSortedCategoriesArray());
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -120,7 +122,11 @@ const NewItemPage = () => {
               required
             >
               <option value="" />
-              {/* TODO: map over categories */}
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
             </InputField>
             <InputField
               fullWidth
