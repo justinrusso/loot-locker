@@ -8,6 +8,8 @@ import { getAnItem, deleteItem } from "../../store/items"
 import { selectUser } from "../../store/session";
 import { useAuthModal } from "../../context/AuthModalProvider";
 
+import ItemReviews from "./ItemReviews";
+
 const StyledItemPageDiv = styled.div`
       display: flex;
       padding-left: 10vw;
@@ -308,6 +310,8 @@ const ItemPage = () => {
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                               </button>}
                         </div>
+                        {/* Remove following line and corresponding import when merging with Andy's */}
+                        <ItemReviews itemId={itemId} user={user} reviewData={item.reviewData} />
                   </div>
                   <div id="item-info-container">
                         {item.userId === user.id && <button id="delete-item-button" onClick={handleDeleteItem}>

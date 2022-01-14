@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createView, deleteReview, editReview, getReviews } from '../../store/reviews'
+
 import styled from "styled-components"
 
 const StyledReviewsSectionDiv = styled.div`
@@ -72,7 +73,7 @@ const StyledReviewCard = styled.div`
     }
     `
 
-const ItemReviews = ({ itemId }) => {
+const ItemReviews = ({ itemId, user, reviewData }) => {
 
     const dispatch = useDispatch();
 
@@ -84,7 +85,7 @@ const ItemReviews = ({ itemId }) => {
         <>
             <StyledReviewsSectionDiv>
                 <div id="reviews-div">
-                    <span id="reviews-amt">50 shop reviews</span>
+                    <span id="reviews-amt">{reviewData.count === 1 ? '1 Review' : `${reviewData.count} Reviews`}</span>
                     <div id="reviews-stars-div">
                         <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
                         <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>

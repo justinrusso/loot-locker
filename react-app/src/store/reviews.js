@@ -91,7 +91,6 @@ const reviewSlice = createSlice({
         });
         builder.addCase(getReviews.fulfilled, (state, action) => {
             const reviews = {}
-            console.log(action.payload)
             action.payload.forEach((review) => {
                 reviews[review.id] = review
             });
