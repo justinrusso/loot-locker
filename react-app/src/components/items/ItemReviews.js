@@ -69,6 +69,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
             }
         }))
         setShowCreate(false)
+        setComment('')
     }
 
     const byCreated = (a, b) => {
@@ -105,7 +106,10 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             <span>{`${totalRating} Stars`}</span>
                         </>}
                     {!showCreate ? <button type='button' onClick={() => setShowCreate(true)}>Add a Review</button> :
-                        <button type='button' onClick={(() => setShowCreate(false))}>Cancel Review</button>}
+                        <button type='button' onClick={(() => {
+                            setShowCreate(false);
+                            setComment('');
+                        })}>Cancel Review</button>}
                 </div>
                 {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
                     <p>Rating</p>

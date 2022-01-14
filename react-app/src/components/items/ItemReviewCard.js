@@ -93,7 +93,7 @@ const ReviewCard = ({ review, user }) => {
                         {!showEdit ? <button type="button" onClick={() => setShowEdit(true)}>Edit</button> :
                             <button type="button" onClick={() => {
                                 setShowEdit(false);
-                                setComment(review.comment)
+                                setComment(review.comment);
                             }}>Cancel</button>
                         }
                         {!showDelete ? <button type="button" onClick={() => setShowDelete(true)}>Delete</button> :
