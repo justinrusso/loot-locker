@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createView, deleteReview, editReview, getReviews } from '../../store/reviews'
 
 import styled from "styled-components"
@@ -81,20 +81,38 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         dispatch(getReviews(itemId))
     }, [dispatch, itemId])
 
+    const reviews = Object.values(useSelector(state => state.reviews.entities.reviews))
+
     return (
         <>
             <StyledReviewsSectionDiv>
                 <div id="reviews-div">
-                    <span id="reviews-amt">{reviewData.count === 1 ? '1 Review' : `${reviewData.count} Reviews`}</span>
-                    <div id="reviews-stars-div">
-                        <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                        <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                        <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                        <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                        <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                    </div>
+                    {!reviewData.count ? <span id="reviews-amt">No Reviews Yet</span> :
+                        <>
+                            <span id="reviews-amt">{reviewData.count === 1 ? '1 Review' : `${reviewData.count} Reviews`}</span>
+                            <div id="reviews-stars-div">
+                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
+                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
+                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
+                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
+                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
+                            </div>
+                        </>}
                 </div>
             </StyledReviewsSectionDiv>
+            {reviews.map(review => {
+                return (
+                    <StyledReviewCard>
+                        <div className="review-user-and-date">
+                            <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png" alt=''></img>
+                            <span className="reviewer-name">{review.user}</span>
+                            <span className="review-post-date">{review.createdAt}</span>
+                        </div>
+                        <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
+                        <div className="review-comment">{testReview.comment}</div>
+                    </StyledReviewCard>
+                )
+            })}
         </>
     )
 }
