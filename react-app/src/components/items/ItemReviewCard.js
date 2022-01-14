@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { createReview, getReviews } from '../../store/reviews'
+import { deleteReview, editReview } from '../../store/reviews'
 
 import styled from "styled-components"
 
@@ -49,3 +49,29 @@ const StyledReviewCard = styled.div`
         padding: 0 1vw;
     }
     `
+
+
+const ReviewCard = ({ review, user }) => {
+    return (
+        <StyledReviewCard>
+            <div className="review-user-and-date">
+                <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png" alt=''></img>
+                <span className="reviewer-name">{review.user}</span>
+                <span className="review-post-date">{new Date(review.createdAt).toLocaleDateString(undefined, {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                })}</span>
+                {review.userId === user.id &&
+                    <span>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </span>}
+            </div>
+            <div className="review-star-rating">{`${review.rating} Stars`}</div>
+            <div className="review-comment">{review.comment}</div>
+        </StyledReviewCard>
+    )
+}
+
+export default ReviewCard

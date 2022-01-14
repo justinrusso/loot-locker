@@ -4,6 +4,8 @@ import { createReview, getReviews } from '../../store/reviews'
 
 import styled from "styled-components"
 
+import ReviewCard from "./ItemReviewCard";
+
 const StyledReviewsSectionDiv = styled.div`
     margin-top: 5vh;
     #reviews-div {
@@ -67,6 +69,8 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         return new Date(b.createdAt) - new Date(a.createdAt);
     }
 
+    const totalRating = useSelector(state => state.reviews.entities.totalRating)
+
     const reviews = Object.values(useSelector(state => state.reviews.entities.reviews)).sort(byCreated)
     const userReviews = [];
     const otherReviews = [];
@@ -84,7 +88,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                 <div id="reviews-div">
                     {!reviewData.count ? <span id="reviews-amt">No Reviews Yet</span> :
                         <>
-                            <span id="reviews-amt">{reviewData.count === 1 ? '1 Review' : `${reviewData.count} Reviews`}</span>
+                            <span id="reviews-amt">{reviews.length === 1 ? '1 Review' : `${reviews.length} Reviews`}</span>
                             {/* <div id="reviews-stars-div">
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
@@ -92,7 +96,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
                             </div> */}
-                            <span>{`${reviewData.rating} Stars`}</span>
+                            <span>{`${totalRating} Stars`}</span>
                         </>}
                     {!showCreate ? <button type='button' onClick={() => setShowCreate(true)}>Add a Review</button> :
                         <button type='button' onClick={(() => setShowCreate(false))}>Cancel Review</button>}
@@ -122,25 +126,22 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     <button type='submit'>Submit</button>
                 </form>}
             </StyledReviewsSectionDiv>
-            {
-                otherReviews.map((review, idx) => {
-                    return (
-                        <StyledReviewCard key={idx}>
-                            <div className="review-user-and-date">
-                                <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png" alt=''></img>
-                                <span className="reviewer-name">{review.user}</span>
-                                <span className="review-post-date">{new Date(review.createdAt).toLocaleDateString(undefined, {
-                                    month: 'long',
-                                    day: 'numeric',
-                                    year: 'numeric'
-                                })}</span>
-                            </div>
-                            <div className="review-star-rating">{`${review.rating} Stars`}</div>
-                            <div className="review-comment">{review.comment}</div>
-                        </StyledReviewCard>
-                    )
-                })
-            }
+            <div>
+                <span>Your Reviews</span>
+                {
+                    userReviews.map((review, idx) => {
+                        return <ReviewCard key={idx} review={review} user={user} />
+                    })
+                }
+            </div>
+            <div>
+                <span>Reviews</span>
+                {
+                    otherReviews.map((review, idx) => {
+                        return <ReviewCard key={idx} review={review} user={user} />
+                    })
+                }
+            </div>
         </>
     )
 }
