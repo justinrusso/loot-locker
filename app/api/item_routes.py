@@ -51,19 +51,38 @@ def delete_item(item_id):
         return {"itemId": item.id, "message": "Success"}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
+
+
+
+
 # edit an item via supplied object of fields we want to update and their new values
 @item_routes.route("/<int:item_id>", methods=["PUT"])
 @login_required
 def update_item(item_id):
+    new_item_info = request.json # {'name': 'new name hello', 'stock': 2}, etc
+    new_item_info_items = new_item_info.items()
+
     form = EditItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    # since we are not including the whole new Item object when we update, only the new field(s)
+    def optionalAttributes(obj, checkAttr):
+        if checkAttr in obj.keys():
+            form[checkAttr].data = obj[checkAttr]
+        else:
+            form[checkAttr].data = None
+
+    optionalAttributes(new_item_info, 'name')
+    optionalAttributes(new_item_info, 'description')
+    optionalAttributes(new_item_info, 'image')
+    optionalAttributes(new_item_info, 'price')
+    optionalAttributes(new_item_info, 'stock')
+
+
     if form.validate_on_submit():
         item = Item.query.get(item_id)
-        new_item_info = request.json # {'name': 'new name hello', 'stock': 2}, etc
 
         for k, v in new_item_info.items():
-            print("KEY", k, "VALUE", v)
             setattr(item, k, v)
 
         db.session.commit()

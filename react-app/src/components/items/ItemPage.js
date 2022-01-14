@@ -448,7 +448,7 @@ const ItemPage = () => {
 
             // item is an obj of any of the fields we changed with their new value
             // changing name in this instance
-            dispatch(editItem({ itemId: itemId, item: { name: newName } }))
+            dispatch(editItem({ itemId: itemId, item: { image: newName } }))
             setShowEditName(false)
       }
 
