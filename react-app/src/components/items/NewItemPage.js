@@ -5,6 +5,9 @@ import { useDispatch } from "react-redux";
 import Container from "../common/Container";
 import InputField from "../common/InputField";
 import Paper from "../common/Paper";
+import { createItem } from "../../store/items";
+import { useHistory } from "react-router-dom";
+import Button from "../common/Button";
 
 const NewItemPageContainer = styled.div`
   padding: 24px 0;
@@ -42,6 +45,7 @@ const PreviewImage = styled.img`
 
 const NewItemPage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -53,7 +57,18 @@ const NewItemPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // TODO: Dispatch thunk action
+    dispatch(
+      createItem({
+        name,
+        description,
+        image: imageSrc,
+        price,
+        stock,
+        categoryId,
+      })
+    )
+      .unwrap()
+      .then((newItem) => history.push(`/items/${newItem.id}`));
   };
 
   return (
@@ -152,6 +167,8 @@ const NewItemPage = () => {
               }}
               required
             />
+
+            <Button type="submit">Publish New Listing</Button>
           </Paper>
         </NewItemForm>
       </NewItemPageContainer>
