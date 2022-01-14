@@ -34,11 +34,7 @@ export const createReview = createAsyncThunk(
 export const getReviews = createAsyncThunk(
     'reviews/getReviews',
     async (itemId, thunkAPI) => {
-        const response = await fetch(`/api/items/${itemId}/reviews`, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const response = await fetch(`/api/items/${itemId}/reviews`);
         const data = await response.json();
         if (response.ok) {
             return data.reviews;
@@ -73,11 +69,8 @@ export const deleteReview = createAsyncThunk(
     'reviews/deleteReview',
     async (reviewId, thunkAPI) => {
         const response = await fetch(`/api/reviews/${reviewId}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+            method: 'DELETE'
+        });
         const data = await response.json();
         if (response.ok) {
             return data;

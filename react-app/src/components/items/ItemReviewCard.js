@@ -73,6 +73,11 @@ const ReviewCard = ({ review, user }) => {
         setShowEdit(false)
     }
 
+    const deleteSubmit = (e) => {
+        e.preventDefault();
+        dispatch(deleteReview(review.id))
+    }
+
     return (
         <StyledReviewCard>
             <div className="review-user-and-date">
@@ -94,7 +99,9 @@ const ReviewCard = ({ review, user }) => {
                         {!showDelete ? <button type="button" onClick={() => setShowDelete(true)}>Delete</button> :
                             <>
                                 <button type="button" onClick={() => setShowDelete(false)}>Cancel</button>
-                                <button type="button" >Confirm</button>
+                                <form onSubmit={deleteSubmit}>
+                                    <button type="submit">Confirm</button>
+                                </form>
                             </>
                         }
                     </span>}

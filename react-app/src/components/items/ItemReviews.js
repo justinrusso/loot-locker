@@ -132,14 +132,14 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     <button type='submit'>Submit</button>
                 </form>}
             </StyledReviewsSectionDiv>
-            <div>
+            {userReviews.length > 0 && <div>
                 <ReviewsTitle>Your Reviews</ReviewsTitle>
                 {
                     userReviews.map((review, idx) => {
-                        return <ReviewCard key={idx} review={review} user={user} setRating={setRating} setComment={setComment} />
+                        return <ReviewCard key={idx} review={review} user={user} />
                     })
                 }
-            </div>
+            </div>}
             <div>
                 <ReviewsTitle>Reviews</ReviewsTitle>
                 {
