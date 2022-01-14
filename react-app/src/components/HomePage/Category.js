@@ -56,16 +56,16 @@ const CategoryBlock = styled.div`
         }
     `
 
-function Category({ path, name, source }) {
+function Category({ categoryNum, name, source }) {
 
     return (
         <CategoryBlock>
-            <Link href={path}>
+            <Link to={`search?category=${categoryNum}`}>
                 <div className="img-wrapper">
                     <img src={source} className="circle"/>
                 </div>
             </Link>
-            <Link href={path} className="category-name">{name}</Link>
+            <Link to={`search?category=${categoryNum}`} className="category-name">{name}</Link>
         </CategoryBlock>
     )
 }

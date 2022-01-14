@@ -8,7 +8,7 @@ const CartButton = ({ className }) => {
   return (
     <>
       <IconButton className={className} onClick={cart.show}>
-        <i class="fas fa-shopping-cart" id="cart-icon"></i>
+        <i className="fas fa-shopping-cart" id="cart-icon" />
       </IconButton>
       <CartDrawer />
     </>

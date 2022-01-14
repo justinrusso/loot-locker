@@ -29,7 +29,13 @@
                     name: 'Some Item',
                     reviews: [1, 2],
                     seller: 1
-                }
+                },
+                5: {
+                    id: 5,
+                    name: 'Some Other Item',
+                    reviews: [],
+                    seller: 2
+                },
             },
             reviews: {
                 1: {
@@ -49,7 +55,15 @@
                     username: "some seller",
                     location: "somewhere"
                 }
-            }
+            },
+        },
+        new: [4],
+        picks: [5],
+    },
+    categories: {
+        1: {
+            id: 1,
+            name: 'some category',
         }
     }
 }
