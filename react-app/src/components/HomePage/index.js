@@ -1,14 +1,15 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Category from "./Category";
 import styled from "styled-components";
+import { getHomepageItems } from "../../store/items";
+import NewItem from "./NewItem";
 
 const HomeStyling = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-tems: center;
+    align-items: center;
     width: 100%;
 
     #home-top {
@@ -83,66 +84,74 @@ const HomeStyling = styled.div`
     }
 `
 
+const Content = styled.div`
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
+const NewContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    #header {
+        width: 100%;
+        text-align: left;
+        padding-left: 30px;
+    }
+`
+
 function HomePage() {
 
-    function randomize(arr) {
-        const arrCopy = arr.slice(0);
-        let currIndex = arr.length;
+    const [isLoaded, setIsLoaded] = useState(false);
 
-        while (currIndex > 0) {
-          let randIndex = Math.floor(Math.random() * currIndex);
-          currIndex--;
-
-          [arrCopy[currIndex], arrCopy[randIndex]] = [arrCopy[randIndex], arrCopy[currIndex]];
-        }
-        return arrCopy;
-    }
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getHomepageItems()).then(() => setIsLoaded(true))
+    }, [dispatch])
 
     const user = useSelector((state) => state.session.user)
-    const items = useSelector((state) => Object.values(state.items.entities.items))
-
-    const newItems = useMemo(() => items.sort((a,b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0,6), [items]);
-    const randItems = useMemo(() => randomize(items).slice(0,7), [items]);
-
-
+    const items = useSelector((state) => state.items.entities.items)
+    const newIds = useSelector((state) => state.items.new);
+    const pickedIds = useSelector((state) => state.items.picks);
 
     return (
         <HomeStyling>
             <div id="home-top">
-                <h1 id="header-1">{user != undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
+                <h1 id="header-1">{user ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
 
                 <div id="category-container">
-                    <Category path="/category/1" name="Arms" source={false} />
-                    <Category path="/category/2" name="Armor" source={false} />
-                    <Category path="/category/3" name="Accessories" source={false} />
-                    <Category path="/category/4" name="Mounts" source={false} />
-                    <Category path="/category/5" name="Consumables" source={false}/>
+                    <Category categoryNum="1" name="Arms" source='https://images.mapletip.com/maplestory-monsters/01302020.png' />
+                    <Category categoryNum="2" name="Armor" source={false} />
+                    <Category categoryNum="3" name="Accessories" source={false} />
+                    <Category categoryNum="4" name="Mounts" source={false} />
+                    <Category categoryNum="5" name="Consumables" source={false}/>
                 </div>
             </div>
 
 
-            <div>
-                <p className="section-title">New!</p>
-                {/* NOTE: SORT ITEMS BY DATE ADDED */}
-                {newItems.map(item => (
-                    <Link to={`items/${item.id}`}>
-                        <div>
-                            <img src={item.image} alt="item image" key={item.id} />
-                        </div>
-                    </Link>
-                ))}
-            </div>
+            {isLoaded &&
+                <Content>
+                    <NewContainer>
+                        <p className="section-title" id="header">New!</p>
+                        {newIds.map(id => (
+                            <NewItem item={items[id]} key={`n:${id}}`}/>
+                        ))}
+                    </NewContainer>
 
-            <div>
-                <p className="section-title">Editors' Picks</p>
-                {randItems.map(item => (
-                    <Link to={`items/${item.id}`}>
-                        <div>
-                            <img src={item.image} alt="item image" key={item.id} />
-                        </div>
-                    </Link>
-                ))}
-            </div>
+                    <div>
+                        {/* NOTE: CREATE NEW COMPONENT FOR PICKED ITEM */}
+                        <p className="section-title">Editors' Picks</p>
+                        {pickedIds.map(id => (
+                            <NewItem item={items[id]} key={`p:${id}}`} />
+                        ))}
+                    </div>
+                </Content>
+            }
 
 
             <div id="about">
