@@ -83,6 +83,13 @@ const NewContainer = styled.div`
     flex-wrap: wrap;
 `
 
+const PickedContainer = styled.div`
+    display: grid;
+    margin: 0px;
+    padding: 0px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+`
+
 const AboutSection = styled.div`
     background-color: #faecd5;
     display: flex;
@@ -139,17 +146,14 @@ function HomePage() {
                             ))}
                     </NewContainer>
 
-                    <div>
-                        {/* NOTE: CREATE NEW COMPONENT FOR PICKED ITEM */}
+                    <PickedContainer>
                         <p className="section-title">Editors' Picks</p>
                         {pickedIds.map(id => (
                             <PickedItem item={items[id]} key={`p:${id}}`} />
                         ))}
-                    </div>
+                    </PickedContainer>
                 </Content>
-
             }
-
 
             <AboutSection>
                 <h2>What is Loot Locker?</h2>
