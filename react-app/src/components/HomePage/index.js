@@ -115,12 +115,12 @@ function HomePage() {
 
             {isLoaded &&
                 <>
-                    <div>
                         <p className="section-title">New!</p>
+                        <div id="new-item-container">
                         {newIds.map(id => (
                             <NewItem item={items[id]} key={`n:${id}}`}/>
                         ))}
-                    </div>
+                        </div>
 
                     <div>
                         {/* NOTE: CREATE NEW COMPONENT FOR PICKED ITEM */}
