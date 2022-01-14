@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { logout } from "../../store/session";
@@ -27,17 +28,22 @@ const ProfileDropdown = styled.ul`
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0px 1px 5px 1px grey;
+  z-index: 1000;
 
   .profile-dropdown-li {
-    cursor: pointer;
     padding: 10px 8px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid ${(props) => props.theme.divider};
+
+    a {
+      color: currentcolor;
+    }
   }
 
-  .profile-dropdown-li:hover {
+  .profile-dropdown-li:not(.profile-details):hover {
     background-color: lightgrey;
+    cursor: pointer;
   }
 
   .dropdown-icon {
@@ -79,13 +85,14 @@ const ProfileButton = ({ user }) => {
       </ProfileIconButton>
       {showMenu && (
         <ProfileDropdown>
-          <li className="profile-dropdown-li">
-            <i className="far fa-user dropdown-icon" />
-            <span>{user.username}</span>
+          <li className="profile-dropdown-li profile-details">
+            <div>
+              <div>{user.username}</div>
+              <div>{user.email}</div>
+            </div>
           </li>
           <li className="profile-dropdown-li">
-            <i className="far fa-envelope dropdown-icon" />
-            <span>{user.email}</span>
+            <Link to="/items/new">Sell an item</Link>
           </li>
           <li className="profile-dropdown-li">
             <i className="fas fa-sign-out-alt dropdown-icon" />
