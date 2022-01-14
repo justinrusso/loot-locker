@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const BoxWrapper = styled.div`
-    a {
+const BoxWrapper = styled(Link)`
         text-decoration: none;
-    }
+        backgroud-color: white;
 `
 
 const ItemBox = styled.div`
@@ -19,10 +18,11 @@ const ItemBox = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
     transition: all 0.2s ease-in-out;
 
     &:hover {
-        filter: drop-shadow(0 0 8px rgba(0,0,0,0.3))
+        box-shadow: 0 0 8px rgba(0,0,0,0.3);
     }
 
     .price-tag {
@@ -39,14 +39,12 @@ const ItemBox = styled.div`
 
 function NewItem({ item }) {
     return (
-        <BoxWrapper>
-            <Link to={`/items/${item.id}`}>
-                <ItemBox image={item.image}>
-                    <div className="price-tag">
-                        <i className="fas fa-coins" id="coins-icon" /> {item.price}
-                    </div>
-                </ItemBox>
-            </Link>
+        <BoxWrapper to={`/items/${item.id}`}>
+            <ItemBox image={item.image}>
+                <div className="price-tag">
+                    <i className="fas fa-coins" id="coins-icon" /> {item.price}
+                </div>
+            </ItemBox>
         </BoxWrapper>
     )
 }

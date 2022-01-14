@@ -9,7 +9,7 @@ const HomeStyling = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-tems: center;
+    align-items: center;
     width: 100%;
 
     #home-top {
@@ -84,6 +84,27 @@ const HomeStyling = styled.div`
     }
 `
 
+const Content = styled.div`
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
+const NewContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    #header {
+        width: 100%;
+        text-align: left;
+        padding-left: 30px;
+    }
+`
+
 function HomePage() {
 
     const [isLoaded, setIsLoaded] = useState(false);
@@ -114,13 +135,13 @@ function HomePage() {
 
 
             {isLoaded &&
-                <>
-                        <p className="section-title">New!</p>
-                        <div id="new-item-container">
+                <Content>
+                    <NewContainer>
+                        <p className="section-title" id="header">New!</p>
                         {newIds.map(id => (
                             <NewItem item={items[id]} key={`n:${id}}`}/>
                         ))}
-                        </div>
+                    </NewContainer>
 
                     <div>
                         {/* NOTE: CREATE NEW COMPONENT FOR PICKED ITEM */}
@@ -129,7 +150,7 @@ function HomePage() {
                             <NewItem item={items[id]} key={`p:${id}}`} />
                         ))}
                     </div>
-                </>
+                </Content>
             }
 
 
