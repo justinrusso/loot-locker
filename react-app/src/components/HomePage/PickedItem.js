@@ -10,8 +10,8 @@ const ItemBox = styled.div`
     background-image: url(${props => props.image});
     background-size: cover;
     background-position: center;
-    height: 175px;
-    width: 250px;
+    height: 300px;
+    width: 300px;
     border-radius: 5px;
     margin: 20px;
     padding: 10px;
@@ -25,8 +25,8 @@ const ItemBox = styled.div`
         box-shadow: 0 0 8px rgba(0,0,0,0.3);
     }
 
-    .price-tag {
-        background-color: #D4E9D7;
+    .picked-price-tag {
+        background-color: white;
         color: black;
         font-weight: bold;
         border-radius: 25px;
@@ -37,11 +37,11 @@ const ItemBox = styled.div`
     }
 `
 
-function NewItem({ item }) {
+function PickedItem({ item }) {
     return (
         <BoxWrapper to={`/items/${item.id}`}>
             <ItemBox image={item.image}>
-                <div className="price-tag">
+                <div className="picked-price-tag">
                     <i className="fas fa-coins" id="coins-icon" /> {item.price}
                 </div>
             </ItemBox>
@@ -49,4 +49,4 @@ function NewItem({ item }) {
     )
 }
 
-export default NewItem;
+export default PickedItem;

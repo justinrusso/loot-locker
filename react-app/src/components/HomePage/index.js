@@ -4,6 +4,7 @@ import Category from "./Category";
 import styled from "styled-components";
 import { getHomepageItems } from "../../store/items";
 import NewItem from "./NewItem";
+import PickedItem from "./PickedItem";
 
 const HomeStyling = styled.div`
     display: flex;
@@ -80,13 +81,6 @@ const NewContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
-    #header {
-        width: 100%;
-        text-align: left;
-        padding-left: 30px;
-    }
-
 `
 
 const AboutSection = styled.div`
@@ -138,21 +132,22 @@ function HomePage() {
 
             {isLoaded &&
                 <Content>
+                    <div className="section-title" id="new">New!</div>
                     <NewContainer>
-                        <p className="section-title" id="header">New!</p>
-                        {newIds.map(id => (
-                            <NewItem item={items[id]} key={`n:${id}}`}/>
-                        ))}
+                            {newIds.map(id => (
+                                <NewItem item={items[id]} key={`n:${id}}`}/>
+                            ))}
                     </NewContainer>
 
                     <div>
                         {/* NOTE: CREATE NEW COMPONENT FOR PICKED ITEM */}
                         <p className="section-title">Editors' Picks</p>
                         {pickedIds.map(id => (
-                            <NewItem item={items[id]} key={`p:${id}}`} />
+                            <PickedItem item={items[id]} key={`p:${id}}`} />
                         ))}
                     </div>
                 </Content>
+
             }
 
 
