@@ -5,7 +5,9 @@ from sqlalchemy.sql.expression import func
 
 from app.models import db, Item, Review, ReviewSummary
 from flask_login import current_user, login_required
-from app.forms import DeleteItemForm, ReviewForm, validation_errors_to_error_messages
+from app.models import Item, Category, User, db, Review
+from sqlalchemy import or_
+from app.forms import DeleteItemForm, EditItemForm, ReviewForm, validation_errors_to_error_messages
 
 
 item_routes = Blueprint("items", __name__)
@@ -69,6 +71,45 @@ def delete_item(item_id):
         db.session.commit()
         return {"itemId": item.id, "message": "Success"}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+
+
+
+# edit an item via supplied object of fields we want to update and their new values
+@item_routes.route("/<int:item_id>", methods=["PUT"])
+@login_required
+def update_item(item_id):
+    new_item_info = request.json # {'name': 'new name hello', 'stock': 2}, etc
+    new_item_info_items = new_item_info.items()
+
+    form = EditItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    # since we are not including the whole new Item object when we update, only the new field(s)
+    def optional_attributes(obj, check_attr):
+        if check_attr in obj.keys():
+            form[check_attr].data = obj[check_attr]
+        else:
+            form[check_attr].data = None
+
+    optional_attributes(new_item_info, 'name')
+    optional_attributes(new_item_info, 'description')
+    optional_attributes(new_item_info, 'image')
+    optional_attributes(new_item_info, 'price')
+    optional_attributes(new_item_info, 'stock')
+
+
+    if form.validate_on_submit():
+        item = Item.query.get(item_id)
+
+        for k, v in new_item_info.items():
+            setattr(item, k, v)
+
+        db.session.commit()
+        return {"item": item.to_dict(), "message": "Success"}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
 
 
 @item_routes.route('/<int:item_id>/reviews', methods=['GET'])

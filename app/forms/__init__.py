@@ -4,6 +4,7 @@ from .signup_form import SignUpForm
 from .review_form import ReviewForm
 from .review_delete_form import DeleteReviewForm
 from .delete_item_form import DeleteItemForm
+from .edit_item_form import EditItemForm
 
 
 def validation_errors_to_error_messages(validation_errors):
