@@ -93,14 +93,20 @@ const NewItemPage = () => {
               }}
               required
             />
-            <select
+            <InputField
+              fullWidth
+              label="Category"
               value={categoryId}
+              id="item-description"
               onChange={(e) => setCategoryId(e.target.value)}
+              inputProps={{
+                as: "select",
+              }}
               required
             >
-              <option value="">Select a Category</option>
+              <option value="" />
               {/* TODO: map over categories */}
-            </select>
+            </InputField>
             <InputField
               fullWidth
               label="Description"
