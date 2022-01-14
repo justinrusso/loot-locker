@@ -66,17 +66,17 @@ def update_item(item_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     # since we are not including the whole new Item object when we update, only the new field(s)
-    def optionalAttributes(obj, checkAttr):
-        if checkAttr in obj.keys():
-            form[checkAttr].data = obj[checkAttr]
+    def optional_attributes(obj, check_attr):
+        if check_attr in obj.keys():
+            form[check_attr].data = obj[check_attr]
         else:
-            form[checkAttr].data = None
+            form[check_attr].data = None
 
-    optionalAttributes(new_item_info, 'name')
-    optionalAttributes(new_item_info, 'description')
-    optionalAttributes(new_item_info, 'image')
-    optionalAttributes(new_item_info, 'price')
-    optionalAttributes(new_item_info, 'stock')
+    optional_attributes(new_item_info, 'name')
+    optional_attributes(new_item_info, 'description')
+    optional_attributes(new_item_info, 'image')
+    optional_attributes(new_item_info, 'price')
+    optional_attributes(new_item_info, 'stock')
 
 
     if form.validate_on_submit():

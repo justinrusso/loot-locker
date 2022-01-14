@@ -151,6 +151,7 @@ const StyledItemPageDiv = styled.div`
       }
 
       #item-price {
+            // background-color: green;
             display: flex;
             position: relative;
             align-items: center;
@@ -178,6 +179,14 @@ const StyledItemPageDiv = styled.div`
 
       #coins-icon {
             margin-right: 0.5vw
+      }
+
+      #new-item-price {
+            width: 40%;
+      }
+
+      #edit-price {
+            // background-color: red;
       }
 
       #item-stock {
@@ -443,13 +452,29 @@ const ItemPage = () => {
             }))
       }
 
-      const handleNewItemName = async () => {
-            let newName = document.querySelector('#new-item-name').value
-
-            // item is an obj of any of the fields we changed with their new value
-            // changing name in this instance
-            dispatch(editItem({ itemId: itemId, item: { image: newName } }))
-            setShowEditName(false)
+      const handleEditItem = async (cssSelector, fieldName) => {
+            let newValue = document.querySelector(cssSelector).value
+            switch(fieldName) {
+                  case 'name':
+                        dispatch(editItem({ itemId: itemId, item: { name: newValue }}))
+                        setShowEditName(false)
+                        break
+                  case 'description':
+                        dispatch(editItem({ itemId, item: { description: newValue }}))
+                        break
+                  case 'image':
+                        dispatch(editItem({ itemId, item: { image: newValue }}))
+                        setShowEditImg(false)
+                        break
+                  case 'price':
+                        dispatch(editItem({ itemId, item: { price: newValue }}))
+                        setShowEditPrice(false)
+                        break
+                  case 'stock':
+                        dispatch(editItem({ itemId, item: { stock: newValue }}))
+                        setShowEditStock(false)
+                        break
+            }
       }
 
       const handleDeleteItem = async () => {
@@ -543,17 +568,20 @@ const ItemPage = () => {
                         {showEditName && <div className="edit-item-div">
                               <form onSubmit={e => {
                                     e.preventDefault()
-                                    handleNewItemName()
+                                    handleEditItem("#new-item-name", "name")
                                     }}>
                                     <input id="new-item-name" placeholder="Give your item a new name"></input>
                               </form>
-                              <img className="edit-button" onClick={handleNewItemName} src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
+                              <img className="edit-button" onClick={() => handleEditItem("#new-item-name", "name")} src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
                         </div>}
-                        {true && <div id="item-price">
+                        {!showEditPrice && <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
                               {item.userId === user?.id && <>
-                                    <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                                    <img className="edit-button"
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                    onClick={() => setShowEditPrice(true)}
+                                    ></img>
                                     <div className="arrow_box edit">
                                           <span>Edit price</span>
                                     </div>
@@ -562,19 +590,25 @@ const ItemPage = () => {
                               {item.stock > 0 && <span className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>}
-                        {/* setting up replacing other fields with a form input to supply new info
-                              IGNORE below for now
-                        */}
-                        {/* {false && <div className="edit-item-div">
-                              <form>
-                                    <input></input>
-                                    <img></img>
+                        {showEditPrice && <div className="edit-item-div" id="edit-price">
+                              <form onSubmit={(e) => {
+                                    e.preventDefault()
+                                    handleEditItem("#new-item-price", "price")
+                              }}>
+                                    <input id="new-item-price" placeholder="New price" ></input>
+                                    <img className="edit-button"
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                    onClick={() => handleEditItem("#new-item-price", "price")}
+                                    ></img>
                               </form>
-                        </div>} */}
-                        {item.userId === user?.id && <div id="item-stock">
+                              {item.stock > 0 && <span style={{fontWeight: 'normal'}} className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
+                              {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
+                        </div>}
+                        {!showEditStock && item.userId === user?.id && <div id="item-stock">
                               <span id="stock-span">Stock: {item.stock}</span>
                               <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                         </div>}
+                        {/* Continue quest here tomorrow */}
                         {user?.id !== item.seller.id && (
                               <button
                                     id="add-to-cart-button"
