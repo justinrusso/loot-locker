@@ -105,7 +105,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     <StyledReviewCard>
                         <div className="review-user-and-date">
                             <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png" alt=''></img>
-                            <span className="reviewer-name">{review.user.username}</span>
+                            <span className="reviewer-name">{review.user}</span>
                             <span className="review-post-date">{new Date(review.createdAt).toLocaleDateString(undefined, {
                                 month: 'long',
                                 day: 'numeric',
