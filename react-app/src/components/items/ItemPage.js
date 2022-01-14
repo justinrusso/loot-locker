@@ -497,7 +497,6 @@ const ItemPage = () => {
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>
                               </button>}
                         </div>
-                        {/* Remove following line and corresponding import when merging with Andy's */}
                         <ItemReviews itemId={itemId} user={user} reviewData={item.reviewData} />
                   </div>
                   <div id="item-info-container">
