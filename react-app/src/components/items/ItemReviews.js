@@ -95,7 +95,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                 <div id="reviews-div">
                     {!reviewData.count ? <span id="reviews-amt">No Reviews Yet</span> :
                         <>
-                            <span id="reviews-amt">{reviews.length === 1 ? '1 Review' : `${reviews.length} Reviews`}</span>
+                            <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
                             {/* <div id="reviews-stars-div">
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
