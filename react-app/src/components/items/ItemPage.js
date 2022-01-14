@@ -560,6 +560,9 @@ const ItemPage = () => {
                                     <img id="name-edit-button"
                                     onClick={() => setShowEditName(true)}
                                     src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                                    {/* TODO:
+                                          work on styling and positioning of the .arrow_box tags that display when hovering certain buttons
+                                    */}
                                     <div className="arrow_box edit">
                                           <span>Edit name</span>
                                     </div>
