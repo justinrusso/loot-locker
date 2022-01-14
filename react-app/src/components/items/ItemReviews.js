@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { createView, deleteReview, editReview, getReviews } from '../../store/reviews'
+import { createReview, getReviews } from '../../store/reviews'
 
 import styled from "styled-components"
 
@@ -25,51 +25,17 @@ const StyledReviewsSectionDiv = styled.div`
         height: 50%;
         padding: 0 1px;
         display: flex;
-    }`
-
-const StyledReviewCard = styled.div`
-    width: 100%;
-    margin-bottom: 6vh;
-    span {
-        font-size: x-large;
     }
-    .review-user-and-date {
-        display: flex;
-        align-items: center;
-        height: 5vh;
-        margin-bottom: 0.8vh;
+    #reviews-div > button {
+        margin-left: 1.5vw;
+        background-color: transparent;
+        border: none;
     }
-    .profile-icon {
-        height: 110%;
-        border: 1px solid black;
-        margin-right: 0.5vw;
-        padding: 5px;
-        border-radius: 50%;
+    #reviews-div > button:hover {
+        font-weight: bold;
     }
-    .review-post-date {
-        color: grey;
-        margin-left: 1vw;
-    }
-    .review-star-rating {
-        padding: 0 1vw;
-        display: flex;
-        align-items: center;
-        height: 5vh;
-    }
-    .star {
-        height: 50%;
-        padding: 0 1px;
-        display: flex;
-    }
-    .review-comment {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        // background-color: green;
-        font-size: large;
-        padding: 0 1vw;
+    #create-review-form {
+        margin-bottom: 4vh;
     }
     `
 
@@ -77,11 +43,40 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
 
     const dispatch = useDispatch();
 
+    const [showCreate, setShowCreate] = useState(false)
+    const [rating, setRating] = useState(0)
+    const [comment, setComment] = useState('')
+
     useEffect(() => {
         dispatch(getReviews(itemId))
     }, [dispatch, itemId])
 
-    const reviews = Object.values(useSelector(state => state.reviews.entities.reviews)).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const createSubmit = (e) => {
+        e.preventDefault();
+        dispatch(createReview({
+            itemId,
+            formDetails: {
+                rating,
+                comment,
+            }
+        }))
+        setShowCreate(false)
+    }
+
+    const byCreated = (a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+
+    const reviews = Object.values(useSelector(state => state.reviews.entities.reviews)).sort(byCreated)
+    const userReviews = [];
+    const otherReviews = [];
+    for (const review of reviews) {
+        if (review.userId === user.id) {
+            userReviews.push(review);
+        } else {
+            otherReviews.push(review);
+        }
+    }
 
     return (
         <>
@@ -90,33 +85,62 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     {!reviewData.count ? <span id="reviews-amt">No Reviews Yet</span> :
                         <>
                             <span id="reviews-amt">{reviewData.count === 1 ? '1 Review' : `${reviewData.count} Reviews`}</span>
-                            <div id="reviews-stars-div">
+                            {/* <div id="reviews-stars-div">
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
                                 <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                            </div>
+                            </div> */}
+                            <span>{`${reviewData.rating} Stars`}</span>
                         </>}
+                    {!showCreate ? <button type='button' onClick={() => setShowCreate(true)}>Add a Review</button> :
+                        <button type='button' onClick={(() => setShowCreate(false))}>Cancel Review</button>}
                 </div>
-            </StyledReviewsSectionDiv>
-            {reviews.map(review => {
-                return (
-                    <StyledReviewCard>
-                        <div className="review-user-and-date">
-                            <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png" alt=''></img>
-                            <span className="reviewer-name">{review.user}</span>
-                            <span className="review-post-date">{new Date(review.createdAt).toLocaleDateString(undefined, {
-                                month: 'long',
-                                day: 'numeric',
-                                year: 'numeric'
-                            })}</span>
+                {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
+                    <p>Rating</p>
+                    <div>
+                        <input type="radio" id="one" name="rating" value="1" onChange={(e) => setRating(e.target.value)} />
+                        <label htmlFor="one">1</label>
+                        <input type="radio" id="two" name="rating" value="2" onChange={(e) => setRating(e.target.value)} />
+                        <label htmlFor="two">2</label>
+                        <input type="radio" id="three" name="rating" value="3" onChange={(e) => setRating(e.target.value)} />
+                        <label htmlFor="three">3</label>
+                        <input type="radio" id="four" name="rating" value="4" onChange={(e) => setRating(e.target.value)} />
+                        <label htmlFor="four">4</label>
+                        <input type="radio" id="five" name="rating" value="5" onChange={(e) => setRating(e.target.value)} required />
+                        <label htmlFor="five">5</label>
+                    </div>
+                    <div>
+                        <label htmlFor="comment">
+                            Leave a comment (optional):
+                        </label>
+                        <div>
+                            <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
                         </div>
-                        <div className="review-star-rating">{`${review.rating} Stars`}</div>
-                        <div className="review-comment">{review.comment}</div>
-                    </StyledReviewCard>
-                )
-            })}
+                    </div>
+                    <button type='submit'>Submit</button>
+                </form>}
+            </StyledReviewsSectionDiv>
+            {
+                otherReviews.map((review, idx) => {
+                    return (
+                        <StyledReviewCard key={idx}>
+                            <div className="review-user-and-date">
+                                <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png" alt=''></img>
+                                <span className="reviewer-name">{review.user}</span>
+                                <span className="review-post-date">{new Date(review.createdAt).toLocaleDateString(undefined, {
+                                    month: 'long',
+                                    day: 'numeric',
+                                    year: 'numeric'
+                                })}</span>
+                            </div>
+                            <div className="review-star-rating">{`${review.rating} Stars`}</div>
+                            <div className="review-comment">{review.comment}</div>
+                        </StyledReviewCard>
+                    )
+                })
+            }
         </>
     )
 }
