@@ -541,7 +541,10 @@ const ItemPage = () => {
                               </div>}
                         </div>}
                         {showEditName && <div className="edit-item-div">
-                              <form>
+                              <form onSubmit={e => {
+                                    e.preventDefault()
+                                    handleNewItemName()
+                                    }}>
                                     <input id="new-item-name" placeholder="Give your item a new name"></input>
                               </form>
                               <img className="edit-button" onClick={handleNewItemName} src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
