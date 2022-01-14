@@ -33,7 +33,7 @@ export const getReviews = createAsyncThunk(
         });
         const data = await response.json();
         if (response.ok) {
-            return data;
+            return data.reviews;
         } else {
             throw thunkAPI.rejectWithValue(["An error occurred. Please try again."]);
         }
@@ -91,6 +91,7 @@ const reviewSlice = createSlice({
         });
         builder.addCase(getReviews.fulfilled, (state, action) => {
             const reviews = {}
+            console.log(action.payload)
             action.payload.forEach((review) => {
                 reviews[review.id] = review
             });

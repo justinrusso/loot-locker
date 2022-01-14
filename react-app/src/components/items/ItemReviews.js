@@ -74,13 +74,11 @@ const StyledReviewCard = styled.div`
 
 const ItemReviews = ({ itemId }) => {
 
-    const { itemId } = useParams()
-
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAnItem())
-    }, [itemId])
+        dispatch(getReviews(itemId))
+    }, [dispatch, itemId])
 
     return (
         <>

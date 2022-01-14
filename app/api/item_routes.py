@@ -52,6 +52,7 @@ def delete_item(item_id):
 
 @item_routes.route('/<int:item_id>/reviews', methods=['GET'])
 def get_reviews(item_id):
+    print('!!!', Item.query.get(item_id).reviews)
     reviews = Item.query.get(item_id).reviews
     return {'reviews': [review.to_dict() for review in reviews]}
 
