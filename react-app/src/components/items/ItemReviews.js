@@ -105,11 +105,11 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     <StyledReviewCard>
                         <div className="review-user-and-date">
                             <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png" alt=''></img>
-                            <span className="reviewer-name">{review.user}</span>
+                            <span className="reviewer-name">{review.user.username}</span>
                             <span className="review-post-date">{review.createdAt}</span>
                         </div>
-                        <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                        <div className="review-comment">{testReview.comment}</div>
+                        <div className="review-star-rating">{review.rating}</div>
+                        <div className="review-comment">{review.comment}</div>
                     </StyledReviewCard>
                 )
             })}
