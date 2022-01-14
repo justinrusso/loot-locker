@@ -7,6 +7,7 @@ import CartProvider from "./context/CartProvider";
 import NavBar from "./components/NavBar";
 import ItemPage from "./components/items/ItemPage";
 import HomePage from "./components/HomePage";
+import NewItemPage from "./components/items/NewItemPage";
 import Results from "./components/search/Results";
 import { authenticate } from "./store/session";
 import Footer from "./components/Footer";
@@ -32,6 +33,9 @@ function App() {
         <CartProvider>
           <NavBar />
           <Switch>
+            <Route path="/items/new">
+              <NewItemPage />
+            </Route>
             <Route path="/items/:itemId">
               <ItemPage />
             </Route>
