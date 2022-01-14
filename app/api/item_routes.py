@@ -1,4 +1,8 @@
 from flask import Blueprint, abort, request
+
+from sqlalchemy import or_, desc, asc
+from sqlalchemy.sql.expression import func
+
 from app.models import db, Item, Review, ReviewSummary
 from flask_login import current_user, login_required
 from app.models import Item, Category, User, db, Review
@@ -20,6 +24,23 @@ def items():
         filters.append(Item.name.ilike(f"%{key}%"))
     items = Item.query.filter(*filters).all()
     return {"items": [item.to_dict() for item in items]}
+    
+
+@item_routes.route("/homepage")
+def new_items():
+    new_item_count = 5
+    new_items = Item.query.order_by(desc(Item.created_at)).limit(new_item_count).all()
+    new_ids=[item.id for item in new_items]
+
+    picked_item_count = 6
+    picked_items = Item.query.order_by(func.random()).limit(picked_item_count).all()
+    picked_ids=[item.id for item in picked_items]
+
+    return {
+        "items": [item.to_dict() for item in set(new_items + picked_items)],
+        "new": new_ids,
+        "picks": picked_ids
+    }
 
 @item_routes.route("/", methods=["POST"])
 @login_required

@@ -11,16 +11,16 @@ import NewItemPage from "./components/items/NewItemPage";
 import Results from "./components/search/Results";
 import { authenticate } from "./store/session";
 import Footer from "./components/Footer";
+import { getCategories } from "./store/categories";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      await dispatch(authenticate());
-      setLoaded(true);
-    })();
+    dispatch(authenticate())
+      .then(() => dispatch(getCategories()))
+      .then(() => setLoaded(true));
   }, [dispatch]);
 
   if (!loaded) {

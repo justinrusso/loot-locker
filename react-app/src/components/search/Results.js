@@ -5,6 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../store/items'
 import ResultCard from './ResultCard'
 
+const CategoryHeader = styled.div`
+    width: 100vw;
+    height: 150px;
+    background-color: #faecd5;
+    padding-left: 10%;
+    padding-top: 30px;
+    font-size: 30px;
+`
+
 const Container = styled.div`
     width: 100%;
     display: flex;
@@ -31,6 +40,10 @@ const Content = styled.div`
     }
 `
 
+const CategorySelect = styled.select`
+
+`
+
 const Grid = styled.ul`
     display: grid;
     margin: 0px;
@@ -53,26 +66,43 @@ const useQuery = () => {
 }
 
 const Results = () => {
+    const categories = useSelector(state => state.categories.categories);
+    console.log(categories)
 
     const [isLoaded, setIsLoaded] = useState(false);
 
     let query = useQuery();
-    const key = query.get("key");
+    const searchKey = query.get("key");
+    const [categoryId, setCategoryId] = useState(query.get("category") || "");
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getItems(key)).then(() => setIsLoaded(true));
-    }, [dispatch, key])
+        dispatch(getItems({categoryId, searchKey})).then(() => setIsLoaded(true));
+    }, [dispatch, categoryId, searchKey])
 
     const results = useSelector(state => state.items.entities.items);
 
     return (
         <Container>
             <Content>
+                {searchKey ?
+                    <span id='search-header'>Results for "{searchKey}"</span>
+                    :
+                    <CategoryHeader>
+                        <h3>{categories[categoryId].name}</h3>
+                    </CategoryHeader>
+                }
                 {isLoaded &&
                     <>
-                        <span id='search-header'>Results for '{key}'</span>
+                        {searchKey &&
+                            <CategorySelect value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                                <option value="">All Categories</option>
+                                {Object.values(categories).map(category => (
+                                    <option value={category.id} key={category.id}>{category.name}</option>
+                                ))}
+                            </CategorySelect>
+                        }
                         <span id='search-count'>{Object.values(results).length === 1 ?
                             '1 result' :
                             `${Object.values(results).length} results`
