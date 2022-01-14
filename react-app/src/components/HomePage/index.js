@@ -122,7 +122,7 @@ function HomePage() {
     return (
         <HomeStyling>
             <div id="home-top">
-                <h1 id="header-1">{user !== undefined ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
+                <h1 id="header-1">{user ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
 
                 <div id="category-container">
                     <Category categoryNum="1" name="Arms" source='https://images.mapletip.com/maplestory-monsters/01302020.png' />
