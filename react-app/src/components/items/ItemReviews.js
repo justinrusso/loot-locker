@@ -41,6 +41,12 @@ const StyledReviewsSectionDiv = styled.div`
     }
     `
 
+const ReviewsTitle = styled.div`
+    margin-bottom: 3vh;
+    font-size: 1.5em;
+    color: grey;
+`
+
 const ItemReviews = ({ itemId, user, reviewData }) => {
 
     const dispatch = useDispatch();
@@ -104,7 +110,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                 {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
                     <p>Rating</p>
                     <div>
-                        <input type="radio" id="one" name="rating" value="1" onChange={(e) => setRating(e.target.value)} />
+                        <input type="radio" id="one" name="rating" value="1" onChange={(e) => setRating(e.target.value)} required />
                         <label htmlFor="one">1</label>
                         <input type="radio" id="two" name="rating" value="2" onChange={(e) => setRating(e.target.value)} />
                         <label htmlFor="two">2</label>
@@ -112,7 +118,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                         <label htmlFor="three">3</label>
                         <input type="radio" id="four" name="rating" value="4" onChange={(e) => setRating(e.target.value)} />
                         <label htmlFor="four">4</label>
-                        <input type="radio" id="five" name="rating" value="5" onChange={(e) => setRating(e.target.value)} required />
+                        <input type="radio" id="five" name="rating" value="5" onChange={(e) => setRating(e.target.value)} />
                         <label htmlFor="five">5</label>
                     </div>
                     <div>
@@ -127,15 +133,15 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                 </form>}
             </StyledReviewsSectionDiv>
             <div>
-                <span>Your Reviews</span>
+                <ReviewsTitle>Your Reviews</ReviewsTitle>
                 {
                     userReviews.map((review, idx) => {
-                        return <ReviewCard key={idx} review={review} user={user} />
+                        return <ReviewCard key={idx} review={review} user={user} setRating={setRating} setComment={setComment} />
                     })
                 }
             </div>
             <div>
-                <span>Reviews</span>
+                <ReviewsTitle>Reviews</ReviewsTitle>
                 {
                     otherReviews.map((review, idx) => {
                         return <ReviewCard key={idx} review={review} user={user} />

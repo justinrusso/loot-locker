@@ -52,6 +52,27 @@ const StyledReviewCard = styled.div`
 
 
 const ReviewCard = ({ review, user }) => {
+
+    const dispatch = useDispatch()
+
+    const [showEdit, setShowEdit] = useState(false)
+    const [showDelete, setShowDelete] = useState(false)
+
+    const [rating, setRating] = useState(0)
+    const [comment, setComment] = useState(review.comment)
+
+    const editSubmit = (e) => {
+        e.preventDefault();
+        dispatch(editReview({
+            reviewId: review.id,
+            formDetails: {
+                rating,
+                comment,
+            }
+        }))
+        setShowEdit(false)
+    }
+
     return (
         <StyledReviewCard>
             <div className="review-user-and-date">
@@ -64,12 +85,42 @@ const ReviewCard = ({ review, user }) => {
                 })}</span>
                 {review.userId === user.id &&
                     <span>
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        {!showEdit ? <button type="button" onClick={() => setShowEdit(true)}>Edit</button> :
+                            <button type="button" onClick={() => {
+                                setShowEdit(false);
+                                setComment(review.comment)
+                            }}>Cancel</button>
+                        }
+                        {!showDelete ? <button type="button" onClick={() => setShowDelete(true)}>Delete</button> :
+                            <>
+                                <button type="button" onClick={() => setShowDelete(false)}>Cancel</button>
+                                <button type="button" >Confirm</button>
+                            </>
+                        }
                     </span>}
             </div>
-            <div className="review-star-rating">{`${review.rating} Stars`}</div>
-            <div className="review-comment">{review.comment}</div>
+            <form onSubmit={editSubmit}>
+                {!showEdit ? <div className="review-star-rating">{`${review.rating} Stars`}</div> :
+                    <div>
+                        <input type="radio" id="one" name="rating" value="1" onChange={(e) => setRating(e.target.value)} required />
+                        <label htmlFor="one">1</label>
+                        <input type="radio" id="two" name="rating" value="2" onChange={(e) => setRating(e.target.value)} />
+                        <label htmlFor="two">2</label>
+                        <input type="radio" id="three" name="rating" value="3" onChange={(e) => setRating(e.target.value)} />
+                        <label htmlFor="three">3</label>
+                        <input type="radio" id="four" name="rating" value="4" onChange={(e) => setRating(e.target.value)} />
+                        <label htmlFor="four">4</label>
+                        <input type="radio" id="five" name="rating" value="5" onChange={(e) => setRating(e.target.value)} />
+                        <label htmlFor="five">5</label>
+                    </div>
+                }
+                {!showEdit ? <div className="review-comment">{review.comment}</div> :
+                    <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+                }
+                <div>
+                    {showEdit && <button type='submit'>Submit</button>}
+                </div>
+            </form>
         </StyledReviewCard>
     )
 }
