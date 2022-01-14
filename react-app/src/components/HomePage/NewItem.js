@@ -11,8 +11,8 @@ const ItemBox = styled.div`
     background-image: url(${props => props.image});
     background-size: cover;
     background-position: center;
-    height: 200px;
-    width: 300px;
+    height: 175px;
+    width: 250px;
     border-radius: 5px;
     margin: 20px;
     padding: 10px;
