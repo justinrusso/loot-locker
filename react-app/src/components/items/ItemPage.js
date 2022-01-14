@@ -374,10 +374,10 @@ const StyledReviewCard = styled.div`
             padding: 0 1vw;
       }
       `
-      /**
-       *
- * @param {number} stock The amount of stock remaining of the item
- */
+/**
+ *
+* @param {number} stock The amount of stock remaining of the item
+*/
 const getCartButtonMessage = (stock) => {
       if (stock === 0) {
             return 'Out of stock'
@@ -403,7 +403,7 @@ const ItemPage = () => {
             poster: "Link",
             rating: 5,
             comment:
-            `
+                  `
             Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one.
             `,
             created_at: "2021-09-08 19:24:00"
@@ -456,24 +456,24 @@ const ItemPage = () => {
 
       const handleEditItem = async (cssSelector, fieldName) => {
             let newValue = document.querySelector(cssSelector).value
-            switch(fieldName) {
+            switch (fieldName) {
                   case 'name':
-                        dispatch(editItem({ itemId: itemId, item: { name: newValue }}))
+                        dispatch(editItem({ itemId: itemId, item: { name: newValue } }))
                         setShowEditName(false)
                         break
                   case 'description':
-                        dispatch(editItem({ itemId, item: { description: newValue }}))
+                        dispatch(editItem({ itemId, item: { description: newValue } }))
                         break
                   case 'image':
-                        dispatch(editItem({ itemId, item: { image: newValue }}))
+                        dispatch(editItem({ itemId, item: { image: newValue } }))
                         setShowEditImg(false)
                         break
                   case 'price':
-                        dispatch(editItem({ itemId, item: { price: newValue }}))
+                        dispatch(editItem({ itemId, item: { price: newValue } }))
                         setShowEditPrice(false)
                         break
                   case 'stock':
-                        dispatch(editItem({ itemId, item: { stock: newValue }}))
+                        dispatch(editItem({ itemId, item: { stock: newValue } }))
                         setShowEditStock(false)
                         break
             }
@@ -497,60 +497,8 @@ const ItemPage = () => {
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>
                               </button>}
                         </div>
-<<<<<<< HEAD
                         {/* Remove following line and corresponding import when merging with Andy's */}
                         <ItemReviews itemId={itemId} user={user} reviewData={item.reviewData} />
-=======
-                        <StyledReviewsSectionDiv>
-                              <div id="reviews-div">
-                                    {/* currently just rendering 5 stars all the time for the average item review that goes here
-                                          TODO: connect this with the item reviews summary to figure out how many stars to render dynamically
-                                          perhaps connect it to the existing "renderStarRating" function once you know the avg rating
-                                    */}
-                                    <span id="reviews-amt">50 shop reviews</span>
-                                    <div id="reviews-stars-div">
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                    </div>
-                              </div>
-                        </StyledReviewsSectionDiv>
-                        {/* test review cards
-                              TODO: remove these & render everything between StyledReviewCard tags for each review,
-                              perhaps using a map and adding a key
-                              can optionally make the stuff between these tags a separate component for readability, would need to moved its styled-component
-                              rules as well
-                        */}
-                        <StyledReviewCard>
-                              <div className="review-user-and-date">
-                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
-                                    <span className="reviewer-name">{testReview.poster}</span>
-                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
-                              </div>
-                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                              <div className="review-comment">{testReview.comment}</div>
-                        </StyledReviewCard>
-                        <StyledReviewCard>
-                              <div className="review-user-and-date">
-                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
-                                    <span className="reviewer-name">{testReview.poster}</span>
-                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
-                              </div>
-                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                              <div className="review-comment">{testReview.comment}</div>
-                        </StyledReviewCard>
-                        <StyledReviewCard>
-                              <div className="review-user-and-date">
-                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
-                                    <span className="reviewer-name">{testReview.poster}</span>
-                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
-                              </div>
-                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                              <div className="review-comment">{testReview.comment}</div>
-                        </StyledReviewCard>
->>>>>>> main
                   </div>
                   <div id="item-info-container">
                         {item.userId === user?.id && <button id="delete-item-button" onClick={handleDeleteItem}>
@@ -565,8 +513,8 @@ const ItemPage = () => {
                               <span id="item-name-span">{item.name}</span>
                               {item.userId === user?.id && <div id="edit-icon-arrow-box-container">
                                     <img id="name-edit-button"
-                                    onClick={() => setShowEditName(true)}
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                                          onClick={() => setShowEditName(true)}
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                                     <div className="arrow_box edit">
                                           <span>Edit name</span>
                                     </div>
@@ -576,7 +524,7 @@ const ItemPage = () => {
                               <form onSubmit={e => {
                                     e.preventDefault()
                                     handleEditItem("#new-item-name", "name")
-                                    }}>
+                              }}>
                                     <input id="new-item-name" placeholder="Give your item a new name"></input>
                               </form>
                               <img className="edit-button" onClick={() => handleEditItem("#new-item-name", "name")} src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
@@ -586,8 +534,8 @@ const ItemPage = () => {
                               {item.price}
                               {item.userId === user?.id && <>
                                     <img className="edit-button"
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
-                                    onClick={() => setShowEditPrice(true)}
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                          onClick={() => setShowEditPrice(true)}
                                     ></img>
                                     <div className="arrow_box edit">
                                           <span>Edit price</span>
@@ -604,11 +552,11 @@ const ItemPage = () => {
                               }}>
                                     <input id="new-item-price" placeholder="New price" ></input>
                                     <img className="edit-button"
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
-                                    onClick={() => handleEditItem("#new-item-price", "price")}
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                          onClick={() => handleEditItem("#new-item-price", "price")}
                                     ></img>
                               </form>
-                              {item.stock > 0 && <span style={{fontWeight: 'normal'}} className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
+                              {item.stock > 0 && <span style={{ fontWeight: 'normal' }} className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>}
                         {!showEditStock && item.userId === user?.id && <div id="item-stock">
