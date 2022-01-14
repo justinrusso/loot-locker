@@ -10,8 +10,8 @@ const ItemBox = styled.div`
     background-image: url(${props => props.image});
     background-size: cover;
     background-position: center;
-    height: 300px;
-    width: 300px;
+    height: 225px;
+    width: 225px;
     border-radius: 5px;
     margin: 20px;
     padding: 10px;
@@ -26,14 +26,21 @@ const ItemBox = styled.div`
     }
 
     .picked-price-tag {
-        background-color: white;
-        color: black;
+        background-color: transparent;
+        color: transparent;
         font-weight: bold;
         border-radius: 25px;
         padding: 5px 13px;
         height: fit-content;
         width: fit-content;
-        border: 1px solid #c7d9ca;
+        border: 1px solid transparent;
+        transition: all 0.2s ease-in-out;
+    }
+
+    &:hover .picked-price-tag {
+        background-color: white;
+        color: black;
+        border-color: rgba(24,24,24,0.15);
     }
 `
 
