@@ -109,6 +109,8 @@ const NewItemPage = () => {
               onChange={(e) => setDescription(e.target.value)}
               inputProps={{
                 type: "text",
+                as: "textarea",
+                rows: 3,
               }}
               required
             />
