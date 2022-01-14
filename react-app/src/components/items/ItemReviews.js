@@ -81,7 +81,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         dispatch(getReviews(itemId))
     }, [dispatch, itemId])
 
-    const reviews = Object.values(useSelector(state => state.reviews.entities.reviews))
+    const reviews = Object.values(useSelector(state => state.reviews.entities.reviews)).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return (
         <>
@@ -108,7 +108,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             <span className="reviewer-name">{review.user.username}</span>
                             <span className="review-post-date">{review.createdAt}</span>
                         </div>
-                        <div className="review-star-rating">{review.rating}</div>
+                        <div className="review-star-rating">{`${review.rating} Stars`}</div>
                         <div className="review-comment">{review.comment}</div>
                     </StyledReviewCard>
                 )
