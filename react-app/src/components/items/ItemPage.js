@@ -233,7 +233,7 @@ const StyledItemPageDiv = styled.div`
       }
 
       #delete-item-button {
-            height: 5vh;
+            height: 6vh;
             // overflow: hidden;
             position: relative;
             display: flex;
@@ -256,7 +256,7 @@ const StyledItemPageDiv = styled.div`
 
       #dragon-icon {
             display: flex;
-            height: 5vh;
+            height: 6vh;
             margin-right: 0.5vw;
       }
 
@@ -329,9 +329,11 @@ const StyledItemPageDiv = styled.div`
       }
 
       #edit-description-textarea {
+            padding: 1vh 0.5vw;
             resize: vertical;
             width: 100%;
             height: 20vh;
+            border-radius: 10px;
       }
 `
 const StyledReviewsSectionDiv = styled.div`
