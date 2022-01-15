@@ -7,19 +7,20 @@ import CartProvider from "./context/CartProvider";
 import NavBar from "./components/NavBar";
 import ItemPage from "./components/items/ItemPage";
 import HomePage from "./components/HomePage";
+import NewItemPage from "./components/items/NewItemPage";
 import Results from "./components/search/Results";
 import { authenticate } from "./store/session";
 import Footer from "./components/Footer";
+import { getCategories } from "./store/categories";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      await dispatch(authenticate());
-      setLoaded(true);
-    })();
+    dispatch(authenticate())
+      .then(() => dispatch(getCategories()))
+      .then(() => setLoaded(true));
   }, [dispatch]);
 
   if (!loaded) {
@@ -32,6 +33,9 @@ function App() {
         <CartProvider>
           <NavBar />
           <Switch>
+            <Route path="/items/new">
+              <NewItemPage />
+            </Route>
             <Route path="/items/:itemId">
               <ItemPage />
             </Route>

@@ -210,7 +210,7 @@ const CartDrawer = () => {
           <div className="inner">
             <div className="close-button-wrapper">
               <IconButton onClick={() => cart.hide()}>
-                <i class="fas fa-times" />
+                <i className="fas fa-times" />
               </IconButton>
             </div>
             <div>
