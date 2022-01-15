@@ -10,11 +10,11 @@ const ItemBox = styled.div`
     background-image: url(${props => props.image});
     background-size: cover;
     background-position: center;
-    height: 175px;
-    width: 250px;
-    border-radius: 5px;
-    margin: 20px;
+    height: 100%;
+    width: 100%;
     padding: 10px;
+    aspect-ratio: 1;
+    border-radius: 5px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;

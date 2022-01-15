@@ -81,10 +81,74 @@ const Content = styled.div`
 `
 
 const NewContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto 1fr 1fr 1fr;
+    gap: 24px;
+    @media (min-width: 1100px) {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto 1fr 1fr;
+    }
+
+    #new-header {
+        grid-column: 1 / 5;
+        grid-row: 1;
+        padding-left: 20px;
+        @media (min-width: 1100px) {
+            grid-column: 1 / 7;
+        }
+    }
+
+    > *:nth-child(2) {
+        grid-column: 1 / 3;
+        grid-row: 2 / 4;
+    }
+
+    > *:nth-child(3) {
+        grid-column: 3 / 5;
+        grid-row: 3 / 5;
+        @media (min-width: 1100px) {
+            grid-column: 4 / 6;
+            grid-row: 2 / 4;
+        }
+    }
+
+    > *:nth-child(4) {
+        grid-column: 1;
+        grid-row: 4;
+        @media (min-width: 1100px) {
+            grid-column: 3;
+            grid-row: 2;
+        }
+    }
+
+    > *:nth-child(5) {
+        grid-column: 2;
+        grid-row: 4;
+        @media (min-width: 1100px) {
+            grid-column: 3;
+            grid-row: 3;
+        }
+    }
+
+    > *:nth-child(6) {
+        grid-column: 3;
+        grid-row: 2;
+        @media (min-width: 1100px) {
+            grid-column: 6;
+            grid-row: 2;
+        }
+    }
+
+    > *:nth-child(7) {
+        grid-column: 4;
+        grid-row: 2;
+        @media (min-width: 1100px) {
+            grid-column: 6;
+            grid-row: 3;
+        }
+    }
 `
 
 const PickedContainer = styled.div`
@@ -103,7 +167,7 @@ const PickedContainer = styled.div`
         grid-template-columns: repeat(5, 1fr);
     }
 
-    #picks {
+    #picks-header {
         margin: 20px;
         padding: 10px;
         height: auto;
@@ -210,8 +274,8 @@ function HomePage() {
 
             {isLoaded &&
                 <Content>
-                    <div className="section-title" id="new">New!</div>
                     <NewContainer>
+                        <div className="section-title" id="new-header">New!</div>
                         {newIds.map(id => (
                             <NewItem item={items[id]} key={`n:${id}}`}/>
                         ))}
@@ -220,7 +284,7 @@ function HomePage() {
                     <div id="breaker" />
 
                     <PickedContainer>
-                        <div className="section-title" id="picks"><p>Editors' Picks</p></div>
+                        <div className="section-title" id="picks-header"><p>Editors' Picks</p></div>
                         {pickedIds.map((id) => (
                             <PickedItem item={items[id]} key={`p:${id}}`}/>
                         ))}
