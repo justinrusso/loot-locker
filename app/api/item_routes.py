@@ -60,7 +60,6 @@ def delete_item(item_id):
 @login_required
 def update_item(item_id):
     new_item_info = request.json # {'name': 'new name hello', 'stock': 2}, etc
-    new_item_info_items = new_item_info.items()
 
     form = EditItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']

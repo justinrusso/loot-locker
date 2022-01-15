@@ -18,6 +18,29 @@ const StyledItemPageDiv = styled.div`
             width: 45vw;
       }
 
+      .edit-item-div {
+            height: 7vh;
+            // background-color: grey;
+            display: flex;
+            align-items: center;
+
+            form {
+                  display: flex;
+                  align-items: center;
+                  height: 100%;
+                  width: 80%;
+            }
+
+            input {
+                  padding-left: 1vw;
+                  border: 2px solid black;
+                  border-radius: 30px;
+                  // background-color: cyan;
+                  height: 80%;
+                  width: 100%;
+            }
+      }
+
       #item-image-container {
             position: relative;
             display: flex;
@@ -32,6 +55,27 @@ const StyledItemPageDiv = styled.div`
             max-width: 100%;
             max-height: 100%;
             border-radius: 8px;
+      }
+
+      #edit-image {
+            // background-color: red;
+            position: absolute;
+            top: 1vh;
+            right: 4.5vw;
+            width: 30vw;
+            height: 7vh;
+
+            form {
+                  // background-color: red;
+                  width: 100%;
+                  height: 100%;
+            }
+      }
+
+      #new-image-input {
+            // background-color: cyan;
+            width: 100%;
+            height: 75%;
       }
 
       #edit-image-button {
@@ -59,29 +103,6 @@ const StyledItemPageDiv = styled.div`
 
             span {
                   font-weight: bolder;
-            }
-      }
-
-      .edit-item-div {
-            height: 7vh;
-            // background-color: grey;
-            display: flex;
-            align-items: center;
-
-            form {
-                  display: flex;
-                  align-items: center;
-                  height: 100%;
-                  width: 80%;
-            }
-
-            input {
-                  padding-left: 1vw;
-                  border: 2px solid black;
-                  border-radius: 30px;
-                  // background-color: cyan;
-                  height: 80%;
-                  width: 100%;
             }
       }
 
@@ -197,6 +218,11 @@ const StyledItemPageDiv = styled.div`
             font-size: xx-large;
       }
 
+      #new-item-stock {
+            width: 30%;
+            font-size: large;
+      }
+
       #add-to-cart-button, #description-button, #delete-item-button {
             margin-bottom: 1vh;
             padding: 1.5vh 0;
@@ -267,6 +293,7 @@ const StyledItemPageDiv = styled.div`
             margin-top: 2vh;
             padding-left: 10%;
             padding-right: 10%;
+            width: 100%;
       }
 
       .edit-button {
@@ -283,6 +310,27 @@ const StyledItemPageDiv = styled.div`
             line-height: 2;
             margin-top: 1vh;
             overflow: hidden;
+            height: 20vh;
+      }
+
+      #description-button-and-edit-book {
+            // background-color: cyan;
+            display: flex;
+            align-items: center;
+            position: relative;
+      }
+
+      #edit-description-button {
+            // background-color: red;
+            position: absolute;
+            height: 5vh;
+            right: 0;
+            margin-right: 1vw;
+      }
+
+      #edit-description-textarea {
+            resize: vertical;
+            width: 100%;
             height: 20vh;
       }
 `
@@ -432,10 +480,18 @@ const ItemPage = () => {
       const user = useSelector(selectUser())
 
       const [showDescription, setShowDescription] = useState(true)
+      const [showEditDescription, setShowEditDescription] = useState(false)
       const [showEditName, setShowEditName] = useState(false)
       const [showEditPrice, setShowEditPrice] = useState(false)
       const [showEditStock, setShowEditStock] = useState(false)
       const [showEditImg, setShowEditImg] = useState(false)
+
+      const shortOrLongButton = () => {
+            if (user?.id === item.seller.id) {
+                  return {"width": "85%"}
+            }
+            return {"width": "100%"}
+      }
 
       const handleSetShowDescription = () => {
             setShowDescription(!showDescription)
@@ -456,11 +512,12 @@ const ItemPage = () => {
             let newValue = document.querySelector(cssSelector).value
             switch(fieldName) {
                   case 'name':
-                        dispatch(editItem({ itemId: itemId, item: { name: newValue }}))
+                        dispatch(editItem({ itemId, item: { name: newValue }}))
                         setShowEditName(false)
                         break
                   case 'description':
                         dispatch(editItem({ itemId, item: { description: newValue }}))
+                        setShowEditDescription(false)
                         break
                   case 'image':
                         dispatch(editItem({ itemId, item: { image: newValue }}))
@@ -491,8 +548,22 @@ const ItemPage = () => {
                   <div id="left-side-page-container">
                         <div id="item-image-container">
                               <img id="item-image" src={item.image}></img>
-                              {item.userId === user?.id && <button id="edit-image-button">
+                              {showEditImg && <div className="edit-item-div" id="edit-image">
+                                    <form onSubmit={(e) => {
+                                          e.preventDefault()
+                                          handleEditItem("#new-image-input", "image")
+                                    }}>
+                                          <input id="new-image-input" placeholder="New image URL"></input>
+                                    </form>
+                              </div>}
+                              {!showEditImg && item.userId === user?.id && <button onClick={() => setShowEditImg(true)} id="edit-image-button">
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>
+                              </button>}
+                              {showEditImg && item.userId === user?.id && <button
+                              id="edit-image-button"
+                              onClick={() => handleEditItem("#new-image-input", "image")}
+                              >
+                                    <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
                               </button>}
                         </div>
                         <StyledReviewsSectionDiv>
@@ -609,9 +680,23 @@ const ItemPage = () => {
                         </div>}
                         {!showEditStock && item.userId === user?.id && <div id="item-stock">
                               <span id="stock-span">Stock: {item.stock}</span>
-                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                              <img className="edit-button"
+                              src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                              onClick={() => setShowEditStock(true)}
+                              ></img>
                         </div>}
-                        {/* Continue quest here tomorrow */}
+                        {showEditStock && item.userId === user?.id && <div className="edit-item-div" id="item-stock">
+                              <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleEditItem("#new-item-stock", "stock")
+                              }}>
+                                    <input id="new-item-stock" placeholder="New stock"></input>
+                                    <img className="edit-button"
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                    onClick={() => handleEditItem("#new-item-stock", "stock")}
+                                    ></img>
+                              </form>
+                        </div>}
                         {user?.id !== item.seller.id && (
                               <button
                                     id="add-to-cart-button"
@@ -621,12 +706,27 @@ const ItemPage = () => {
                                     {getCartButtonMessage(item.stock)}
                               </button>
                         )}
-                        <button onClick={handleSetShowDescription} id="description-button">
-                              <span>Description</span>
-                              {!showDescription && <i className="fas fa-chevron-down"></i>}
-                              {showDescription && <i className="fas fa-chevron-up"></i>}
-                        </button>
-                        {showDescription && <div id="item-description">{item.description}</div>}
+                        <div id="description-button-and-edit-book">
+                              <button style={shortOrLongButton()} onClick={handleSetShowDescription} id="description-button">
+                                    <span>Description</span>
+                                    {!showDescription && <i className="fas fa-chevron-down"></i>}
+                                    {showDescription && <i className="fas fa-chevron-up"></i>}
+                              </button>
+                              {!showEditDescription && user?.id === item.seller.id && <img id="edit-description-button"
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                    onClick={() => setShowEditDescription(true)}
+                              ></img>}
+                              {showEditDescription && user?.id === item.seller.id && <img id="edit-description-button"
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                    onClick={() => handleEditItem("#edit-description-textarea", "description")}
+                              ></img>}
+                        </div>
+                        {showDescription && !showEditDescription && <div id="item-description">{item.description}</div>}
+                        {showEditDescription && <div id="edit-item-description">
+                              <form>
+                                    <textarea id="edit-description-textarea">{item.description}</textarea>
+                              </form>
+                        </div>}
                   </div>
             </StyledItemPageDiv>
       )
