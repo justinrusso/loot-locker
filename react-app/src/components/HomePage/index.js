@@ -96,11 +96,9 @@ const PickedContainer = styled.div`
     border-radius: 7px;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-
     @media (min-width: 1000px) and (max-width: 1299px) {
         grid-template-columns: repeat(4, 1fr);
     }
-
     @media (min-width: 1300px) {
         grid-template-columns: repeat(5, 1fr);
     }
@@ -114,7 +112,6 @@ const PickedContainer = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-
         grid-column: 1;
         grid-row: 1;
     }
@@ -122,12 +119,10 @@ const PickedContainer = styled.div`
     > *:nth-child(2) {
         grid-column: 2 / 4;
         grid-row: 1 / 3;
-
         @media (min-width: 1000px) and (max-width: 1299px) {
             grid-column: 3 / 5;
             grid-row: 1 / 3;
         }
-
         @media (min-width: 1300px) {
             grid-column: 4 / 6;
             grid-row: 1 / 3;
@@ -139,12 +134,10 @@ const PickedContainer = styled.div`
             grid-column: 3;
             grid-row: 3;
         }
-
         @media (min-width: 1000px) and (max-width: 1299px) {
             grid-column: 1 / 3;
             grid-row: 2 / 4;
         }
-
         @media (min-width: 1300px) {
             grid-column: 3;
             grid-row: 2;
@@ -157,14 +150,13 @@ const PickedContainer = styled.div`
             width: 0px;
             grid-column: 1;
             grid-row: 1;
-
-        @media (min-width: 1300px) {
-            visibility: visible;
-            height: 100%;
-            width: 100%;
-            grid-column: 2;
-            grid-row: 2;
-        }
+            @media (min-width: 1300px) {
+                visibility: visible;
+                height: 100%;
+                width: 100%;
+                grid-column: 2;
+                grid-row: 2;
+            }
     }
 `
 
