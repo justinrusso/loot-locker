@@ -45,6 +45,7 @@ const StyledReviewCard = styled.div`
     }
     .user-rating {
         font-size: .75rem;
+        margin: 1rem;
     }
     `
 
