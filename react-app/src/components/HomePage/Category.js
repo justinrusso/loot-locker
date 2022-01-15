@@ -14,6 +14,7 @@ const CategoryBlock = styled.div`
             width: 100%;
             padding-bottom: 5px;
             border-bottom: 2px solid transparent;
+            transition: all 0.3s ease-in-out;
         }
 
         &:hover .category-name {

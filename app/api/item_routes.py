@@ -24,11 +24,11 @@ def items():
         filters.append(Item.name.ilike(f"%{key}%"))
     items = Item.query.filter(*filters).all()
     return {"items": [item.to_dict() for item in items]}
-    
+
 
 @item_routes.route("/homepage")
 def new_items():
-    new_item_count = 5
+    new_item_count = 6
     new_items = Item.query.order_by(desc(Item.created_at)).limit(new_item_count).all()
     new_ids=[item.id for item in new_items]
 
