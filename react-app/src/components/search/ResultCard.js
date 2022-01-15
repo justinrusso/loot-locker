@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import StarsDisplay from '../reviews/StarsDisplay';
+
 const ResultLi = styled.li`
 
     list-style: none;
@@ -31,6 +33,11 @@ const ResultLi = styled.li`
     span {
         margin-top: 2.5px;
     }
+
+    .search-rating {
+        font-size: .65rem;
+        margin: .25rem 0;
+    }
 `
 
 const ItemName = styled.span`
@@ -53,6 +60,7 @@ const ResultCard = ({ item }) => {
             <Link to={`/items/${item.id}`}>
                 <img src={item.image} alt={item.name} />
                 <ItemName>{item.name}</ItemName>
+                <StarsDisplay className='search-rating' rating={item.reviewData.rating} />
                 <ItemPrice>{item.price}</ItemPrice>
                 <ItemUser>{item.seller.username}</ItemUser>
             </Link>
