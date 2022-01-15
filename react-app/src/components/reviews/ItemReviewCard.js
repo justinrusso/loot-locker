@@ -9,7 +9,7 @@ import StarsDisplay from "./StarsDisplay";
 
 const StyledReviewCard = styled.div`
     width: 100%;
-    margin-bottom: 6vh;
+    margin-bottom: 5vh;
     span {
         font-size: x-large;
     }
@@ -45,7 +45,9 @@ const StyledReviewCard = styled.div`
     }
     .user-rating {
         font-size: .75rem;
-        margin: 1rem;
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        margin-top: 0.75rem;
     }
     `
 
