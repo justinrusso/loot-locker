@@ -36,7 +36,7 @@ const ResultLi = styled.li`
 
     .search-rating {
         font-size: .65rem;
-        margin: .25rem 0;
+        margin-bottom: .25rem;
     }
 `
 
