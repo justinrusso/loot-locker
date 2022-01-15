@@ -110,7 +110,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             <span>{`${totalRating} Stars`}</span>
                         </>}
                     {!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
-                        <Button className="make-review" type='button' variant="outlined" onClick={(() => {
+                        <Button className="make-review" type='button' variant="text" onClick={(() => {
                             setShowCreate(false);
                             setComment('');
                         })}>Cancel Review</Button>}
