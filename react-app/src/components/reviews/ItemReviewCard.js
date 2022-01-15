@@ -116,6 +116,7 @@ const ReviewCard = ({ review, user }) => {
                 </>}
             {buttonDisplay === 'edit' &&
                 <form onSubmit={editSubmit}>
+                    <StarsDisplay className='user-rating' rating={review.rating} />
                     <div>
                         <input type="radio" id="one" name="rating" value="1" onChange={(e) => setRating(e.target.value)} required />
                         <label htmlFor="one">1</label>

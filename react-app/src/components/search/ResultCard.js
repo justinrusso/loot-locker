@@ -55,12 +55,15 @@ const ItemUser = styled.span`
 `
 
 const ResultCard = ({ item }) => {
+
+    const totalRating = Math.round(item.reviewData.rating * 2) / 2
+
     return (
         <ResultLi>
             <Link to={`/items/${item.id}`}>
                 <img src={item.image} alt={item.name} />
                 <ItemName>{item.name}</ItemName>
-                <StarsDisplay className='search-rating' rating={item.reviewData.rating} />
+                <StarsDisplay className='search-rating' rating={totalRating} />
                 <ItemPrice>{item.price}</ItemPrice>
                 <ItemUser>{item.seller.username}</ItemUser>
             </Link>
