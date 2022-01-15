@@ -8,7 +8,7 @@ import { getAnItem, deleteItem, editItem } from "../../store/items"
 import { selectUser } from "../../store/session";
 import { useAuthModal } from "../../context/AuthModalProvider";
 
-import ItemReviews from "./ItemReviews";
+import ItemReviews from "../reviews/ItemReviews";
 
 const StyledItemPageDiv = styled.div`
       display: flex;

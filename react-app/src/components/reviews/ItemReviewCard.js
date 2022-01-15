@@ -57,7 +57,6 @@ const StyledReviewCard = styled.div`
 
 
 const ReviewCard = ({ review, user }) => {
-
     const dispatch = useDispatch()
 
     const [buttonDisplay, setButtonDisplay] = useState('base')
@@ -76,12 +75,13 @@ const ReviewCard = ({ review, user }) => {
                 comment,
             }
         }))
-        setShowEdit(false)
+        setButtonDisplay('base')
     }
 
     const deleteSubmit = (e) => {
         e.preventDefault();
         dispatch(deleteReview(review.id))
+        setButtonDisplay('base')
     }
 
     return (
@@ -110,14 +110,15 @@ const ReviewCard = ({ review, user }) => {
                             <>
                                 <form onSubmit={deleteSubmit}>
                                     <Button variant="text" type="button" onClick={() => setButtonDisplay('base')}>Cancel Delete</Button>
-                                    <Button type="submit" variant="text">Confirm</Button>
+                                    <Button type="submit" variant="text" id="confirm-delete">Confirm</Button>
                                 </form>
                             </>}
                     </span>}
             </div>
             {buttonDisplay !== 'edit' &&
                 <>
-                    <div className="review-star-rating">{`${review.rating} Stars`}</div>
+                    {/* <div className="review-star-rating">{`${review.rating} Stars`}</div> */}
+
                     <div className="review-comment">{review.comment}</div>
                 </>}
             {buttonDisplay === 'edit' &&

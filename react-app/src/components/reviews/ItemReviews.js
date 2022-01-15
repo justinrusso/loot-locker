@@ -6,6 +6,7 @@ import styled from "styled-components"
 
 import Button from "../common/Button";
 import ReviewCard from "./ItemReviewCard";
+import StarsDisplay from "./StarsDisplay";
 
 const StyledReviewsSectionDiv = styled.div`
     margin-top: 5vh;
@@ -100,14 +101,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     {!reviewData.count ? <span id="reviews-amt">No Reviews Yet</span> :
                         <>
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
-                            {/* <div id="reviews-stars-div">
-                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                                <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png" alt=''></img>
-                            </div> */}
-                            <span>{`${totalRating} Stars`}</span>
+                            <StarsDisplay rating={totalRating} />
                         </>}
                     {!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
                         <Button className="make-review" type='button' variant="text" onClick={(() => {
