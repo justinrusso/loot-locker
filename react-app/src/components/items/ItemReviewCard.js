@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { deleteReview, editReview } from '../../store/reviews'
+import { deleteReview, editReview } from '../../store/reviews';
+import Button from "../common/Button";
 
 import styled from "styled-components"
 
@@ -48,6 +49,10 @@ const StyledReviewCard = styled.div`
         font-size: large;
         padding: 0 1vw;
     }
+    .review-buttons {
+        font-size: 1em;
+        margin-left: 1vw;
+    }
     `
 
 
@@ -55,6 +60,7 @@ const ReviewCard = ({ review, user }) => {
 
     const dispatch = useDispatch()
 
+    const [buttonDisplay, setButtonDisplay] = useState('base')
     const [showEdit, setShowEdit] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
 
@@ -89,25 +95,33 @@ const ReviewCard = ({ review, user }) => {
                     year: 'numeric'
                 })}</span>
                 {review.userId === user.id &&
-                    <span>
-                        {!showEdit ? <button type="button" onClick={() => setShowEdit(true)}>Edit</button> :
-                            <button type="button" onClick={() => {
-                                setShowEdit(false);
-                                setComment(review.comment);
-                            }}>Cancel</button>
-                        }
-                        {!showDelete ? <button type="button" onClick={() => setShowDelete(true)}>Delete</button> :
+                    <span className='review-buttons'>
+                        {buttonDisplay === 'base' &&
                             <>
-                                <button type="button" onClick={() => setShowDelete(false)}>Cancel</button>
+                                <Button variant="text" type="button" onClick={() => setButtonDisplay('edit')}>Edit</Button>
+                                <Button type="button" variant="text" onClick={() => setButtonDisplay('delete')}>Delete</Button>
+                            </>}
+                        {buttonDisplay === 'edit' &&
+                            <Button variant="text" type="button" onClick={() => {
+                                setButtonDisplay('base');
+                                setComment(review.comment);
+                            }}>Cancel Edit</Button>}
+                        {buttonDisplay === 'delete' &&
+                            <>
                                 <form onSubmit={deleteSubmit}>
-                                    <button type="submit">Confirm</button>
+                                    <Button variant="text" type="button" onClick={() => setButtonDisplay('base')}>Cancel Delete</Button>
+                                    <Button type="submit" variant="text">Confirm</Button>
                                 </form>
-                            </>
-                        }
+                            </>}
                     </span>}
             </div>
-            <form onSubmit={editSubmit}>
-                {!showEdit ? <div className="review-star-rating">{`${review.rating} Stars`}</div> :
+            {buttonDisplay !== 'edit' &&
+                <>
+                    <div className="review-star-rating">{`${review.rating} Stars`}</div>
+                    <div className="review-comment">{review.comment}</div>
+                </>}
+            {buttonDisplay === 'edit' &&
+                <form onSubmit={editSubmit}>
                     <div>
                         <input type="radio" id="one" name="rating" value="1" onChange={(e) => setRating(e.target.value)} required />
                         <label htmlFor="one">1</label>
@@ -120,14 +134,13 @@ const ReviewCard = ({ review, user }) => {
                         <input type="radio" id="five" name="rating" value="5" onChange={(e) => setRating(e.target.value)} />
                         <label htmlFor="five">5</label>
                     </div>
-                }
-                {!showEdit ? <div className="review-comment">{review.comment}</div> :
-                    <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
-                }
-                <div>
-                    {showEdit && <button type='submit'>Submit</button>}
-                </div>
-            </form>
+                    <div>
+                        <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+                    </div>
+                    <div>
+                        <button type='submit'>Submit</button>
+                    </div>
+                </form>}
         </StyledReviewCard>
     )
 }

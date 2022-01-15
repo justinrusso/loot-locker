@@ -4,6 +4,7 @@ import { createReview, getReviews } from '../../store/reviews'
 
 import styled from "styled-components"
 
+import Button from "../common/Button";
 import ReviewCard from "./ItemReviewCard";
 
 const StyledReviewsSectionDiv = styled.div`
@@ -105,7 +106,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             </div> */}
                             <span>{`${totalRating} Stars`}</span>
                         </>}
-                    {!showCreate ? <button type='button' onClick={() => setShowCreate(true)}>Add a Review</button> :
+                    {!showCreate ? <Button variant="outlined" type='button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
                         <button type='button' onClick={(() => {
                             setShowCreate(false);
                             setComment('');
