@@ -40,6 +40,9 @@ const StyledReviewsSectionDiv = styled.div`
     #create-review-form {
         margin-bottom: 4vh;
     }
+    .make-review {
+        width: 10em;
+    }
     `
 
 const ReviewsTitle = styled.div`
@@ -106,11 +109,11 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             </div> */}
                             <span>{`${totalRating} Stars`}</span>
                         </>}
-                    {!showCreate ? <Button variant="outlined" type='button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
-                        <button type='button' onClick={(() => {
+                    {!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
+                        <Button className="make-review" type='button' variant="outlined" onClick={(() => {
                             setShowCreate(false);
                             setComment('');
-                        })}>Cancel Review</button>}
+                        })}>Cancel Review</Button>}
                 </div>
                 {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
                     <p>Rating</p>
@@ -137,14 +140,16 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     <button type='submit'>Submit</button>
                 </form>}
             </StyledReviewsSectionDiv>
-            {userReviews.length > 0 && <div>
-                <ReviewsTitle>Your Reviews</ReviewsTitle>
-                {
-                    userReviews.map((review, idx) => {
-                        return <ReviewCard key={idx} review={review} user={user} />
-                    })
-                }
-            </div>}
+            {
+                userReviews.length > 0 && <div>
+                    <ReviewsTitle>Your Reviews</ReviewsTitle>
+                    {
+                        userReviews.map((review, idx) => {
+                            return <ReviewCard key={idx} review={review} user={user} />
+                        })
+                    }
+                </div>
+            }
             <div>
                 <ReviewsTitle>Reviews</ReviewsTitle>
                 {
