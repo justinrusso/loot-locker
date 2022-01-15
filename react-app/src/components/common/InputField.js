@@ -138,6 +138,7 @@ const Legend = styled.legend`
  * @returns
  */
 const InputField = ({
+  children,
   error,
   fullWidth,
   helperText,
@@ -186,7 +187,9 @@ const InputField = ({
           value={value}
           onChange={onChange}
           required={required}
-        />
+        >
+          {children}
+        </Input>
         <InputFieldset error={error} focused={focused} hovered={hovered}>
           <Legend focused={focused} hasValue={hasValue}>
             <span>

@@ -7,7 +7,7 @@ from app.models import db, Item, Review, ReviewSummary
 from flask_login import current_user, login_required
 from app.models import Item, Category, User, db, Review
 from sqlalchemy import or_
-from app.forms import DeleteItemForm, EditItemForm, ReviewForm, validation_errors_to_error_messages
+from app.forms import DeleteItemForm, EditItemForm, ReviewForm, CreateItemForm, validation_errors_to_error_messages
 
 
 item_routes = Blueprint("items", __name__)
@@ -42,6 +42,26 @@ def new_items():
         "picks": picked_ids
     }
 
+@item_routes.route("/", methods=["POST"])
+@login_required
+def create_item():
+    form = CreateItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        item = Item(
+            user_id=current_user.id,
+            name=form.data["name"],
+            category_id=form.data["categoryId"],
+            description=form.data["description"],
+            image=form.data["image"],
+            price=form.data["price"],
+            stock=form.data["stock"],
+        )
+        db.session.add(item)
+        db.session.commit()
+        return item.to_dict(), 201
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 @item_routes.route("/<int:item_id>")
 def item(item_id):
