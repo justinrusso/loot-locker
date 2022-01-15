@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { deleteReview, editReview } from '../../store/reviews';
-import Button from "../common/Button";
 
 import styled from "styled-components"
 
+import Button from "../common/Button";
+import StarsDisplay from "./StarsDisplay";
 
 const StyledReviewCard = styled.div`
     width: 100%;
@@ -29,17 +30,6 @@ const StyledReviewCard = styled.div`
         color: grey;
         margin-left: 1vw;
     }
-    .review-star-rating {
-        padding: 0 1vw;
-        display: flex;
-        align-items: center;
-        height: 5vh;
-    }
-    .star {
-        height: 50%;
-        padding: 0 1px;
-        display: flex;
-    }
     .review-comment {
         display: -webkit-box;
         -webkit-line-clamp: 3;
@@ -53,6 +43,9 @@ const StyledReviewCard = styled.div`
         font-size: 1em;
         margin-left: 1vw;
     }
+    .user-rating {
+        font-size: .75rem;
+    }
     `
 
 
@@ -60,8 +53,6 @@ const ReviewCard = ({ review, user }) => {
     const dispatch = useDispatch()
 
     const [buttonDisplay, setButtonDisplay] = useState('base')
-    const [showEdit, setShowEdit] = useState(false)
-    const [showDelete, setShowDelete] = useState(false)
 
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState(review.comment)
@@ -117,9 +108,8 @@ const ReviewCard = ({ review, user }) => {
             </div>
             {buttonDisplay !== 'edit' &&
                 <>
-                    {/* <div className="review-star-rating">{`${review.rating} Stars`}</div> */}
-
-                    <div className="review-comment">{review.comment}</div>
+                    <StarsDisplay className='user-rating' rating={review.rating} />
+                    < div className="review-comment">{review.comment}</div>
                 </>}
             {buttonDisplay === 'edit' &&
                 <form onSubmit={editSubmit}>

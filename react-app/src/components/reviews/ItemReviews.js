@@ -42,7 +42,10 @@ const StyledReviewsSectionDiv = styled.div`
         margin-bottom: 4vh;
     }
     .make-review {
-        width: 10em;
+        width: 10rem;
+    }
+    .item-rating {
+        margin-left: 1rem;
     }
     `
 
@@ -101,7 +104,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     {!reviewData.count ? <span id="reviews-amt">No Reviews Yet</span> :
                         <>
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
-                            <StarsDisplay rating={totalRating} />
+                            <StarsDisplay className="item-rating" rating={totalRating} />
                         </>}
                     {!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
                         <Button className="make-review" type='button' variant="text" onClick={(() => {

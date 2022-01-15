@@ -7,7 +7,6 @@ import none from './images/star-grey.png';
 const Container = styled.div`
     display: flex;
     align-items: center;
-    margin-left: 1.5em;
 
     .full {
         background-image: url(${full});
@@ -37,10 +36,10 @@ const colorCalc = (value, rating) => {
     else return 'none';
 }
 
-const StarsDisplay = ({ rating }) => {
+const StarsDisplay = ({ rating, className }) => {
 
     return (
-        <Container>
+        <Container className={className}>
             <StarDiv className={colorCalc(1, rating)}></StarDiv>
             <StarDiv className={colorCalc(2, rating)}></StarDiv>
             <StarDiv className={colorCalc(3, rating)}></StarDiv>

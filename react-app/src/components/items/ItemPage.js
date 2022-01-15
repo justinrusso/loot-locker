@@ -288,92 +288,7 @@ const StyledItemPageDiv = styled.div`
             height: 20vh;
       }
 `
-const StyledReviewsSectionDiv = styled.div`
-      // background-color: lime;
-      margin-top: 5vh;
 
-      #reviews-div {
-            height: 6vh;
-            display: flex;
-            margin-bottom: 4vh;
-      }
-
-      #reviews-amt {
-            font-size: x-large;
-            display: flex;
-            align-items: center;
-      }
-
-      #reviews-stars-div {
-            display: flex;
-            align-items: center;
-            margin-left: 1vw;
-      }
-
-      .star {
-            height: 50%;
-            padding: 0 1px;
-            display: flex;
-      }
-      `
-const StyledReviewCard = styled.div`
-      width: 100%;
-      // background-color: lightgrey;
-      // margin-top: 2vh;
-      margin-bottom: 6vh;
-
-
-      span {
-            font-size: x-large;
-      }
-
-      .review-user-and-date {
-            // background-color: teal;
-            display: flex;
-            align-items: center;
-            height: 5vh;
-            margin-bottom: 0.8vh;
-      }
-
-      .profile-icon {
-            // background-color: teal;
-            height: 110%;
-            border: 1px solid black;
-            margin-right: 0.5vw;
-            padding: 5px;
-            border-radius: 50%;
-      }
-
-      .review-post-date {
-            color: grey;
-            margin-left: 1vw;
-      }
-
-      .review-star-rating {
-            // background-color: salmon;
-            padding: 0 1vw;
-            display: flex;
-            align-items: center;
-            height: 5vh;
-      }
-
-      .star {
-            height: 50%;
-            padding: 0 1px;
-            display: flex;
-      }
-
-      .review-comment {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            // background-color: green;
-            font-size: large;
-            padding: 0 1vw;
-      }
-      `
 /**
  *
 * @param {number} stock The amount of stock remaining of the item
@@ -410,21 +325,6 @@ const ItemPage = () => {
       }
 
       const testDate = new Date(testReview.created_at)
-
-      const renderStarRating = (rating) => {
-            // TODO: add support for half star ratings, can probably just adjust this logic
-            let content = []
-            let key = 5
-            for (let i = 0; i < rating; i++) {
-                  content.push(<img key={i} className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>)
-            }
-            //if rating < 5, populate rest of stars div with grey ones
-            while (content.length < 5) {
-                  content.push(<img key={key} className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/931062582440255538/star-grey.png"></img>)
-                  key++
-            }
-            return content
-      }
 
       useEffect(() => {
             dispatch(getAnItem(itemId))
