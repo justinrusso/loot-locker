@@ -137,7 +137,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
                         </div>
                     </div>
-                    <button type='submit'>Submit</button>
+                    <Button variant="contained" type='submit'>Submit</Button>
                 </form>}
             </StyledReviewsSectionDiv>
             {
