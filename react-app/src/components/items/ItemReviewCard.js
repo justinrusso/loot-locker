@@ -138,7 +138,7 @@ const ReviewCard = ({ review, user }) => {
                         <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
                     </div>
                     <div>
-                        <button type='submit'>Submit</button>
+                        <Button type='submit' variant='contained'>Submit</Button>
                     </div>
                 </form>}
         </StyledReviewCard>
