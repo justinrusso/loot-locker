@@ -10,11 +10,11 @@ const ItemBox = styled.div`
     background-image: url(${props => props.image});
     background-size: cover;
     background-position: center;
-    height: 225px;
-    width: 225px;
+    height: 100%;
+    width: 100%;
     border-radius: 5px;
-    margin: 20px;
-    padding: 10px;
+    position: relative;
+    aspect-ratio: 1;
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
@@ -26,6 +26,9 @@ const ItemBox = styled.div`
     }
 
     .picked-price-tag {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
         background-color: transparent;
         color: transparent;
         font-weight: bold;
@@ -44,9 +47,9 @@ const ItemBox = styled.div`
     }
 `
 
-function PickedItem({ item }) {
+function PickedItem({ item, idx }) {
     return (
-        <BoxWrapper to={`/items/${item.id}`}>
+        <BoxWrapper to={`/items/${item.id}` } idx={idx}>
             <ItemBox image={item.image}>
                 <div className="picked-price-tag">
                     <i className="fas fa-coins" id="coins-icon" /> {item.price}

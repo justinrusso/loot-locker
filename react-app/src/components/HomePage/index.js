@@ -74,6 +74,10 @@ const Content = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    #breaker {
+        height: 80px;
+    }
 `
 
 const NewContainer = styled.div`
@@ -84,10 +88,84 @@ const NewContainer = styled.div`
 `
 
 const PickedContainer = styled.div`
+    width: 100%;
     display: grid;
     margin: 0px;
-    padding: 0px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 16px;
+    border: 1px solid rgba(100, 100, 100, 0.3);
+    border-radius: 7px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    @media (min-width: 1000px) and (max-width: 1299px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: 1300px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    #picks {
+        margin: 20px;
+        padding: 10px;
+        height: auto;
+        width: auto;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    > *:nth-child(2) {
+        grid-column: 2 / 4;
+        grid-row: 1 / 3;
+
+        @media (min-width: 1000px) and (max-width: 1299px) {
+            grid-column: 3 / 5;
+            grid-row: 1 / 3;
+        }
+
+        @media (min-width: 1300px) {
+            grid-column: 4 / 6;
+            grid-row: 1 / 3;
+        }
+    }
+
+    > *:nth-child(3) {
+        @media (max-width: 999px) {
+            grid-column: 3;
+            grid-row: 3;
+        }
+
+        @media (min-width: 1000px) and (max-width: 1299px) {
+            grid-column: 1 / 3;
+            grid-row: 2 / 4;
+        }
+
+        @media (min-width: 1300px) {
+            grid-column: 3;
+            grid-row: 2;
+        }
+    }
+
+    > *:nth-child(7) {
+            visibility: hidden;
+            height: 0px;
+            width: 0px;
+            grid-column: 1;
+            grid-row: 1;
+
+        @media (min-width: 1300px) {
+            visibility: visible;
+            height: 100%;
+            width: 100%;
+            grid-column: 2;
+            grid-row: 2;
+        }
+    }
 `
 
 const AboutSection = styled.div`
@@ -96,6 +174,7 @@ const AboutSection = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 80px;
     padding-top: 36px;
     padding-bottom: 36px;
     width: 100%;
@@ -141,15 +220,17 @@ function HomePage() {
                 <Content>
                     <div className="section-title" id="new">New!</div>
                     <NewContainer>
-                            {newIds.map(id => (
-                                <NewItem item={items[id]} key={`n:${id}}`}/>
-                            ))}
+                        {newIds.map(id => (
+                            <NewItem item={items[id]} key={`n:${id}}`}/>
+                        ))}
                     </NewContainer>
 
+                    <div id="breaker" />
+
                     <PickedContainer>
-                        <p className="section-title">Editors' Picks</p>
-                        {pickedIds.map(id => (
-                            <PickedItem item={items[id]} key={`p:${id}}`} />
+                        <div className="section-title" id="picks"><p>Editors' Picks</p></div>
+                        {pickedIds.map((id) => (
+                            <PickedItem item={items[id]} key={`p:${id}}`}/>
                         ))}
                     </PickedContainer>
                 </Content>
