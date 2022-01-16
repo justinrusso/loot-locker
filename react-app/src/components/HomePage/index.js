@@ -58,18 +58,17 @@ const HomeStyling = styled.div`
         text-align: center;
         font-size: 52px;
         line-height: 56px;
-        font-weight: bold;
     }
 
     h2 {
         text-align: center;
         font-size: 44px;
         line-height: 48px;
-        font-weight: bold;
     }
 
     .section-title {
-        font-size: 24px;
+        font-size: 28px;
+        line-height: 32px;
         font-weight: bold;
     }
 

@@ -57,9 +57,14 @@ const resetCss = css`
 const GlobalStyle = createGlobalStyle`
     ${resetCss}
 
-    // body {
-    //     font-family: 'Roboto', sans-serif;
-    // }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 500;
+    }
 `;
 
 export default GlobalStyle;
