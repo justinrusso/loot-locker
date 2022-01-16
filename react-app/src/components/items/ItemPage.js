@@ -72,23 +72,44 @@ const StyledItemPageDiv = styled.div`
             }
       }
 
+
       #new-image-input {
+            position: absolute;
             // background-color: cyan;
             width: 100%;
-            height: 75%;
+            height: 80%;
+            top: 1.2vh;
+            right: 1vw;
+      }
+
+      #camera-and-image-arrow-box {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            right: 2vw;
+            top: 2vh;
+
+            #edit-image-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
+            }
+
+            span {
+                  font-weight: bold;
+            }
       }
 
       #edit-image-button {
             padding: 4px;
+            cursor: pointer;
             border: 1px solid black;
             border-radius: 50%;
-            position: absolute;
-            right: 1vw;
-            top: 2vh;
+            position: relative;
       }
 
       #edit-image-image {
-            height: 4vh;
+            height: 5vh;
             padding: 5px;
       }
 
@@ -118,12 +139,13 @@ const StyledItemPageDiv = styled.div`
             font-size: xx-large;
 
             #item-name-span {
+                  // background-color: pink;
                   display: -webkit-box;
                   -webkit-line-clamp: 3;
                   -webkit-box-orient: vertical;
                   overflow: hidden;
                   text-overflow: ellipsis;
-                  // width: 70%;
+                  width: 85%;
                   font-weight: normal;
                   padding-left: 0;
             }
@@ -132,42 +154,30 @@ const StyledItemPageDiv = styled.div`
                   position: relative;
                   cursor: pointer;
                   // background-color: lime;
+                  bottom: 1vh;
                   padding: 0;
                   height: 5vh;
-                  bottom: 1vh;
-            }
-
-            .edit {
-                  bottom: -55px;
-                  right: 2vw;
-            }
-
-            .edit-button:hover {
-                  + .edit {
-                        visibility: visible;
-                  }
+                  align-self: flex-start
+                  // bottom: 1vh;
             }
       }
 
-      #edit-icon-arrow-box-container {
+      #book-and-name-arrow-box {
+            margin-left: 0.5vw;
             position: relative;
             // background-color: blue;
             display: flex;
-            flex-direction: column;
-            width: 5vw;
-            height: 5vh;
-            // justify-content: center;
+            justify-content: center;
             align-items: center;
 
-            .edit-button {
-                  margin: 0;
-                  padding: 0;
+            #name-edit-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
             }
-
             .arrow_box {
-                  // position: relative;
-                  left: 0;
-
+                  right: -2.2vw;
+                  top: 6vh;
             }
       }
 
@@ -192,10 +202,6 @@ const StyledItemPageDiv = styled.div`
                         visibility: visible;
                   }
             }
-
-            .arrow_box {
-                  // visibility: visible
-            }
       }
 
       #coins-icon {
@@ -210,6 +216,48 @@ const StyledItemPageDiv = styled.div`
             // background-color: red;
       }
 
+      #book-and-price-arrow-box {
+            position: relative;
+            margin-left: 0.5vw;
+            display: flex;
+            justify-content: center;
+
+            .edit-button {
+                  margin-left: 0;
+            }
+
+            .edit-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
+            }
+
+            .arrow_box {
+                  font-weight: normal;
+            }
+      }
+
+      #book-and-stock-arrow-box {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            margin-left: 0.5vw;
+
+            .edit-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
+            }
+
+            .edit-button {
+                  margin-left: 0;
+            }
+
+            .arrow_box {
+                  bottom: -5.5vh;
+            }
+      }
+
       #item-stock {
             display: flex;
             align-items: center;
@@ -220,7 +268,7 @@ const StyledItemPageDiv = styled.div`
 
       #new-item-stock {
             width: 30%;
-            font-size: large;
+            font-size: medium;
       }
 
       #add-to-cart-button, #description-button, #delete-item-button {
@@ -234,16 +282,12 @@ const StyledItemPageDiv = styled.div`
 
       #delete-item-button {
             height: 6vh;
-            // overflow: hidden;
+            cursor: pointer;
             position: relative;
             display: flex;
             align-items: center;
             margin-top: 0;
             margin-bottom: 2vh;
-            i {
-                  color: crimson;
-                  margin-right: 0.5vw;
-            }
             border-radius: 30px;
             justify-content: center;
       }
@@ -314,18 +358,39 @@ const StyledItemPageDiv = styled.div`
       }
 
       #description-button-and-edit-book {
-            // background-color: cyan;
             display: flex;
             align-items: center;
             position: relative;
       }
 
-      #edit-description-button {
-            // background-color: red;
-            position: absolute;
-            height: 5vh;
-            right: 0;
-            margin-right: 1vw;
+      #book-and-description-arrow-box {
+            // background-color: cyan;
+            justify-content: center;
+            display: flex;
+            margin-left: 1vw;
+
+            #edit-description-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
+            }
+
+            #edit-description-button {
+                  cursor: pointer;
+                  position: relative;
+                  height: 5vh;
+                  right: 0;
+            }
+
+
+            .arrow_box {
+                  bottom: -4vh;
+                  width: 8vw;
+            }
+
+            .arrow_box:after {
+                  right: 3.2vw;
+            }
       }
 
       #edit-description-textarea {
@@ -550,7 +615,8 @@ const ItemPage = () => {
                   <div id="left-side-page-container">
                         <div id="item-image-container">
                               <img id="item-image" src={item.image}></img>
-                              {showEditImg && <div className="edit-item-div" id="edit-image">
+                              {showEditImg &&
+                              <div className="edit-item-div" id="edit-image">
                                     <form onSubmit={(e) => {
                                           e.preventDefault()
                                           handleEditItem("#new-image-input", "image")
@@ -558,15 +624,29 @@ const ItemPage = () => {
                                           <input id="new-image-input" placeholder="New image URL"></input>
                                     </form>
                               </div>}
-                              {!showEditImg && item.userId === user?.id && <button onClick={() => setShowEditImg(true)} id="edit-image-button">
-                                    <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>
-                              </button>}
-                              {showEditImg && item.userId === user?.id && <button
+                              {item.userId === user?.id &&
+                              <div id="camera-and-image-arrow-box">
+                                    <button
+                                    onClick={() => {
+                                          if (showEditImg) {
+                                                handleEditItem("#new-image-input", "image")
+                                          }
+                                          setShowEditImg(!showEditImg)}}
+                                    id="edit-image-button">
+                                          {!showEditImg && <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>}
+                                          {showEditImg && <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>}
+                                    </button>
+                                    <div className="arrow_box">
+                                          {!showEditImg && <span>Edit image</span>}
+                                          {showEditImg && <span>Save image</span>}
+                                    </div>
+                              </div>}
+                              {/* {showEditImg && item.userId === user?.id && <button
                               id="edit-image-button"
                               onClick={() => handleEditItem("#new-image-input", "image")}
                               >
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
-                              </button>}
+                              </button>} */}
                         </div>
                         <StyledReviewsSectionDiv>
                               <div id="reviews-div">
@@ -620,83 +700,114 @@ const ItemPage = () => {
                   </div>
                   <div id="item-info-container">
                         {item.userId === user?.id && <button id="delete-item-button" onClick={handleDeleteItem}>
-                              <img id="dragon-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
+                              <img id="dragon-icon"
+                              src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"
+                              ></img>
                               <span>Incinerate this item</span>
                               <div className="arrow_box">
                                     <span>Delete item</span>
                               </div>
                         </button>}
                         <div id="item-seller">{item.seller.username}</div>
-                        {!showEditName && <div id="item-name">
+                        {!showEditName &&
+                        <div id="item-name">
                               <span id="item-name-span">{item.name}</span>
-                              {item.userId === user?.id && <div id="edit-icon-arrow-box-container">
+                              {item.userId === user?.id &&
+                              <div id="book-and-name-arrow-box">
                                     <img id="name-edit-button"
                                     onClick={() => setShowEditName(true)}
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
-                                    {/* TODO:
-                                          work on styling and positioning of the .arrow_box tags that display when hovering certain buttons
-                                    */}
-                                    <div className="arrow_box edit">
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                    ></img>
+                                    <div className="arrow_box">
                                           <span>Edit name</span>
                                     </div>
                               </div>}
                         </div>}
-                        {showEditName && <div className="edit-item-div">
+                        {showEditName &&
+                        <div className="edit-item-div">
                               <form onSubmit={e => {
                                     e.preventDefault()
                                     handleEditItem("#new-item-name", "name")
                                     }}>
                                     <input id="new-item-name" placeholder="Give your item a new name"></input>
                               </form>
-                              <img className="edit-button" onClick={() => handleEditItem("#new-item-name", "name")} src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
+                              <div id="book-and-name-arrow-box">
+                                    <img id="name-edit-button"
+                                    className="edit-button"
+                                    onClick={() => handleEditItem("#new-item-name", "name")}
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                    ></img>
+                                    <div className="arrow_box">
+                                          <span>Save name</span>
+                                    </div>
+                              </div>
                         </div>}
-                        {!showEditPrice && <div id="item-price">
+                        {!showEditPrice &&
+                        <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
-                              {item.userId === user?.id && <>
+                              {item.userId === user?.id &&
+                              <div id="book-and-price-arrow-box">
                                     <img className="edit-button"
                                     src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
                                     onClick={() => setShowEditPrice(true)}
                                     ></img>
-                                    <div className="arrow_box edit">
+                                    <div className="arrow_box">
                                           <span>Edit price</span>
                                     </div>
-                              </>}
+                              </div>}
 
                               {item.stock > 0 && <span className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>}
-                        {showEditPrice && <div className="edit-item-div" id="edit-price">
+                        {showEditPrice &&
+                        <div className="edit-item-div" id="edit-price">
                               <form onSubmit={(e) => {
                                     e.preventDefault()
                                     handleEditItem("#new-item-price", "price")
                               }}>
-                                    <input id="new-item-price" placeholder="New price" ></input>
-                                    <img className="edit-button"
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
-                                    onClick={() => handleEditItem("#new-item-price", "price")}
-                                    ></img>
+                                    <input id="new-item-price" placeholder="New price (gold)"></input>
+                                    <div id="book-and-price-arrow-box">
+                                          <img className="edit-button"
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                          onClick={() => handleEditItem("#new-item-price", "price")}
+                                          ></img>
+                                          <div className="arrow_box">
+                                                <span>Save price</span>
+                                          </div>
+                                    </div>
                               </form>
                               {item.stock > 0 && <span style={{fontWeight: 'normal'}} className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>}
                         {!showEditStock && item.userId === user?.id && <div id="item-stock">
                               <span id="stock-span">Stock: {item.stock}</span>
-                              <img className="edit-button"
-                              src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
-                              onClick={() => setShowEditStock(true)}
-                              ></img>
+                              <div id="book-and-stock-arrow-box">
+                                    <img className="edit-button"
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                    onClick={() => setShowEditStock(true)}
+                                    ></img>
+                                    <div className="arrow_box">
+                                          <span>Edit stock</span>
+                                    </div>
+                              </div>
                         </div>}
-                        {showEditStock && item.userId === user?.id && <div className="edit-item-div" id="item-stock">
+                        {showEditStock && item.userId === user?.id &&
+                        <div className="edit-item-div" id="item-stock">
                               <form onSubmit={(e) => {
                                     e.preventDefault();
                                     handleEditItem("#new-item-stock", "stock")
                               }}>
                                     <input id="new-item-stock" placeholder="New stock"></input>
-                                    <img className="edit-button"
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
-                                    onClick={() => handleEditItem("#new-item-stock", "stock")}
-                                    ></img>
+                                    <div id="book-and-stock-arrow-box">
+                                          <img className="edit-button"
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                          onClick={() => handleEditItem("#new-item-stock", "stock")}
+                                          ></img>
+                                          <div className="arrow_box">
+                                          <span>Save stock</span>
+                                    </div>
+                                    </div>
                               </form>
                         </div>}
                         {user?.id !== item.seller.id && (
@@ -714,14 +825,26 @@ const ItemPage = () => {
                                     {!showDescription && <i className="fas fa-chevron-down"></i>}
                                     {showDescription && <i className="fas fa-chevron-up"></i>}
                               </button>
-                              {!showEditDescription && user?.id === item.seller.id && <img id="edit-description-button"
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
-                                    onClick={() => setShowEditDescription(true)}
-                              ></img>}
-                              {showEditDescription && user?.id === item.seller.id && <img id="edit-description-button"
+                              {!showEditDescription && user?.id === item.seller.id &&
+                              <div id="book-and-description-arrow-box">
+                                    <img id="edit-description-button"
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                          onClick={() => setShowEditDescription(true)}
+                                    ></img>
+                                    <div className="arrow_box">
+                                          <span>Edit description</span>
+                                    </div>
+                              </div>}
+                              {showEditDescription && user?.id === item.seller.id &&
+                              <div id="book-and-description-arrow-box">
+                                    <img id="edit-description-button"
                                     src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
                                     onClick={() => handleEditItem("#edit-description-textarea", "description")}
-                              ></img>}
+                                    ></img>
+                                    <div className="arrow_box">
+                                          <span>Save description</span>
+                                    </div>
+                              </div>}
                         </div>
                         {showDescription && !showEditDescription && <div id="item-description">{item.description}</div>}
                         {showEditDescription && <div id="edit-item-description">
