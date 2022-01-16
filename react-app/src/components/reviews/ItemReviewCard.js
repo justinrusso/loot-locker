@@ -111,7 +111,7 @@ const ReviewCard = ({ review, user }) => {
             </div>
             {buttonDisplay !== 'edit' &&
                 <>
-                    <StarsDisplay className='user-rating' rating={review.rating} />
+                    <StarsDisplay disabled={true} className='user-rating' rating={review.rating} />
                     < div className="review-comment">{review.comment}</div>
                 </>}
             {buttonDisplay === 'edit' &&

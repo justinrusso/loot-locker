@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+
 import full from './images/star-rainbow.png';
 import half from './images/star-half.png';
 import none from './images/star-grey.png';
+
+const SelectContainer = styled.div`
+    width: 12.5rem;
+`
 
 const Container = styled.div`
     display: flex;
@@ -36,17 +41,54 @@ const colorCalc = (value, rating) => {
     else return 'none';
 }
 
-const StarsDisplay = ({ rating, className }) => {
+const StarsDisplay = ({ rating, setRating, disabled, className }) => {
+
+    const [hover, setHover] = useState(false);
+    const [hoverRating, setHoverRating] = useState(0);
+
+    const starHover = (e, value) => {
+        e.stopPropagation();
+        setHoverRating(value);
+    }
+
+    if (disabled) {
+        return (
+            <Container className={className}>
+                <StarDiv className={colorCalc(1, rating)}></StarDiv>
+                <StarDiv className={colorCalc(2, rating)}></StarDiv>
+                <StarDiv className={colorCalc(3, rating)}></StarDiv>
+                <StarDiv className={colorCalc(4, rating)}></StarDiv>
+                <StarDiv className={colorCalc(5, rating)}></StarDiv>
+            </Container >
+        )
+    }
 
     return (
-        <Container className={className}>
-            <StarDiv className={colorCalc(1, rating)}></StarDiv>
-            <StarDiv className={colorCalc(2, rating)}></StarDiv>
-            <StarDiv className={colorCalc(3, rating)}></StarDiv>
-            <StarDiv className={colorCalc(4, rating)}></StarDiv>
-            <StarDiv className={colorCalc(5, rating)}></StarDiv>
-        </Container >
+        <SelectContainer onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+            <Container>
+                <StarDiv className={colorCalc(1, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 1)}
+                    onClick={(e) => setRating(1)}>
+                </StarDiv>
+                <StarDiv className={colorCalc(2, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 2)}
+                    onClick={(e) => setRating(2)}>
+                </StarDiv>
+                <StarDiv className={colorCalc(3, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 3)}
+                    onClick={(e) => setRating(3)}>
+                </StarDiv>
+                <StarDiv className={colorCalc(4, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 4)}
+                    onClick={(e) => setRating(4)}>
+                </StarDiv>
+                <StarDiv className={colorCalc(5, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 5)}
+                    onClick={(e) => setRating(5)}>
+                </StarDiv>
+            </Container >
+        </SelectContainer>
     )
 }
 
-export default StarsDisplay;
+export default StarsDisplay
