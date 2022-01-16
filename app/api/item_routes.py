@@ -7,7 +7,7 @@ from app.models import db, Item, Review, ReviewSummary
 from flask_login import current_user, login_required
 from app.models import Item, Category, User, db, Review
 from sqlalchemy import or_
-from app.forms import DeleteItemForm, EditItemForm, ReviewForm, CreateItemForm, validation_errors_to_error_messages
+from app.forms import DeleteItemForm, EditItemForm, ReviewForm, CreateItemForm, validation_errors_to_error_messages, validation_errors_to_error_messages_dict
 
 
 item_routes = Blueprint("items", __name__)
@@ -61,7 +61,7 @@ def create_item():
         db.session.add(item)
         db.session.commit()
         return item.to_dict(), 201
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+    return {"errors": validation_errors_to_error_messages_dict(form.errors)}, 400
 
 @item_routes.route("/<int:item_id>")
 def item(item_id):

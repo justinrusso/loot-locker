@@ -44,7 +44,7 @@ const RegisterButton = styled(Button)`
 `;
 
 const SignUpForm = ({ onSuccess, toLogin }) => {
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
@@ -80,11 +80,6 @@ const SignUpForm = ({ onSuccess, toLogin }) => {
         </Button>
       </Heading>
       <form onSubmit={onSignUp}>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
         <InputsWrapper>
           <InputField
             fullWidth
@@ -96,6 +91,8 @@ const SignUpForm = ({ onSuccess, toLogin }) => {
               autoFocus: true,
               type: "text",
             }}
+            error={!!errors.username}
+            helperText={errors.username?.[0]}
             required
           />
           <InputField
@@ -107,6 +104,8 @@ const SignUpForm = ({ onSuccess, toLogin }) => {
             inputProps={{
               type: "text",
             }}
+            error={!!errors.email}
+            helperText={errors.email?.[0]}
             required
           />
           <InputField
@@ -118,6 +117,8 @@ const SignUpForm = ({ onSuccess, toLogin }) => {
             inputProps={{
               type: "text",
             }}
+            error={!!errors.location}
+            helperText={errors.location?.[0]}
             required
           />
           <PasswordInputsWrapper>
@@ -130,6 +131,8 @@ const SignUpForm = ({ onSuccess, toLogin }) => {
               inputProps={{
                 type: "password",
               }}
+              error={!!errors.password}
+              helperText={errors.password?.[0]}
               required
             />
             <InputField
