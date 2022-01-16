@@ -74,31 +74,31 @@ const StarsDisplay = ({ defRating, rating, setRating, disabled, className }) => 
                     onMouseEnter={(e) => starHover(e, 1)}
                     onClick={(e) => setRating(1)}
                 >
-                    <StarInput type="radio" value="1" checked={1 === (rating ? rating : defRating)} onChange={(e) => setRating(1)} />
+                    <StarInput type="radio" name="rating" value="1" checked={1 === (rating ? rating : defRating)} onChange={(e) => setRating(1)} />
                 </StarDiv>
                 <StarDiv className={colorCalc(2, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 2)}
                     onClick={(e) => setRating(2)}
                 >
-                    <StarInput type="radio" value="2" checked={2 === (rating ? rating : defRating)} onChange={(e) => setRating(2)} />
+                    <StarInput type="radio" name="rating" value="2" checked={2 === (rating ? rating : defRating)} onChange={(e) => setRating(2)} />
                 </StarDiv>
                 <StarDiv className={colorCalc(3, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 3)}
                     onClick={(e) => setRating(3)}
                 >
-                    <StarInput type="radio" value="3" checked={3 === (rating ? rating : defRating)} onChange={(e) => setRating(3)} />
+                    <StarInput type="radio" name="rating" value="3" checked={3 === (rating ? rating : defRating)} onChange={(e) => setRating(3)} />
                 </StarDiv>
                 <StarDiv className={colorCalc(4, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 4)}
                     onClick={(e) => setRating(4)}
                 >
-                    <StarInput type="radio" value="4" checked={4 === (rating ? rating : defRating)} onChange={(e) => setRating(4)} />
+                    <StarInput type="radio" name="rating" value="4" checked={4 === (rating ? rating : defRating)} onChange={(e) => setRating(4)} />
                 </StarDiv>
                 <StarDiv className={colorCalc(5, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 5)}
                     onClick={(e) => setRating(5)}
                 >
-                    <StarInput type="radio" value="5" checked={5 === (rating ? rating : defRating)} onChange={(e) => setRating(5)} />
+                    <StarInput type="radio" name="rating" value="5" checked={5 === (rating ? rating : defRating)} onChange={(e) => setRating(5)} />
                 </StarDiv>
             </Container >
         </SelectContainer>
