@@ -48,16 +48,35 @@ const StarsSelect = ({ rating, setRating }) => {
     const [hover, setHover] = useState(false);
     const [hoverRating, setHoverRating] = useState(0);
 
+    const starHover = (e, value) => {
+        e.stopPropagation();
+        setHoverRating(value);
+    }
+
     return (
         <Container onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-            {!hover ? <StarsDisplay rating={rating} /> :
-                <SelectContainer>
-                    <StarDiv className={colorCalc(1, rating)}></StarDiv>
-                    <StarDiv className={colorCalc(2, rating)}></StarDiv>
-                    <StarDiv className={colorCalc(3, rating)}></StarDiv>
-                    <StarDiv className={colorCalc(4, rating)}></StarDiv>
-                    <StarDiv className={colorCalc(5, rating)}></StarDiv>
-                </SelectContainer>}
+            <SelectContainer>
+                <StarDiv className={colorCalc(1, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 1)}
+                    onClick={(e) => setRating(1)}>
+                </StarDiv>
+                <StarDiv className={colorCalc(2, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 2)}
+                    onClick={(e) => setRating(2)}>
+                </StarDiv>
+                <StarDiv className={colorCalc(3, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 3)}
+                    onClick={(e) => setRating(3)}>
+                </StarDiv>
+                <StarDiv className={colorCalc(4, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 4)}
+                    onClick={(e) => setRating(4)}>
+                </StarDiv>
+                <StarDiv className={colorCalc(5, hover ? hoverRating : rating)}
+                    onMouseEnter={(e) => starHover(e, 5)}
+                    onClick={(e) => setRating(5)}>
+                </StarDiv>
+            </SelectContainer>
         </Container>
     )
 }

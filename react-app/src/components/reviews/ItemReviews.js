@@ -77,8 +77,9 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                 comment,
             }
         }))
-        setShowCreate(false)
-        setComment('')
+        setShowCreate(false);
+        setComment('');
+        setRating(0);
     }
 
     const byCreated = (a, b) => {
