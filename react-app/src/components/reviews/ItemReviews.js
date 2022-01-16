@@ -109,15 +109,15 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         setRating(0);
     }
 
-    const byCreated = (a, b) => {
-        return new Date(b.createdAt) - new Date(a.createdAt);
+    const byUpdated = (a, b) => {
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
     }
 
     const seller = useSelector(state => state.items.entities.items[itemId].seller)
 
     const totalRating = Math.round(useSelector(state => state.reviews.entities.totalRating) * 2) / 2
 
-    const reviews = Object.values(useSelector(state => state.reviews.entities.reviews)).sort(byCreated)
+    const reviews = Object.values(useSelector(state => state.reviews.entities.reviews)).sort(byUpdated)
     const userReviews = [];
     const otherReviews = [];
     for (const review of reviews) {
