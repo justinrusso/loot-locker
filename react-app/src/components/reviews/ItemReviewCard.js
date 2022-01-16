@@ -129,6 +129,7 @@ const ReviewCard = ({ review, user }) => {
                             fullWidth
                             label="Comment (Optional)"
                             value={comment}
+                            id="edit-comment-input"
                             onChange={(e) => setComment(e.target.value)}
                             inputProps={{
                                 type: "text",

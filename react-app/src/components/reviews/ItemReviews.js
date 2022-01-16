@@ -129,6 +129,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             label="Comment (Optional)"
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
+                            id="create-comment-input"
                             inputProps={{
                                 type: "text",
                                 as: "textarea",
