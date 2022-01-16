@@ -5,6 +5,11 @@ import styled from "styled-components";
 import { getHomepageItems } from "../../store/items";
 import NewItem from "./NewItem";
 import PickedItem from "./PickedItem";
+import arm from "./images/sword.jpg";
+import armor from "./images/armor.jpg";
+import accessory from "./images/ring.png";
+import mount from "./images/mount.jpg";
+import consumable from "./images/fairy-bottle.jpg";
 
 const HomeStyling = styled.div`
     display: flex;
@@ -288,11 +293,11 @@ function HomePage() {
                 <div id="home-top-color" />
                 <div id="wb-container"><h1 id="header-1">{user ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1></div>
                 <div id="category-container">
-                    <Category categoryNum="1" name="Arms" source='https://images.mapletip.com/maplestory-monsters/01302020.png' />
-                    <Category categoryNum="2" name="Armor" source={false} />
-                    <Category categoryNum="3" name="Accessories" source={false} />
-                    <Category categoryNum="4" name="Mounts" source={false} />
-                    <Category categoryNum="5" name="Consumables" source={false}/>
+                    <Category categoryNum="1" name="Arms" altText="arms" source={arm}/>
+                    <Category categoryNum="2" name="Armor" altText="armor" source={armor}/>
+                    <Category categoryNum="3" name="Accessories" altText="accessories" source={accessory}/>
+                    <Category categoryNum="4" name="Mounts" altText="mounts" source={mount}/>
+                    <Category categoryNum="5" name="Consumables" altText="consumables" source={consumable}/>
                 </div>
             </div>
 

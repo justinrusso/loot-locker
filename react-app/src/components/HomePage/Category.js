@@ -48,22 +48,23 @@ const CategoryBlock = styled.div`
         .circle {
             width: 114px;
             height: 114px;
-            border: 2px black solid;
+            border: 1px solid rgba(150, 150, 150, 0.5);
             border-radius: 50%;
             transition: all 0.2s ease-in-out;
             position: absolute;
             top: 0;
             left: 0;
+            object-fit: cover;
         }
     `
 
-function Category({ categoryNum, name, source }) {
+function Category({ categoryNum, name, source, altText }) {
 
     return (
         <CategoryBlock>
             <Link to={`search?category=${categoryNum}`}>
                 <div className="img-wrapper">
-                    <img src={source} className="circle"/>
+                    <img src={source} className="circle" alt={altText} />
                 </div>
             </Link>
             <Link to={`search?category=${categoryNum}`} className="category-name">{name}</Link>
