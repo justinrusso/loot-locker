@@ -67,13 +67,20 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
     const [showCreate, setShowCreate] = useState(false)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
+    const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
-        dispatch(getReviews(itemId))
+        dispatch(getReviews(itemId)).then(() => setLoaded(true))
     }, [dispatch, itemId])
 
     const createSubmit = (e) => {
         e.preventDefault();
+
+        if (!rating) {
+            console.log("Don't forget your rating!")
+            return
+        }
+
         dispatch(createReview({
             itemId,
             formDetails: {
@@ -105,7 +112,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         }
     }
 
-    return (
+    if (loaded) return (
         <>
             <StyledReviewsSectionDiv>
                 <div id="reviews-div">
@@ -162,6 +169,8 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
             }
         </>
     )
+
+    return (<></>)
 }
 
 export default ItemReviews
