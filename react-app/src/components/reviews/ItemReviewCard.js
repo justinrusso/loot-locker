@@ -6,6 +6,7 @@ import styled from "styled-components"
 
 import Button from "../common/Button";
 import StarsDisplay from "./StarsDisplay";
+import InputField from "../common/InputField";
 
 const StyledReviewCard = styled.div`
     width: 100%;
@@ -45,9 +46,15 @@ const StyledReviewCard = styled.div`
     }
     .user-rating {
         font-size: .75rem;
-        margin-bottom: 1rem;
+        margin: 1rem;
+    }
+    #edit-comment {
         margin-left: 1rem;
-        margin-top: 0.75rem;
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    #submit-edit {
+        margin-left: 1rem;
     }
     `
 
@@ -117,11 +124,21 @@ const ReviewCard = ({ review, user }) => {
             {buttonDisplay === 'edit' &&
                 <form onSubmit={editSubmit}>
                     <StarsDisplay className='user-rating' rating={rating} defRating={review.rating} setRating={setRating} />
-                    <div>
-                        <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+                    <div id="edit-comment">
+                        <InputField
+                            fullWidth
+                            label="Comment (Optional)"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            inputProps={{
+                                type: "text",
+                                as: "textarea",
+                                rows: 3,
+                            }}
+                        />
                     </div>
-                    <div>
-                        <Button type='submit' variant='contained'>Submit</Button>
+                    <div id="submit-edit">
+                        <Button type='submit' variant='contained'>Save</Button>
                     </div>
                 </form>}
         </StyledReviewCard>

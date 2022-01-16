@@ -7,6 +7,7 @@ import styled from "styled-components"
 import Button from "../common/Button";
 import ReviewCard from "./ItemReviewCard";
 import StarsDisplay from "./StarsDisplay";
+import InputField from "../common/InputField";
 
 const StyledReviewsSectionDiv = styled.div`
     margin-top: 5vh;
@@ -47,6 +48,10 @@ const StyledReviewsSectionDiv = styled.div`
     .item-rating {
         margin-left: 1rem;
     }
+    #create-comment {
+        margin-top: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
     `
 
 const ReviewsTitle = styled.div`
@@ -85,6 +90,8 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         return new Date(b.createdAt) - new Date(a.createdAt);
     }
 
+    const ownerId = useSelector(state => state.items.entities.items[itemId].seller.id)
+
     const totalRating = Math.round(useSelector(state => state.reviews.entities.totalRating) * 2) / 2
 
     const reviews = Object.values(useSelector(state => state.reviews.entities.reviews)).sort(byCreated)
@@ -107,23 +114,27 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
                             <StarsDisplay className="item-rating" defRating={totalRating} disabled={true} />
                         </>}
-                    {!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
+                    {user.id !== ownerId && (!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
                         <Button className="make-review" type='button' variant="text" onClick={(() => {
                             setShowCreate(false);
                             setComment('');
                             setRating(0);
-                        })}>Cancel Review</Button>}
+                        })}>Cancel Review</Button>)}
                 </div>
                 {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
-                    <p>Rating</p>
                     <StarsDisplay rating={rating} setRating={setRating} />
-                    <div>
-                        <label htmlFor="comment">
-                            Leave a comment (optional):
-                        </label>
-                        <div>
-                            <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
-                        </div>
+                    <div id="create-comment">
+                        <InputField
+                            fullWidth
+                            label="Comment (Optional)"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            inputProps={{
+                                type: "text",
+                                as: "textarea",
+                                rows: 3,
+                            }}
+                        />
                     </div>
                     <Button variant="contained" type='submit'>Submit</Button>
                 </form>}
