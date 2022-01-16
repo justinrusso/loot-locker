@@ -62,6 +62,10 @@ const StyledReviewsSectionDiv = styled.div`
             color: grey;
         }
     }
+    #create-header {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
     `
 
 const ReviewsTitle = styled.div`
@@ -142,6 +146,9 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                         })}>Cancel Review</Button>)}
                 </div>
                 {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
+                    <div id="create-header">
+                        <span>How did you like this item?</span>
+                    </div>
                     <div id="ratings-container">
                         <StarsDisplay rating={rating} setRating={setRating} />
                         {error && <span>Don't forget your rating!</span>}
