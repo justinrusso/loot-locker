@@ -22,7 +22,7 @@ const HomeStyling = styled.div`
         width: 100%;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 2fr 2fr;
+        grid-template-rows: 30px 30px 2fr 2fr;
     }
 
     #home-top-color {
@@ -291,7 +291,7 @@ function HomePage() {
         <HomeStyling>
             <div id="home-top">
                 <div id="home-top-color" />
-                <div id="wb-container"><h1 id="header-1">{user ? `Welcome back, ${user.username}!` : 'Find rare game items (temp. message)'}</h1></div>
+                <div id="wb-container"><h1 id="header-1">{user ? `Welcome back, ${user.username}!` : 'Find items to aid your next raid'}</h1></div>
                 <div id="category-container">
                     <Category categoryNum="1" name="Arms" altText="arms" source={arm}/>
                     <Category categoryNum="2" name="Armor" altText="armor" source={armor}/>
