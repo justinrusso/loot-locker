@@ -72,7 +72,7 @@ const ReviewCard = ({ review, user }) => {
         dispatch(editReview({
             reviewId: review.id,
             formDetails: {
-                rating,
+                rating: rating ? rating : review.rating,
                 comment,
             }
         })).then(() => setButtonDisplay('base'))
