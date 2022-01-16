@@ -181,7 +181,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                 </div>
             }
             {
-                reviews.length > 0 && <div>
+                otherReviews.length > 0 && <div>
                     <ReviewsTitle>Reviews</ReviewsTitle>
                     {
                         otherReviews.map((review, idx) => {
