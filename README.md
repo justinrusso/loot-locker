@@ -1,5 +1,7 @@
 # Loot Locker
 
+Website: [https://loot-locker.herokuapp.com/](https://loot-locker.herokuapp.com/)
+
 ## Technologies Used
 
 **Backend:**
