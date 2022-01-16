@@ -14,7 +14,39 @@ const HomeStyling = styled.div`
     width: 100%;
 
     #home-top {
-        postion: absolute;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 2fr 2fr;
+    }
+
+    #home-top-color {
+        background-color: #faecd5;
+        width: 100%;
+        height: 100%;
+        grid-column: 1;
+        grid-row: 1 / 4;
+        z-index: 1;
+    }
+
+    #wb-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        grid-column: 1;
+        grid-row: 2;
+        z-index: 2;
+    }
+
+    #category-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        grid-column: 1;
+        grid-row: 3 / 5;
+        z-index: 3;
     }
 
     h1 {
@@ -29,13 +61,6 @@ const HomeStyling = styled.div`
         font-size: 44px;
         line-height: 48px;
         font-weight: bold;
-    }
-
-    #category-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
     }
 
     .section-title {
@@ -260,8 +285,8 @@ function HomePage() {
     return (
         <HomeStyling>
             <div id="home-top">
-                <h1 id="header-1">{user ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
-
+                <div id="home-top-color" />
+                <div id="wb-container"><h1 id="header-1">{user ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1></div>
                 <div id="category-container">
                     <Category categoryNum="1" name="Arms" source='https://images.mapletip.com/maplestory-monsters/01302020.png' />
                     <Category categoryNum="2" name="Armor" source={false} />
