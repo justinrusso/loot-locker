@@ -28,6 +28,7 @@ const ResultLi = styled.li`
         height: 250px;
         object-fit: cover;
         margin-bottom: 10px;
+        border-radius: 5px;
     }
 
     span {

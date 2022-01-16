@@ -12,9 +12,9 @@ const ItemBox = styled.div`
     background-position: center;
     height: 100%;
     width: 100%;
-    padding: 10px;
-    aspect-ratio: 1;
     border-radius: 5px;
+    position: relative;
+    aspect-ratio: 1;
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
@@ -25,23 +25,33 @@ const ItemBox = styled.div`
         box-shadow: 0 0 8px rgba(0,0,0,0.3);
     }
 
-    .price-tag {
-        background-color: #D4E9D7;
-        color: black;
+    .picked-price-tag {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background-color: transparent;
+        color: transparent;
         font-weight: bold;
         border-radius: 25px;
         padding: 5px 13px;
         height: fit-content;
         width: fit-content;
-        border: 1px solid #c7d9ca;
+        border: 1px solid transparent;
+        transition: all 0.2s ease-in-out;
+    }
+
+    &:hover .picked-price-tag {
+        background-color: white;
+        color: black;
+        border-color: rgba(24,24,24,0.15);
     }
 `
 
-function NewItem({ item }) {
+function PickedItem({ item, idx }) {
     return (
-        <BoxWrapper to={`/items/${item.id}`}>
+        <BoxWrapper to={`/items/${item.id}` } idx={idx}>
             <ItemBox image={item.image}>
-                <div className="price-tag">
+                <div className="picked-price-tag">
                     <i className="fas fa-coins" id="coins-icon" /> {item.price}
                 </div>
             </ItemBox>
@@ -49,4 +59,4 @@ function NewItem({ item }) {
     )
 }
 
-export default NewItem;
+export default PickedItem;

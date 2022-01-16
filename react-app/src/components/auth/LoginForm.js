@@ -83,11 +83,6 @@ const LoginForm = ({ onSuccess, toSignUp }) => {
         </Button>
       </Heading>
       <form onSubmit={onLogin}>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
         <InputsWrapper>
           <InputField
             fullWidth
@@ -99,6 +94,8 @@ const LoginForm = ({ onSuccess, toSignUp }) => {
               autoFocus: true,
               type: "text",
             }}
+            error={!!errors.cred}
+            helperText={errors.cred?.[0]}
             required
           />
           <InputField
@@ -110,6 +107,8 @@ const LoginForm = ({ onSuccess, toSignUp }) => {
             inputProps={{
               type: "text",
             }}
+            error={!!errors.password}
+            helperText={errors.password?.[0]}
             required
           />
         </InputsWrapper>

@@ -4,6 +4,12 @@ import Category from "./Category";
 import styled from "styled-components";
 import { getHomepageItems } from "../../store/items";
 import NewItem from "./NewItem";
+import PickedItem from "./PickedItem";
+import arm from "./images/sword.jpg";
+import armor from "./images/armor.jpg";
+import accessory from "./images/ring.png";
+import mount from "./images/mount.jpg";
+import consumable from "./images/fairy-bottle.jpg";
 
 const HomeStyling = styled.div`
     display: flex;
@@ -13,7 +19,39 @@ const HomeStyling = styled.div`
     width: 100%;
 
     #home-top {
-        postion: absolute;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 30px 30px 2fr 2fr;
+    }
+
+    #home-top-color {
+        background-color: #faecd5;
+        width: 100%;
+        height: 100%;
+        grid-column: 1;
+        grid-row: 1 / 4;
+        z-index: 1;
+    }
+
+    #wb-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        grid-column: 1;
+        grid-row: 2;
+        z-index: 2;
+    }
+
+    #category-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        grid-column: 1;
+        grid-row: 3 / 5;
+        z-index: 3;
     }
 
     h1 {
@@ -30,33 +68,9 @@ const HomeStyling = styled.div`
         font-weight: bold;
     }
 
-    #category-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-    }
-
     .section-title {
         font-size: 24px;
         font-weight: bold;
-    }
-
-    #about {
-        background-color: #faecd5;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-top: 36px;
-        padding-bottom: 36px;
-    }
-
-    #about-text {
-        font-size: 20px;
-        font-weight: 300;
-        line-height: 38px;
-        margin: 30px;
     }
 
     #questions {
@@ -90,18 +104,172 @@ const Content = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    #breaker {
+        height: 80px;
+    }
 `
 
 const NewContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto 1fr 1fr 1fr;
+    gap: 24px;
+    @media (min-width: 1100px) {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto 1fr 1fr;
+    }
 
-    #header {
-        width: 100%;
-        text-align: left;
-        padding-left: 30px;
+    #new-header {
+        grid-column: 1 / 5;
+        grid-row: 1;
+        padding-left: 20px;
+        @media (min-width: 1100px) {
+            grid-column: 1 / 7;
+        }
+    }
+
+    > *:nth-child(2) {
+        grid-column: 1 / 3;
+        grid-row: 2 / 4;
+    }
+
+    > *:nth-child(3) {
+        grid-column: 3 / 5;
+        grid-row: 3 / 5;
+        @media (min-width: 1100px) {
+            grid-column: 4 / 6;
+            grid-row: 2 / 4;
+        }
+    }
+
+    > *:nth-child(4) {
+        grid-column: 1;
+        grid-row: 4;
+        @media (min-width: 1100px) {
+            grid-column: 3;
+            grid-row: 2;
+        }
+    }
+
+    > *:nth-child(5) {
+        grid-column: 2;
+        grid-row: 4;
+        @media (min-width: 1100px) {
+            grid-column: 3;
+            grid-row: 3;
+        }
+    }
+
+    > *:nth-child(6) {
+        grid-column: 3;
+        grid-row: 2;
+        @media (min-width: 1100px) {
+            grid-column: 6;
+            grid-row: 2;
+        }
+    }
+
+    > *:nth-child(7) {
+        grid-column: 4;
+        grid-row: 2;
+        @media (min-width: 1100px) {
+            grid-column: 6;
+            grid-row: 3;
+        }
+    }
+`
+
+const PickedContainer = styled.div`
+    width: 100%;
+    display: grid;
+    margin: 0px;
+    padding: 16px;
+    border: 1px solid rgba(100, 100, 100, 0.3);
+    border-radius: 7px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    @media (min-width: 1000px) and (max-width: 1299px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media (min-width: 1300px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    #picks-header {
+        margin: 20px;
+        padding: 10px;
+        height: auto;
+        width: auto;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    > *:nth-child(2) {
+        grid-column: 2 / 4;
+        grid-row: 1 / 3;
+        @media (min-width: 1000px) and (max-width: 1299px) {
+            grid-column: 3 / 5;
+            grid-row: 1 / 3;
+        }
+        @media (min-width: 1300px) {
+            grid-column: 4 / 6;
+            grid-row: 1 / 3;
+        }
+    }
+
+    > *:nth-child(3) {
+        @media (max-width: 999px) {
+            grid-column: 3;
+            grid-row: 3;
+        }
+        @media (min-width: 1000px) and (max-width: 1299px) {
+            grid-column: 1 / 3;
+            grid-row: 2 / 4;
+        }
+        @media (min-width: 1300px) {
+            grid-column: 3;
+            grid-row: 2;
+        }
+    }
+
+    > *:nth-child(7) {
+            visibility: hidden;
+            height: 0px;
+            width: 0px;
+            grid-column: 1;
+            grid-row: 1;
+            @media (min-width: 1300px) {
+                visibility: visible;
+                height: 100%;
+                width: 100%;
+                grid-column: 2;
+                grid-row: 2;
+            }
+    }
+`
+
+const AboutSection = styled.div`
+    background-color: #faecd5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+    padding-top: 36px;
+    padding-bottom: 36px;
+    width: 100%;
+
+    #about-text {
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 38px;
+        margin: 30px;
     }
 `
 
@@ -122,14 +290,14 @@ function HomePage() {
     return (
         <HomeStyling>
             <div id="home-top">
-                <h1 id="header-1">{user ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1>
-
+                <div id="home-top-color" />
+                <div id="wb-container"><h1 id="header-1">{user ? `Welcome back, ${user.username}!` : 'Find items to aid your next raid'}</h1></div>
                 <div id="category-container">
-                    <Category categoryNum="1" name="Arms" source='https://images.mapletip.com/maplestory-monsters/01302020.png' />
-                    <Category categoryNum="2" name="Armor" source={false} />
-                    <Category categoryNum="3" name="Accessories" source={false} />
-                    <Category categoryNum="4" name="Mounts" source={false} />
-                    <Category categoryNum="5" name="Consumables" source={false}/>
+                    <Category categoryNum="1" name="Arms" altText="arms" source={arm}/>
+                    <Category categoryNum="2" name="Armor" altText="armor" source={armor}/>
+                    <Category categoryNum="3" name="Accessories" altText="accessories" source={accessory}/>
+                    <Category categoryNum="4" name="Mounts" altText="mounts" source={mount}/>
+                    <Category categoryNum="5" name="Consumables" altText="consumables" source={consumable}/>
                 </div>
             </div>
 
@@ -137,29 +305,29 @@ function HomePage() {
             {isLoaded &&
                 <Content>
                     <NewContainer>
-                        <p className="section-title" id="header">New!</p>
+                        <div className="section-title" id="new-header">New!</div>
                         {newIds.map(id => (
                             <NewItem item={items[id]} key={`n:${id}}`}/>
                         ))}
                     </NewContainer>
 
-                    <div>
-                        {/* NOTE: CREATE NEW COMPONENT FOR PICKED ITEM */}
-                        <p className="section-title">Editors' Picks</p>
-                        {pickedIds.map(id => (
-                            <NewItem item={items[id]} key={`p:${id}}`} />
+                    <div id="breaker" />
+
+                    <PickedContainer>
+                        <div className="section-title" id="picks-header"><p>Editors' Picks</p></div>
+                        {pickedIds.map((id) => (
+                            <PickedItem item={items[id]} key={`p:${id}}`}/>
                         ))}
-                    </div>
+                    </PickedContainer>
                 </Content>
             }
 
-
-            <div id="about">
+            <AboutSection>
                 <h2>What is Loot Locker?</h2>
                 <p id="about-text">Loot Locker is a global online marketplace, where gamers can buy and sell in-game items. (to be cont.)</p>
                 <p id="questions">Have any questions?</p>
                 <a href="https://github.com/justinrusso/loot-locker" id="contact-button">Contact Us</a>
-            </div>
+            </AboutSection>
         </HomeStyling>
     )
 }

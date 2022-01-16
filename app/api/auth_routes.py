@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db
-from app.forms import LoginForm, validation_errors_to_error_messages
+from app.forms import LoginForm, validation_errors_to_error_messages_dict
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import or_
@@ -32,7 +32,7 @@ def login():
         user = User.query.filter(or_(User.email == form.data["cred"], User.username == form.data["cred"])).first()
         login_user(user)
         return user.to_dict()
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+    return {"errors": validation_errors_to_error_messages_dict(form.errors)}, 401
 
 
 @auth_routes.route("/login-demo")
@@ -69,7 +69,7 @@ def sign_up():
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+    return {"errors": validation_errors_to_error_messages_dict(form.errors)}, 401
 
 
 @auth_routes.route("/unauthorized")
