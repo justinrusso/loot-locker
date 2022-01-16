@@ -1,9 +1,5 @@
 import { createGlobalStyle, css } from "styled-components";
 
-/*
-  Josh's Custom CSS Reset
-  https://www.joshwcomeau.com/css/custom-css-reset/
-*/
 const resetCss = css`
   *,
   *::before,
@@ -61,9 +57,9 @@ const resetCss = css`
 const GlobalStyle = createGlobalStyle`
     ${resetCss}
 
-    body {
-        font-family: 'Roboto', sans-serif;
-    }
+    // body {
+    //     font-family: 'Roboto', sans-serif;
+    // }
 `;
 
 export default GlobalStyle;
