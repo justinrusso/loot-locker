@@ -27,7 +27,7 @@ const ProfileDropdown = styled.ul`
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0px 1px 5px 1px grey;
-  z-index: 4;
+  z-index: 1000;
 
   .profile-dropdown-li {
     cursor: pointer;
