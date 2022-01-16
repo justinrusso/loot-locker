@@ -138,14 +138,16 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     }
                 </div>
             }
-            <div>
-                <ReviewsTitle>Reviews</ReviewsTitle>
-                {
-                    otherReviews.map((review, idx) => {
-                        return <ReviewCard key={idx} review={review} user={user} />
-                    })
-                }
-            </div>
+            {
+                reviews.length > 0 && <div>
+                    <ReviewsTitle>Reviews</ReviewsTitle>
+                    {
+                        otherReviews.map((review, idx) => {
+                            return <ReviewCard key={idx} review={review} user={user} />
+                        })
+                    }
+                </div>
+            }
         </>
     )
 }
