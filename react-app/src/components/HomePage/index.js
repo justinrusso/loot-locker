@@ -291,7 +291,7 @@ function HomePage() {
         <HomeStyling>
             <div id="home-top">
                 <div id="home-top-color" />
-                <div id="wb-container"><h1 id="header-1">{user ? `Welcome back, ${user.username}` : 'Find rare game items (temp. message)'}</h1></div>
+                <div id="wb-container"><h1 id="header-1">{user ? `Welcome back, ${user.username}!` : 'Find rare game items (temp. message)'}</h1></div>
                 <div id="category-container">
                     <Category categoryNum="1" name="Arms" altText="arms" source={arm}/>
                     <Category categoryNum="2" name="Armor" altText="armor" source={armor}/>
