@@ -89,7 +89,7 @@ const ReviewCard = ({ review, user }) => {
             <div className="review-user-and-date">
                 <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png" alt=''></img>
                 <span className="reviewer-name">{review.user}</span>
-                <span className="review-post-date">{new Date(review.createdAt).toLocaleDateString(undefined, {
+                <span className="review-post-date">{new Date(review.updatedAt).toLocaleDateString(undefined, {
                     month: 'long',
                     day: 'numeric',
                     year: 'numeric'
