@@ -7,6 +7,7 @@ import styled from "styled-components"
 import Button from "../common/Button";
 import ReviewCard from "./ItemReviewCard";
 import StarsDisplay from "./StarsDisplay";
+import StarsSelect from "./StarsSelect";
 
 const StyledReviewsSectionDiv = styled.div`
     margin-top: 5vh;
@@ -110,10 +111,12 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                         <Button className="make-review" type='button' variant="text" onClick={(() => {
                             setShowCreate(false);
                             setComment('');
+                            setRating(0);
                         })}>Cancel Review</Button>}
                 </div>
                 {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
                     <p>Rating</p>
+                    <StarsSelect rating={rating} setRating={setRating} />
                     <div>
                         <input type="radio" id="one" name="rating" value="1" onChange={(e) => setRating(e.target.value)} required />
                         <label htmlFor="one">1</label>
