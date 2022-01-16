@@ -21,6 +21,7 @@ const StyledItemPageDiv = styled.div`
       #item-image-container {
             position: relative;
             display: flex;
+            aspect-ratio: 1;
             justify-content: center;
             border: 1px solid lightgrey;
             border-radius: 8px;
@@ -29,8 +30,9 @@ const StyledItemPageDiv = styled.div`
 
       #item-image {
             display: flex;
-            max-width: 100%;
-            max-height: 100%;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
             border-radius: 8px;
       }
 
