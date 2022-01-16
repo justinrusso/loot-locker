@@ -63,7 +63,7 @@ const ResultCard = ({ item }) => {
             <Link to={`/items/${item.id}`}>
                 <img src={item.image} alt={item.name} />
                 <ItemName>{item.name}</ItemName>
-                <StarsDisplay className='search-rating' rating={totalRating} disabled={true} />
+                <StarsDisplay className='search-rating' defRating={totalRating} disabled={true} />
                 <ItemPrice>{item.price}</ItemPrice>
                 <ItemUser>{item.seller.username}</ItemUser>
             </Link>

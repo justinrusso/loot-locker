@@ -41,7 +41,7 @@ const colorCalc = (value, rating) => {
     else return 'none';
 }
 
-const StarsDisplay = ({ rating, setRating, disabled, className }) => {
+const StarsDisplay = ({ defRating, rating, setRating, disabled, className }) => {
 
     const [hover, setHover] = useState(false);
     const [hoverRating, setHoverRating] = useState(0);
@@ -54,35 +54,35 @@ const StarsDisplay = ({ rating, setRating, disabled, className }) => {
     if (disabled) {
         return (
             <Container className={className}>
-                <StarDiv className={colorCalc(1, rating)}></StarDiv>
-                <StarDiv className={colorCalc(2, rating)}></StarDiv>
-                <StarDiv className={colorCalc(3, rating)}></StarDiv>
-                <StarDiv className={colorCalc(4, rating)}></StarDiv>
-                <StarDiv className={colorCalc(5, rating)}></StarDiv>
+                <StarDiv className={colorCalc(1, defRating)}></StarDiv>
+                <StarDiv className={colorCalc(2, defRating)}></StarDiv>
+                <StarDiv className={colorCalc(3, defRating)}></StarDiv>
+                <StarDiv className={colorCalc(4, defRating)}></StarDiv>
+                <StarDiv className={colorCalc(5, defRating)}></StarDiv>
             </Container >
         )
     }
 
     return (
         <SelectContainer onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-            <Container>
-                <StarDiv className={colorCalc(1, hover ? hoverRating : rating)}
+            <Container className={className}>
+                <StarDiv className={colorCalc(1, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 1)}
                     onClick={(e) => setRating(1)}>
                 </StarDiv>
-                <StarDiv className={colorCalc(2, hover ? hoverRating : rating)}
+                <StarDiv className={colorCalc(2, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 2)}
                     onClick={(e) => setRating(2)}>
                 </StarDiv>
-                <StarDiv className={colorCalc(3, hover ? hoverRating : rating)}
+                <StarDiv className={colorCalc(3, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 3)}
                     onClick={(e) => setRating(3)}>
                 </StarDiv>
-                <StarDiv className={colorCalc(4, hover ? hoverRating : rating)}
+                <StarDiv className={colorCalc(4, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 4)}
                     onClick={(e) => setRating(4)}>
                 </StarDiv>
-                <StarDiv className={colorCalc(5, hover ? hoverRating : rating)}
+                <StarDiv className={colorCalc(5, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 5)}
                     onClick={(e) => setRating(5)}>
                 </StarDiv>

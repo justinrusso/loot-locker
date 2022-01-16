@@ -99,6 +99,7 @@ const ReviewCard = ({ review, user }) => {
                             <Button variant="text" type="button" onClick={() => {
                                 setButtonDisplay('base');
                                 setComment(review.comment);
+                                setRating(0);
                             }}>Cancel Edit</Button>}
                         {buttonDisplay === 'delete' &&
                             <>
@@ -111,24 +112,12 @@ const ReviewCard = ({ review, user }) => {
             </div>
             {buttonDisplay !== 'edit' &&
                 <>
-                    <StarsDisplay disabled={true} className='user-rating' rating={review.rating} />
+                    <StarsDisplay disabled={true} className='user-rating' defRating={review.rating} />
                     < div className="review-comment">{review.comment}</div>
                 </>}
             {buttonDisplay === 'edit' &&
                 <form onSubmit={editSubmit}>
-                    <StarsDisplay className='user-rating' rating={review.rating} />
-                    <div>
-                        <input type="radio" id="one" name="rating" value="1" onChange={(e) => setRating(e.target.value)} required />
-                        <label htmlFor="one">1</label>
-                        <input type="radio" id="two" name="rating" value="2" onChange={(e) => setRating(e.target.value)} />
-                        <label htmlFor="two">2</label>
-                        <input type="radio" id="three" name="rating" value="3" onChange={(e) => setRating(e.target.value)} />
-                        <label htmlFor="three">3</label>
-                        <input type="radio" id="four" name="rating" value="4" onChange={(e) => setRating(e.target.value)} />
-                        <label htmlFor="four">4</label>
-                        <input type="radio" id="five" name="rating" value="5" onChange={(e) => setRating(e.target.value)} />
-                        <label htmlFor="five">5</label>
-                    </div>
+                    <StarsDisplay className='user-rating' rating={rating} defRating={review.rating} setRating={setRating} />
                     <div>
                         <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
                     </div>

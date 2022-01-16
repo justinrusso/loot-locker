@@ -105,7 +105,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                     {!reviewData.count ? <span id="reviews-amt">No Reviews Yet</span> :
                         <>
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
-                            <StarsDisplay className="item-rating" rating={totalRating} disabled={true} />
+                            <StarsDisplay className="item-rating" defRating={totalRating} disabled={true} />
                         </>}
                     {!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
                         <Button className="make-review" type='button' variant="text" onClick={(() => {
@@ -117,18 +117,6 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                 {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
                     <p>Rating</p>
                     <StarsDisplay rating={rating} setRating={setRating} />
-                    <div>
-                        <input type="radio" id="one" name="rating" value="1" onChange={(e) => setRating(e.target.value)} required />
-                        <label htmlFor="one">1</label>
-                        <input type="radio" id="two" name="rating" value="2" onChange={(e) => setRating(e.target.value)} />
-                        <label htmlFor="two">2</label>
-                        <input type="radio" id="three" name="rating" value="3" onChange={(e) => setRating(e.target.value)} />
-                        <label htmlFor="three">3</label>
-                        <input type="radio" id="four" name="rating" value="4" onChange={(e) => setRating(e.target.value)} />
-                        <label htmlFor="four">4</label>
-                        <input type="radio" id="five" name="rating" value="5" onChange={(e) => setRating(e.target.value)} />
-                        <label htmlFor="five">5</label>
-                    </div>
                     <div>
                         <label htmlFor="comment">
                             Leave a comment (optional):
