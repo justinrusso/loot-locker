@@ -68,8 +68,7 @@ const ReviewCard = ({ review, user }) => {
                 rating,
                 comment,
             }
-        }))
-        setButtonDisplay('base')
+        })).then(() => setButtonDisplay('base'))
     }
 
     const deleteSubmit = (e) => {
