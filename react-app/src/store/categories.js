@@ -33,3 +33,15 @@ const categorySlice = createSlice({
 });
 
 export default categorySlice.reducer;
+
+export const selectCategories = () => (state) => state.categories.categories;
+
+/**
+ * Selects categories and sorts them alphabetically
+ * @returns A sorted array of categories
+ */
+export const selectSortedCategoriesArray = () => (state) =>
+  Object.values(state.categories.categories).sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+  );
+ 
