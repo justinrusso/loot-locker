@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 import full from './images/star-rainbow.png';
 import half from './images/star-half.png';
@@ -45,14 +46,31 @@ const colorCalc = (value, rating) => {
     else return 'none';
 }
 
-const StarsDisplay = ({ defRating, rating, setRating, disabled, className }) => {
+const StarsDisplay = ({
+    defRating,
+    rating,
+    setRating,
+    disabled,
+    className,
+    setMessage,
+    user,
+}) => {
 
     const [hover, setHover] = useState(false);
     const [hoverRating, setHoverRating] = useState(0);
 
+    const message = {
+        '1': 'Loot Locker does not allow for refunds of purchased items at this time',
+        '2': 'Um...',
+        '3': "It's okay",
+        '4': 'Pretty dang good',
+        '5': `${user} is a hero`,
+    }
+
     const starHover = (e, value) => {
         e.stopPropagation();
         setHoverRating(value);
+        if (setMessage) setMessage(message[value.toString()])
     }
 
     if (disabled) {
@@ -68,7 +86,10 @@ const StarsDisplay = ({ defRating, rating, setRating, disabled, className }) => 
     }
 
     return (
-        <SelectContainer onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <SelectContainer onMouseEnter={() => setHover(true)} onMouseLeave={() => {
+            setHover(false);
+            if (setMessage) setMessage('');
+        }}>
             <Container className={className}>
                 <StarDiv className={colorCalc(1, hover ? hoverRating : (rating ? rating : defRating))}
                     onMouseEnter={(e) => starHover(e, 1)}

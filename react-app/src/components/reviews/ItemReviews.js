@@ -82,7 +82,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
     const [loaded, setLoaded] = useState(false)
-    const [error, setError] = useState(false)
+    const [message, setMessage] = useState('')
 
     useEffect(() => {
         dispatch(getReviews(itemId)).then(() => setLoaded(true))
@@ -92,7 +92,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         e.preventDefault();
 
         if (!rating) {
-            setError(true)
+            setMessage("Don't forget your rating!")
             return
         }
 
@@ -104,7 +104,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
             }
         }))
         setShowCreate(false);
-        setError(false)
+        setMessage('')
         setComment('');
         setRating(0);
     }
@@ -113,7 +113,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         return new Date(b.createdAt) - new Date(a.createdAt);
     }
 
-    const ownerId = useSelector(state => state.items.entities.items[itemId].seller.id)
+    const seller = useSelector(state => state.items.entities.items[itemId].seller)
 
     const totalRating = Math.round(useSelector(state => state.reviews.entities.totalRating) * 2) / 2
 
@@ -137,12 +137,12 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
                             <StarsDisplay className="item-rating" defRating={totalRating} disabled={true} />
                         </>}
-                    {user.id !== ownerId && (!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
+                    {user.id !== seller.id && (!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
                         <Button className="make-review" type='button' variant="text" onClick={(() => {
                             setShowCreate(false);
                             setComment('');
                             setRating(0);
-                            setError(false)
+                            setMessage('');
                         })}>Cancel Review</Button>)}
                 </div>
                 {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
@@ -150,8 +150,8 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                         <span>How did you like this item?</span>
                     </div>
                     <div id="ratings-container">
-                        <StarsDisplay rating={rating} setRating={setRating} />
-                        {error && <span>Don't forget your rating!</span>}
+                        <StarsDisplay rating={rating} setRating={setRating} setMessage={setMessage} user={seller.username} />
+                        <span>{message}</span>
                     </div>
                     <div id="create-comment">
                         <InputField
