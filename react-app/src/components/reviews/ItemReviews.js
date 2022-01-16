@@ -52,6 +52,16 @@ const StyledReviewsSectionDiv = styled.div`
         margin-top: 1.75rem;
         margin-bottom: 1.5rem;
     }
+    #ratings-container {
+        display: flex;
+        align-items: center;
+
+        span {
+            margin-left: 1.5rem;
+            font-size: 1.15rem;
+            color: grey;
+        }
+    }
     `
 
 const ReviewsTitle = styled.div`
@@ -68,6 +78,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
     const [loaded, setLoaded] = useState(false)
+    const [error, setError] = useState(false)
 
     useEffect(() => {
         dispatch(getReviews(itemId)).then(() => setLoaded(true))
@@ -77,7 +88,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         e.preventDefault();
 
         if (!rating) {
-            console.log("Don't forget your rating!")
+            setError(true)
             return
         }
 
@@ -89,6 +100,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
             }
         }))
         setShowCreate(false);
+        setError(false)
         setComment('');
         setRating(0);
     }
@@ -126,10 +138,14 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             setShowCreate(false);
                             setComment('');
                             setRating(0);
+                            setError(false)
                         })}>Cancel Review</Button>)}
                 </div>
                 {showCreate && <form id="create-review-form" onSubmit={createSubmit}>
-                    <StarsDisplay rating={rating} setRating={setRating} />
+                    <div id="ratings-container">
+                        <StarsDisplay rating={rating} setRating={setRating} />
+                        {error && <span>Don't forget your rating!</span>}
+                    </div>
                     <div id="create-comment">
                         <InputField
                             fullWidth
