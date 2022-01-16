@@ -63,8 +63,8 @@ const StarsDisplay = ({
         '1': 'Loot Locker does not allow for refunds of purchased items at this time',
         '2': 'Um...',
         '3': "It's okay",
-        '4': 'Pretty dang good',
-        '5': `${user} is a hero`,
+        '4': "I'm happy with it",
+        '5': `${user} is my hero`,
     }
 
     const starHover = (e, value) => {
