@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
 
     items = db.relationship(
         "Item", back_populates="seller", cascade="all, delete")
+    reviews = db.relationship('Review', back_populates="user")
 
     @property
     def password(self):

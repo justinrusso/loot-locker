@@ -56,6 +56,8 @@ const NewItemPage = () => {
   const [stock, setStock] = useState("");
   const [categoryId, setCategoryId] = useState("");
 
+  const [errors, setErrors] = useState({});
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -70,7 +72,12 @@ const NewItemPage = () => {
       })
     )
       .unwrap()
-      .then((newItem) => history.push(`/items/${newItem.id}`));
+      .then((newItem) => history.push(`/items/${newItem.id}`))
+      .catch((newErrors) => {
+        if (newErrors) {
+          setErrors(newErrors);
+        }
+      });
   };
 
   return (
@@ -92,6 +99,8 @@ const NewItemPage = () => {
               inputProps={{
                 type: "text",
               }}
+              error={!!errors.image}
+              helperText={errors.image?.[0]}
               required
             />
           </Paper>
@@ -108,6 +117,8 @@ const NewItemPage = () => {
                 autoFocus: true,
                 type: "text",
               }}
+              error={!!errors.name}
+              helperText={errors.name?.[0]}
               required
             />
             <InputField
@@ -119,6 +130,8 @@ const NewItemPage = () => {
               inputProps={{
                 as: "select",
               }}
+              error={!!errors.categoryId}
+              helperText={errors.categoryId?.[0]}
               required
             >
               <option value="" />
@@ -139,6 +152,8 @@ const NewItemPage = () => {
                 as: "textarea",
                 rows: 3,
               }}
+              error={!!errors.description}
+              helperText={errors.description?.[0]}
               required
             />
           </Paper>
@@ -157,6 +172,8 @@ const NewItemPage = () => {
                 min: "0",
                 step: "1",
               }}
+              error={!!errors.price}
+              helperText={errors.price?.[0]}
               required
             />
             <InputField
@@ -171,6 +188,8 @@ const NewItemPage = () => {
                 min: "0",
                 step: "1",
               }}
+              error={!!errors.stock}
+              helperText={errors.stock?.[0]}
               required
             />
 
