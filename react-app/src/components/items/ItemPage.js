@@ -14,6 +14,13 @@ const StyledItemPageDiv = styled.div`
       padding-right: 10vw;
       margin-top: 4vh;
 
+      // TODO: media screens
+      // @media screen and (max-width: 900px) {
+      //       flex-direction: column;
+      //       padding: 0;
+      //       align-items: center;
+      // }
+
       #left-side-page-container {
             width: 45vw;
       }
@@ -80,13 +87,11 @@ const StyledItemPageDiv = styled.div`
             position: absolute;
             right: 2vw;
             top: 2vh;
-
             #edit-image-button:hover {
                   + .arrow_box {
                         visibility: visible;
                   }
             }
-
             span {
                   font-weight: bold;
             }
@@ -125,7 +130,6 @@ const StyledItemPageDiv = styled.div`
             display: flex;
             position: relative;
             font-size: xx-large;
-
             #item-name-span {
                   display: -webkit-box;
                   -webkit-line-clamp: 3;
@@ -136,7 +140,6 @@ const StyledItemPageDiv = styled.div`
                   font-weight: normal;
                   padding-left: 0;
             }
-
             #name-edit-button {
                   position: relative;
                   cursor: pointer;
@@ -153,7 +156,6 @@ const StyledItemPageDiv = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-
             #name-edit-button:hover {
                   + .arrow_box {
                         visibility: visible;
@@ -172,25 +174,21 @@ const StyledItemPageDiv = styled.div`
             font-size: xx-large;
             font-weight: bolder;
             margin-top: 2vh;
-
             .is-in-stock-span {
                   font-size: large;
                   font-weight: normal;
                   position: relative;
                   left: 15vw;
             }
-
             .edit-button:hover {
                   + .arrow_box {
                         visibility: visible;
                   }
             }
       }
-
       #coins-icon {
             margin-right: 0.5vw
       }
-
       #new-item-price {
             width: 40%;
       }
@@ -200,17 +198,14 @@ const StyledItemPageDiv = styled.div`
             margin-left: 0.5vw;
             display: flex;
             justify-content: center;
-
             .edit-button {
                   margin-left: 0;
             }
-
             .edit-button:hover {
                   + .arrow_box {
                         visibility: visible;
                   }
             }
-
             .arrow_box {
                   font-weight: normal;
             }
@@ -261,6 +256,20 @@ const StyledItemPageDiv = styled.div`
                   font-size: x-large;
                   margin-left: 0.5vw;
             }
+            form {
+                  position: relative;
+                  top: 0.5vh;
+                  border-radius: 10px;
+                  height: 5vh;
+                  width: 40%;
+                  select {
+                        border: 2px solid black;
+                        border-radius: 30px;
+                        padding-left: 0.25vw;
+                        height: 100%;
+                        width: 100%;
+                  }
+            }
             #edit-category-and-arrow-box {
                   display: flex;
                   justify-content: center;
@@ -268,6 +277,7 @@ const StyledItemPageDiv = styled.div`
                   margin-left: 0.5vw;
                   img {
                         height: 5vh;
+                        cursor: pointer;
                   }
                   span {
                         font-size: small;
@@ -552,14 +562,33 @@ const ItemPage = () => {
 
             return(
                   <div id="category-container">
-                       <img src={src}></img>
-                       <span>{text}</span>
+                       {!showEditCategory && <>
+                        <img src={src}></img>
+                        <span>{text}</span>
+                       </>}
+                       {showEditCategory && <form onSubmit={(e) => e.preventDefault()}>
+                              <select id="new-category">
+                                    <option value="" selected>Select item category</option>
+                                    <option value="Arms">Arms</option>
+                                    <option value="Armor">Armor</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="Mounts">Mounts</option>
+                                    <option value="Consumables">Consumables</option>
+                              </select>
+                        </form>}
                        {item.userId === user?.id &&
                        <div id="edit-category-and-arrow-box">
-                             <img src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                             {!showEditCategory && <img
+                             src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                             onClick={() => setShowEditCategory(true)}
+                             ></img>}
+                             {showEditCategory && <img
+                             src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                             onClick={() => handleEditItem("#new-category", "category")}
+                             ></img>}
                              <div className="arrow_box">
-                                    {!showEditImg && <span>Edit category</span>}
-                                    {showEditImg && <span>Save category</span>}
+                                    {!showEditCategory && <span>Edit category</span>}
+                                    {showEditCategory && <span>Save category</span>}
                               </div>
                         </div>}
                   </div>
@@ -580,6 +609,7 @@ const ItemPage = () => {
       const [showEditPrice, setShowEditPrice] = useState(false)
       const [showEditStock, setShowEditStock] = useState(false)
       const [showEditImg, setShowEditImg] = useState(false)
+      const [showEditCategory, setShowEditCategory] = useState(false)
 
       const shortOrLongButton = () => {
             if (user?.id === item.seller.id) {
@@ -604,7 +634,30 @@ const ItemPage = () => {
       }
 
       const handleEditItem = async (cssSelector, fieldName) => {
+            let categoryId
             let newValue = document.querySelector(cssSelector).value
+
+            // turn the categories into their respective ID counterparts
+            if (fieldName === 'category') {
+                  switch(newValue) {
+                        case 'Arms':
+                              categoryId = 1
+                              break
+                        case 'Armor':
+                              categoryId = 2
+                              break
+                        case 'Accessories':
+                              categoryId = 3
+                              break
+                        case 'Mounts':
+                              categoryId = 4
+                              break
+                        case 'Consumables':
+                              categoryId = 5
+                              break
+                  }
+            }
+
             switch(fieldName) {
                   case 'name':
                         dispatch(editItem({ itemId, item: { name: newValue }}))
@@ -626,6 +679,11 @@ const ItemPage = () => {
                         dispatch(editItem({ itemId, item: { stock: newValue }}))
                         setShowEditStock(false)
                         break
+                  case 'category':
+                        dispatch(editItem({ itemId, item: { category: categoryId }}))
+                        setShowEditCategory(false)
+                        break
+
             }
       }
 
