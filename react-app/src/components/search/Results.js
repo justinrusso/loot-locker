@@ -8,9 +8,11 @@ import ResultCard from './ResultCard'
 const CategoryHeader = styled.div`
     width: 100vw;
     height: 150px;
+    display: flex;
+    align-items: center;
     background-color: #faecd5;
     padding-left: 10%;
-    padding-top: 30px;
+    // padding-top: 30px;
     font-size: 30px;
 `
 
