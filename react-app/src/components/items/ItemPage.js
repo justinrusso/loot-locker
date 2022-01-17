@@ -9,6 +9,7 @@ import { selectUser } from "../../store/session";
 import { useAuthModal } from "../../context/AuthModalProvider";
 
 import ItemReviews from "../reviews/ItemReviews";
+import Button from "../common/Button"
 
 const StyledItemPageDiv = styled.div`
       display: flex;
@@ -297,8 +298,12 @@ const StyledItemPageDiv = styled.div`
             margin-bottom: 1vh;
             padding: 1.5vh 0;
             font-size: large;
-            border: 2px solid black;
+            // border: 2px solid black;
             border-radius: 30px;
+            // font-weight: regular;
+      }
+
+      #add-to-cart-button:hover {
             font-weight: bold;
       }
 
@@ -360,6 +365,14 @@ const StyledItemPageDiv = styled.div`
             padding-left: 10%;
             padding-right: 10%;
             width: 100%;
+            span {
+                  font-weight: normal;
+            }
+      }
+      #description-button:hover {
+            span {
+                  font-weight: bold;
+            }
       }
 
       .edit-button {
@@ -663,17 +676,12 @@ const ItemPage = () => {
                                           {showEditImg && <span>Save image</span>}
                                     </div>
                               </div>}
-                              {/* {showEditImg && item.userId === user?.id && <button
-                              id="edit-image-button"
-                              onClick={() => handleEditItem("#new-image-input", "image")}
-                              >
-                                    <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
-                              </button>} */}
                         </div>
                         <ItemReviews itemId={itemId} user={user} reviewData={item.reviewData} />
                   </div>
                   <div id="item-info-container">
-                        {item.userId === user?.id && <button id="delete-item-button" onClick={handleDeleteItem}>
+                        {item.userId === user?.id &&
+                        <Button id="delete-item-button" onClick={handleDeleteItem} variant="outlined">
                               <img id="dragon-icon"
                               src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"
                               ></img>
@@ -681,7 +689,7 @@ const ItemPage = () => {
                               <div className="arrow_box">
                                     <span>Delete item</span>
                               </div>
-                        </button>}
+                        </Button>}
                         <div id="item-seller">{item.seller.username}</div>
                         {!showEditName &&
                         <div id="item-name">
@@ -786,20 +794,18 @@ const ItemPage = () => {
                         </div>}
                         {renderCategory()}
                         {user?.id !== item.seller.id && (
-                              <button
-                                    id="add-to-cart-button"
-                                    disabled={item.stock === 0}
-                                    onClick={handleAddToCart}
-                              >
-                                    {getCartButtonMessage(item.stock)}
-                              </button>
+                              <Button id="add-to-cart-button" type='button' variant='outlined'
+                              disabled={item.stock === 0}
+                              onClick={handleAddToCart}>
+                              {getCartButtonMessage(item.stock)}
+                              </Button>
                         )}
                         <div id="description-button-and-edit-book">
-                              <button style={shortOrLongButton()} onClick={handleSetShowDescription} id="description-button">
+                              <Button variant='outlined' id="description-button" style={shortOrLongButton()} onClick={handleSetShowDescription}>
                                     <span>Description</span>
                                     {!showDescription && <i className="fas fa-chevron-down"></i>}
                                     {showDescription && <i className="fas fa-chevron-up"></i>}
-                              </button>
+                              </Button>
                               {!showEditDescription && user?.id === item.seller.id &&
                               <div id="book-and-description-arrow-box">
                                     <img id="edit-description-button"
