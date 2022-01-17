@@ -20,22 +20,18 @@ const StyledItemPageDiv = styled.div`
 
       .edit-item-div {
             height: 7vh;
-            // background-color: grey;
             display: flex;
             align-items: center;
-
             form {
                   display: flex;
                   align-items: center;
                   height: 100%;
                   width: 80%;
             }
-
             input {
                   padding-left: 1vw;
                   border: 2px solid black;
                   border-radius: 30px;
-                  // background-color: cyan;
                   height: 80%;
                   width: 100%;
             }
@@ -58,15 +54,12 @@ const StyledItemPageDiv = styled.div`
       }
 
       #edit-image {
-            // background-color: red;
             position: absolute;
             top: 1vh;
             right: 4.5vw;
             width: 30vw;
             height: 7vh;
-
             form {
-                  // background-color: red;
                   width: 100%;
                   height: 100%;
             }
@@ -75,7 +68,6 @@ const StyledItemPageDiv = styled.div`
 
       #new-image-input {
             position: absolute;
-            // background-color: cyan;
             width: 100%;
             height: 80%;
             top: 1.2vh;
@@ -118,10 +110,7 @@ const StyledItemPageDiv = styled.div`
             display: flex;
             flex-direction: column;
             width: 30vw;
-            // padding-top: 1%;
-            // padding-left:2vw;
             margin-left: 5%;
-
             span {
                   font-weight: bolder;
             }
@@ -133,13 +122,11 @@ const StyledItemPageDiv = styled.div`
       }
 
       #item-name {
-            // background-color: grey;
             display: flex;
             position: relative;
             font-size: xx-large;
 
             #item-name-span {
-                  // background-color: pink;
                   display: -webkit-box;
                   -webkit-line-clamp: 3;
                   -webkit-box-orient: vertical;
@@ -153,19 +140,16 @@ const StyledItemPageDiv = styled.div`
             #name-edit-button {
                   position: relative;
                   cursor: pointer;
-                  // background-color: lime;
                   bottom: 1vh;
                   padding: 0;
                   height: 5vh;
                   align-self: flex-start
-                  // bottom: 1vh;
             }
       }
 
       #book-and-name-arrow-box {
             margin-left: 0.5vw;
             position: relative;
-            // background-color: blue;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -182,7 +166,6 @@ const StyledItemPageDiv = styled.div`
       }
 
       #item-price {
-            // background-color: green;
             display: flex;
             position: relative;
             align-items: center;
@@ -210,10 +193,6 @@ const StyledItemPageDiv = styled.div`
 
       #new-item-price {
             width: 40%;
-      }
-
-      #edit-price {
-            // background-color: red;
       }
 
       #book-and-price-arrow-box {
@@ -262,7 +241,6 @@ const StyledItemPageDiv = styled.div`
             display: flex;
             align-items: center;
             margin-top: 1vh;
-            margin-bottom: 10vh;
             font-size: xx-large;
       }
 
@@ -271,13 +249,45 @@ const StyledItemPageDiv = styled.div`
             font-size: medium;
       }
 
+      #category-container {
+            display: flex;
+            align-items: center;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+            img {
+                  height: 7vh;
+            }
+            span {
+                  font-size: x-large;
+                  margin-left: 0.5vw;
+            }
+            #edit-category-and-arrow-box {
+                  display: flex;
+                  justify-content: center;
+                  position: relative;
+                  margin-left: 0.5vw;
+                  img {
+                        height: 5vh;
+                  }
+                  span {
+                        font-size: small;
+                        margin-left: 0;
+                  }
+                  img:hover {
+                        + .arrow_box {
+                              visibility: visible;
+                        }
+                  }
+            }
+      }
+
       #add-to-cart-button, #description-button, #delete-item-button {
             margin-bottom: 1vh;
             padding: 1.5vh 0;
-            margin-top: 10vh;
             font-size: large;
             border: 2px solid black;
             border-radius: 30px;
+            font-weight: bold;
       }
 
       #delete-item-button {
@@ -364,35 +374,28 @@ const StyledItemPageDiv = styled.div`
       }
 
       #book-and-description-arrow-box {
-            // background-color: cyan;
             justify-content: center;
             display: flex;
             margin-left: 1vw;
-
             #edit-description-button:hover {
                   + .arrow_box {
                         visibility: visible;
                   }
             }
-
             #edit-description-button {
                   cursor: pointer;
                   position: relative;
                   height: 5vh;
                   right: 0;
             }
-
-
             .arrow_box {
                   bottom: -4vh;
                   width: 8vw;
             }
-
             .arrow_box:after {
                   right: 3.2vw;
             }
       }
-
       #edit-description-textarea {
             padding: 1vh 0.5vw;
             resize: vertical;
@@ -402,27 +405,22 @@ const StyledItemPageDiv = styled.div`
       }
 `
 const StyledReviewsSectionDiv = styled.div`
-      // background-color: lime;
       margin-top: 5vh;
-
       #reviews-div {
             height: 6vh;
             display: flex;
             margin-bottom: 4vh;
       }
-
       #reviews-amt {
             font-size: x-large;
             display: flex;
             align-items: center;
       }
-
       #reviews-stars-div {
             display: flex;
             align-items: center;
             margin-left: 1vw;
       }
-
       .star {
             height: 50%;
             padding: 0 1px;
@@ -431,58 +429,44 @@ const StyledReviewsSectionDiv = styled.div`
       `
 const StyledReviewCard = styled.div`
       width: 100%;
-      // background-color: lightgrey;
-      // margin-top: 2vh;
       margin-bottom: 6vh;
-
-
       span {
             font-size: x-large;
       }
-
       .review-user-and-date {
-            // background-color: teal;
             display: flex;
             align-items: center;
             height: 5vh;
             margin-bottom: 0.8vh;
       }
-
       .profile-icon {
-            // background-color: teal;
             height: 110%;
             border: 1px solid black;
             margin-right: 0.5vw;
             padding: 5px;
             border-radius: 50%;
       }
-
       .review-post-date {
             color: grey;
             margin-left: 1vw;
       }
-
       .review-star-rating {
-            // background-color: salmon;
             padding: 0 1vw;
             display: flex;
             align-items: center;
             height: 5vh;
       }
-
       .star {
             height: 50%;
             padding: 0 1px;
             display: flex;
       }
-
       .review-comment {
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
-            // background-color: green;
             font-size: large;
             padding: 0 1vw;
       }
@@ -537,6 +521,50 @@ const ItemPage = () => {
                   key++
             }
             return content
+      }
+
+      const renderCategory = () => {
+            // render a category div and icon based on the category of the item
+            let src
+            let text
+            switch(item.category) {
+                  case "Arms":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932409968118878238/sword.png"
+                        text = "Arm"
+                        break
+                  case "Armor":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932351759110766633/shield.png"
+                        text = "Armor"
+                        break
+                  case "Accessories":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932410334055116850/amulet.png"
+                        text = "Accessory"
+                        break
+                  case "Mounts":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932410865171447848/pegasus.png"
+                        text = "Mount"
+                        break
+                  case "Consumables":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932411125037957171/bottle.png"
+                        text = "Consumable"
+                        break
+            }
+
+            return(
+                  <div id="category-container">
+                       <img src={src}></img>
+                       <span>{text}</span>
+                       {item.userId === user?.id &&
+                       <div id="edit-category-and-arrow-box">
+                             <img src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                             <div className="arrow_box">
+                                    {!showEditImg && <span>Edit category</span>}
+                                    {showEditImg && <span>Save category</span>}
+                              </div>
+                        </div>}
+                  </div>
+            )
+
       }
 
       useEffect(() => {
@@ -810,6 +838,7 @@ const ItemPage = () => {
                                     </div>
                               </form>
                         </div>}
+                        {renderCategory()}
                         {user?.id !== item.seller.id && (
                               <button
                                     id="add-to-cart-button"
@@ -847,7 +876,8 @@ const ItemPage = () => {
                               </div>}
                         </div>
                         {showDescription && !showEditDescription && <div id="item-description">{item.description}</div>}
-                        {showEditDescription && <div id="edit-item-description">
+                        {showEditDescription &&
+                        <div id="edit-item-description">
                               <form>
                                     <textarea id="edit-description-textarea">{item.description}</textarea>
                               </form>
