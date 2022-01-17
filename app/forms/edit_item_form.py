@@ -30,6 +30,9 @@ def valid_img_url(form, field):
 def valid_category_id(form, field):
     category_id = field.data
 
+    if category_id == None:
+        return
+
     if not category_id > 0 and category_id < 6:
       raise ValidationError('Must provide a valid category')
 
