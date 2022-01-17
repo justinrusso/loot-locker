@@ -130,6 +130,8 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         }
     }
 
+    console.log(user)
+
     if (loaded) return (
         <>
             <StyledReviewsSectionDiv>
@@ -139,7 +141,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
                             <StarsDisplay className="item-rating" defRating={totalRating} disabled={true} />
                         </>}
-                    {user?.id !== seller.id && (!showCreate ?
+                    {user && user?.id !== seller.id && (!showCreate ?
                         <Button
                             variant="outlined"
                             className="make-review"
