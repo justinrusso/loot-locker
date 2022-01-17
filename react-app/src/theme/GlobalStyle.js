@@ -57,12 +57,17 @@ const resetCss = css`
 const GlobalStyle = createGlobalStyle`
     ${resetCss}
 
+    :root {
+      --font-sans: 'Inter', sans-serif;
+      --font-serif: 'Cardo', serif;
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-sans);
     }
 
     h1, h2, h3, h4, h5, h6 {
-      font-family: 'Cardo', serif;
+      font-family: var(--font-serif);
       font-weight: 500;
     }
 `;

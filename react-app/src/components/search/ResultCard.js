@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import StarsDisplay from '../reviews/StarsDisplay';
+
 const ResultLi = styled.li`
 
     list-style: none;
@@ -32,6 +34,11 @@ const ResultLi = styled.li`
     span {
         margin-top: 2.5px;
     }
+
+    .search-rating {
+        font-size: .65rem;
+        margin-bottom: .25rem;
+    }
 `
 
 const ItemName = styled.span`
@@ -49,11 +56,15 @@ const ItemUser = styled.span`
 `
 
 const ResultCard = ({ item }) => {
+
+    const totalRating = Math.round(item.reviewData.rating * 2) / 2
+
     return (
         <ResultLi>
             <Link to={`/items/${item.id}`}>
                 <img src={item.image} alt={item.name} />
                 <ItemName>{item.name}</ItemName>
+                <StarsDisplay className='search-rating' defRating={totalRating} disabled={true} />
                 <ItemPrice>{item.price}</ItemPrice>
                 <ItemUser>{item.seller.username}</ItemUser>
             </Link>

@@ -1,6 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const initialState = { entities: { reviews: {} } }
+const initialState = { entities: { reviews: {}, totalRating: 0 } }
+
+const calculateRating = (reviews) => {
+    let sum = 0;
+    for (const index in reviews) {
+        sum += reviews[index].rating;
+    }
+    return (sum / Object.keys(reviews).length).toFixed(2)
+}
 
 export const createReview = createAsyncThunk(
     'reviews/createReview',
@@ -26,14 +34,10 @@ export const createReview = createAsyncThunk(
 export const getReviews = createAsyncThunk(
     'reviews/getReviews',
     async (itemId, thunkAPI) => {
-        const response = await fetch(`/api/items/${itemId}/reviews`, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const response = await fetch(`/api/items/${itemId}/reviews`);
         const data = await response.json();
         if (response.ok) {
-            return data;
+            return data.reviews;
         } else {
             throw thunkAPI.rejectWithValue(["An error occurred. Please try again."]);
         }
@@ -65,11 +69,8 @@ export const deleteReview = createAsyncThunk(
     'reviews/deleteReview',
     async (reviewId, thunkAPI) => {
         const response = await fetch(`/api/reviews/${reviewId}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+            method: 'DELETE'
+        });
         const data = await response.json();
         if (response.ok) {
             return data;
@@ -85,9 +86,11 @@ const reviewSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(createReview.fulfilled, (state, action) => {
             state.entities.reviews[action.payload.id] = action.payload;
+            state.entities.totalRating = calculateRating(state.entities.reviews);
         });
         builder.addCase(editReview.fulfilled, (state, action) => {
             state.entities.reviews[action.payload.id] = action.payload;
+            state.entities.totalRating = calculateRating(state.entities.reviews);
         });
         builder.addCase(getReviews.fulfilled, (state, action) => {
             const reviews = {}
@@ -95,9 +98,11 @@ const reviewSlice = createSlice({
                 reviews[review.id] = review
             });
             state.entities.reviews = reviews;
+            state.entities.totalRating = calculateRating(state.entities.reviews);
         });
         builder.addCase(deleteReview.fulfilled, (state, action) => {
             delete state.entities.reviews[action.payload.reviewId]
+            state.entities.totalRating = calculateRating(state.entities.reviews);
         })
     }
 })

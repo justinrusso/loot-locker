@@ -89,6 +89,7 @@ const DrawerContent = styled.div`
 
   .subtotal {
     display: flex;
+    font-family: ${(props) => props.theme.typography.fontSans};
     justify-content: space-between;
     padding: 16px 0;
 
