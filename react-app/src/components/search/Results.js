@@ -13,6 +13,7 @@ const CategoryHeader = styled.div`
     background-color: #faecd5;
     padding-left: 10%;
     // padding-top: 30px;
+    margin-bottom: 30px;
     font-size: 30px;
 `
 
