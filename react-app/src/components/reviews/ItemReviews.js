@@ -113,8 +113,6 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         return new Date(b.updatedAt) - new Date(a.updatedAt);
     }
 
-    // const user = userObj ? userObj : { 'id': 0 }
-
     const seller = useSelector(state => state.items.entities.items[itemId].seller)
 
     const totalRating = Math.round(useSelector(state => state.reviews.entities.totalRating) * 2) / 2
