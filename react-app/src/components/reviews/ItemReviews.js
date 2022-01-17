@@ -74,7 +74,7 @@ const ReviewsTitle = styled.div`
     color: grey;
 `
 
-const ItemReviews = ({ itemId, userObj, reviewData }) => {
+const ItemReviews = ({ itemId, user, reviewData }) => {
 
     const dispatch = useDispatch();
 
@@ -113,7 +113,7 @@ const ItemReviews = ({ itemId, userObj, reviewData }) => {
         return new Date(b.updatedAt) - new Date(a.updatedAt);
     }
 
-    const user = userObj ? userObj : { 'id': 0 }
+    // const user = userObj ? userObj : { 'id': 0 }
 
     const seller = useSelector(state => state.items.entities.items[itemId].seller)
 
@@ -123,7 +123,7 @@ const ItemReviews = ({ itemId, userObj, reviewData }) => {
     const userReviews = [];
     const otherReviews = [];
     for (const review of reviews) {
-        if (review.userId === user.id) {
+        if (review.userId === user?.id) {
             userReviews.push(review);
         } else {
             otherReviews.push(review);
@@ -139,7 +139,12 @@ const ItemReviews = ({ itemId, userObj, reviewData }) => {
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
                             <StarsDisplay className="item-rating" defRating={totalRating} disabled={true} />
                         </>}
-                    {!!user.id && user.id !== seller.id && (!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
+                    {user?.id !== seller.id && (!showCreate ?
+                        <Button
+                            variant="outlined"
+                            className="make-review"
+                            type=' button'
+                            onClick={() => { setShowCreate(true) }}>Add a Review</Button> :
                         <Button className="make-review" type='button' variant="text" onClick={(() => {
                             setShowCreate(false);
                             setComment('');
