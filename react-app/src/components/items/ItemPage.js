@@ -8,6 +8,8 @@ import { getAnItem, deleteItem, editItem } from "../../store/items"
 import { selectUser } from "../../store/session";
 import { useAuthModal } from "../../context/AuthModalProvider";
 
+import ItemReviews from "../reviews/ItemReviews";
+
 const StyledItemPageDiv = styled.div`
       display: flex;
       padding-left: 10vw;
@@ -414,77 +416,11 @@ const StyledItemPageDiv = styled.div`
             border-radius: 10px;
       }
 `
-const StyledReviewsSectionDiv = styled.div`
-      margin-top: 5vh;
-      #reviews-div {
-            height: 6vh;
-            display: flex;
-            margin-bottom: 4vh;
-      }
-      #reviews-amt {
-            font-size: x-large;
-            display: flex;
-            align-items: center;
-      }
-      #reviews-stars-div {
-            display: flex;
-            align-items: center;
-            margin-left: 1vw;
-      }
-      .star {
-            height: 50%;
-            padding: 0 1px;
-            display: flex;
-      }
-      `
-const StyledReviewCard = styled.div`
-      width: 100%;
-      margin-bottom: 6vh;
-      span {
-            font-size: x-large;
-      }
-      .review-user-and-date {
-            display: flex;
-            align-items: center;
-            height: 5vh;
-            margin-bottom: 0.8vh;
-      }
-      .profile-icon {
-            height: 110%;
-            border: 1px solid black;
-            margin-right: 0.5vw;
-            padding: 5px;
-            border-radius: 50%;
-      }
-      .review-post-date {
-            color: grey;
-            margin-left: 1vw;
-      }
-      .review-star-rating {
-            padding: 0 1vw;
-            display: flex;
-            align-items: center;
-            height: 5vh;
-      }
-      .star {
-            height: 50%;
-            padding: 0 1px;
-            display: flex;
-      }
-      .review-comment {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: large;
-            padding: 0 1vw;
-      }
-      `
-      /**
-       *
- * @param {number} stock The amount of stock remaining of the item
- */
+
+/**
+ *
+* @param {number} stock The amount of stock remaining of the item
+*/
 const getCartButtonMessage = (stock) => {
       if (stock === 0) {
             return 'Out of stock'
@@ -510,7 +446,7 @@ const ItemPage = () => {
             poster: "Link",
             rating: 5,
             comment:
-            `
+                  `
             Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one.
             `,
             created_at: "2021-09-08 19:24:00"
@@ -668,15 +604,15 @@ const ItemPage = () => {
                         setShowEditDescription(false)
                         break
                   case 'image':
-                        dispatch(editItem({ itemId, item: { image: newValue }}))
+                        dispatch(editItem({ itemId, item: { image: newValue } }))
                         setShowEditImg(false)
                         break
                   case 'price':
-                        dispatch(editItem({ itemId, item: { price: newValue }}))
+                        dispatch(editItem({ itemId, item: { price: newValue } }))
                         setShowEditPrice(false)
                         break
                   case 'stock':
-                        dispatch(editItem({ itemId, item: { stock: newValue }}))
+                        dispatch(editItem({ itemId, item: { stock: newValue } }))
                         setShowEditStock(false)
                         break
                   case 'category':
@@ -734,55 +670,7 @@ const ItemPage = () => {
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
                               </button>} */}
                         </div>
-                        <StyledReviewsSectionDiv>
-                              <div id="reviews-div">
-                                    {/* currently just rendering 5 stars all the time for the average item review that goes here
-                                          TODO: connect this with the item reviews summary to figure out how many stars to render dynamically
-                                          perhaps connect it to the existing "renderStarRating" function once you know the avg rating
-                                    */}
-                                    <span id="reviews-amt">50 shop reviews</span>
-                                    <div id="reviews-stars-div">
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                    </div>
-                              </div>
-                        </StyledReviewsSectionDiv>
-                        {/* test review cards
-                              TODO: remove these & render everything between StyledReviewCard tags for each review,
-                              perhaps using a map and adding a key
-                              can optionally make the stuff between these tags a separate component for readability, would need to moved its styled-component
-                              rules as well
-                        */}
-                        <StyledReviewCard>
-                              <div className="review-user-and-date">
-                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
-                                    <span className="reviewer-name">{testReview.poster}</span>
-                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
-                              </div>
-                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                              <div className="review-comment">{testReview.comment}</div>
-                        </StyledReviewCard>
-                        <StyledReviewCard>
-                              <div className="review-user-and-date">
-                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
-                                    <span className="reviewer-name">{testReview.poster}</span>
-                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
-                              </div>
-                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                              <div className="review-comment">{testReview.comment}</div>
-                        </StyledReviewCard>
-                        <StyledReviewCard>
-                              <div className="review-user-and-date">
-                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
-                                    <span className="reviewer-name">{testReview.poster}</span>
-                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
-                              </div>
-                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                              <div className="review-comment">{testReview.comment}</div>
-                        </StyledReviewCard>
+                        <ItemReviews itemId={itemId} user={user} reviewData={item.reviewData} />
                   </div>
                   <div id="item-info-container">
                         {item.userId === user?.id && <button id="delete-item-button" onClick={handleDeleteItem}>
@@ -814,7 +702,7 @@ const ItemPage = () => {
                               <form onSubmit={e => {
                                     e.preventDefault()
                                     handleEditItem("#new-item-name", "name")
-                                    }}>
+                              }}>
                                     <input id="new-item-name" placeholder="Give your item a new name"></input>
                               </form>
                               <div id="book-and-name-arrow-box">
@@ -835,8 +723,8 @@ const ItemPage = () => {
                               {item.userId === user?.id &&
                               <div id="book-and-price-arrow-box">
                                     <img className="edit-button"
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
-                                    onClick={() => setShowEditPrice(true)}
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                          onClick={() => setShowEditPrice(true)}
                                     ></img>
                                     <div className="arrow_box">
                                           <span>Edit price</span>
@@ -863,7 +751,7 @@ const ItemPage = () => {
                                           </div>
                                     </div>
                               </form>
-                              {item.stock > 0 && <span style={{fontWeight: 'normal'}} className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
+                              {item.stock > 0 && <span style={{ fontWeight: 'normal' }} className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>}
                         {!showEditStock && item.userId === user?.id && <div id="item-stock">
