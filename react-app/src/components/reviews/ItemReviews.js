@@ -14,6 +14,7 @@ const StyledReviewsSectionDiv = styled.div`
     #reviews-div {
         height: 6vh;
         display: flex;
+        align-items: center;
         margin-bottom: 4vh;
     }
     #reviews-amt {
@@ -43,7 +44,8 @@ const StyledReviewsSectionDiv = styled.div`
         margin-bottom: 4vh;
     }
     .make-review {
-        width: 10rem;
+        width: fit-content;
+        height: fit-content;
     }
     .item-rating {
         margin-left: 1rem;
