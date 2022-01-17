@@ -29,18 +29,21 @@ def items():
 @item_routes.route("/homepage")
 def new_items():
     new_item_count = 6
-    new_items = Item.query.order_by(desc(Item.created_at)).limit(new_item_count).all()
-    new_ids=[item.id for item in new_items]
+    new_items = Item.query.order_by(
+        desc(Item.created_at)).limit(new_item_count).all()
+    new_ids = [item.id for item in new_items]
 
     picked_item_count = 6
-    picked_items = Item.query.order_by(func.random()).limit(picked_item_count).all()
-    picked_ids=[item.id for item in picked_items]
+    picked_items = Item.query.order_by(
+        func.random()).limit(picked_item_count).all()
+    picked_ids = [item.id for item in picked_items]
 
     return {
         "items": [item.to_dict() for item in set(new_items + picked_items)],
         "new": new_ids,
         "picks": picked_ids
     }
+
 
 @item_routes.route("/", methods=["POST"])
 @login_required
@@ -62,6 +65,7 @@ def create_item():
         db.session.commit()
         return item.to_dict(), 201
     return {"errors": validation_errors_to_error_messages_dict(form.errors)}, 400
+
 
 @item_routes.route("/<int:item_id>")
 def item(item_id):
@@ -93,14 +97,11 @@ def delete_item(item_id):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
-
-
-
 # edit an item via supplied object of fields we want to update and their new values
 @item_routes.route("/<int:item_id>", methods=["PUT"])
 @login_required
 def update_item(item_id):
-    new_item_info = request.json # {'name': 'new name hello', 'stock': 2}, etc
+    new_item_info = request.json  # {'name': 'new name hello', 'stock': 2}, etc
     new_item_info_items = new_item_info.items()
 
     form = EditItemForm()
@@ -119,7 +120,6 @@ def update_item(item_id):
     optional_attributes(new_item_info, 'price')
     optional_attributes(new_item_info, 'stock')
 
-
     if form.validate_on_submit():
         item = Item.query.get(item_id)
 
@@ -129,7 +129,6 @@ def update_item(item_id):
         db.session.commit()
         return {"item": item.to_dict(), "message": "Success"}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
-
 
 
 @item_routes.route('/<int:item_id>/reviews', methods=['GET'])

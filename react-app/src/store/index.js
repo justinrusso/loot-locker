@@ -1,6 +1,7 @@
 import cartItems from "./cart-items";
 import session from "./session";
 import items from "./items";
+import reviews from './reviews';
 import categories from "./categories";
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -11,6 +12,7 @@ const store = configureStore({
     cartItems,
     session,
     items,
+    reviews,
     categories
   },
   middleware: (getDefaultMiddleware) => {

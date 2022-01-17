@@ -8,6 +8,8 @@ import { getAnItem, deleteItem, editItem } from "../../store/items"
 import { selectUser } from "../../store/session";
 import { useAuthModal } from "../../context/AuthModalProvider";
 
+import ItemReviews from "../reviews/ItemReviews";
+
 const StyledItemPageDiv = styled.div`
       display: flex;
       padding-left: 10vw;
@@ -286,96 +288,11 @@ const StyledItemPageDiv = styled.div`
             height: 20vh;
       }
 `
-const StyledReviewsSectionDiv = styled.div`
-      // background-color: lime;
-      margin-top: 5vh;
 
-      #reviews-div {
-            height: 6vh;
-            display: flex;
-            margin-bottom: 4vh;
-      }
-
-      #reviews-amt {
-            font-size: x-large;
-            display: flex;
-            align-items: center;
-      }
-
-      #reviews-stars-div {
-            display: flex;
-            align-items: center;
-            margin-left: 1vw;
-      }
-
-      .star {
-            height: 50%;
-            padding: 0 1px;
-            display: flex;
-      }
-      `
-const StyledReviewCard = styled.div`
-      width: 100%;
-      // background-color: lightgrey;
-      // margin-top: 2vh;
-      margin-bottom: 6vh;
-
-
-      span {
-            font-size: x-large;
-      }
-
-      .review-user-and-date {
-            // background-color: teal;
-            display: flex;
-            align-items: center;
-            height: 5vh;
-            margin-bottom: 0.8vh;
-      }
-
-      .profile-icon {
-            // background-color: teal;
-            height: 110%;
-            border: 1px solid black;
-            margin-right: 0.5vw;
-            padding: 5px;
-            border-radius: 50%;
-      }
-
-      .review-post-date {
-            color: grey;
-            margin-left: 1vw;
-      }
-
-      .review-star-rating {
-            // background-color: salmon;
-            padding: 0 1vw;
-            display: flex;
-            align-items: center;
-            height: 5vh;
-      }
-
-      .star {
-            height: 50%;
-            padding: 0 1px;
-            display: flex;
-      }
-
-      .review-comment {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            // background-color: green;
-            font-size: large;
-            padding: 0 1vw;
-      }
-      `
-      /**
-       *
- * @param {number} stock The amount of stock remaining of the item
- */
+/**
+ *
+* @param {number} stock The amount of stock remaining of the item
+*/
 const getCartButtonMessage = (stock) => {
       if (stock === 0) {
             return 'Out of stock'
@@ -401,28 +318,13 @@ const ItemPage = () => {
             poster: "Link",
             rating: 5,
             comment:
-            `
+                  `
             Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one.
             `,
             created_at: "2021-09-08 19:24:00"
       }
 
       const testDate = new Date(testReview.created_at)
-
-      const renderStarRating = (rating) => {
-            // TODO: add support for half star ratings, can probably just adjust this logic
-            let content = []
-            let key = 5
-            for (let i = 0; i < rating; i++) {
-                  content.push(<img key={i} className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>)
-            }
-            //if rating < 5, populate rest of stars div with grey ones
-            while (content.length < 5) {
-                  content.push(<img key={key} className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/931062582440255538/star-grey.png"></img>)
-                  key++
-            }
-            return content
-      }
 
       useEffect(() => {
             dispatch(getAnItem(itemId))
@@ -454,24 +356,24 @@ const ItemPage = () => {
 
       const handleEditItem = async (cssSelector, fieldName) => {
             let newValue = document.querySelector(cssSelector).value
-            switch(fieldName) {
+            switch (fieldName) {
                   case 'name':
-                        dispatch(editItem({ itemId: itemId, item: { name: newValue }}))
+                        dispatch(editItem({ itemId: itemId, item: { name: newValue } }))
                         setShowEditName(false)
                         break
                   case 'description':
-                        dispatch(editItem({ itemId, item: { description: newValue }}))
+                        dispatch(editItem({ itemId, item: { description: newValue } }))
                         break
                   case 'image':
-                        dispatch(editItem({ itemId, item: { image: newValue }}))
+                        dispatch(editItem({ itemId, item: { image: newValue } }))
                         setShowEditImg(false)
                         break
                   case 'price':
-                        dispatch(editItem({ itemId, item: { price: newValue }}))
+                        dispatch(editItem({ itemId, item: { price: newValue } }))
                         setShowEditPrice(false)
                         break
                   case 'stock':
-                        dispatch(editItem({ itemId, item: { stock: newValue }}))
+                        dispatch(editItem({ itemId, item: { stock: newValue } }))
                         setShowEditStock(false)
                         break
             }
@@ -495,55 +397,7 @@ const ItemPage = () => {
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>
                               </button>}
                         </div>
-                        <StyledReviewsSectionDiv>
-                              <div id="reviews-div">
-                                    {/* currently just rendering 5 stars all the time for the average item review that goes here
-                                          TODO: connect this with the item reviews summary to figure out how many stars to render dynamically
-                                          perhaps connect it to the existing "renderStarRating" function once you know the avg rating
-                                    */}
-                                    <span id="reviews-amt">50 shop reviews</span>
-                                    <div id="reviews-stars-div">
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                          <img className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>
-                                    </div>
-                              </div>
-                        </StyledReviewsSectionDiv>
-                        {/* test review cards
-                              TODO: remove these & render everything between StyledReviewCard tags for each review,
-                              perhaps using a map and adding a key
-                              can optionally make the stuff between these tags a separate component for readability, would need to moved its styled-component
-                              rules as well
-                        */}
-                        <StyledReviewCard>
-                              <div className="review-user-and-date">
-                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
-                                    <span className="reviewer-name">{testReview.poster}</span>
-                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
-                              </div>
-                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                              <div className="review-comment">{testReview.comment}</div>
-                        </StyledReviewCard>
-                        <StyledReviewCard>
-                              <div className="review-user-and-date">
-                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
-                                    <span className="reviewer-name">{testReview.poster}</span>
-                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
-                              </div>
-                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                              <div className="review-comment">{testReview.comment}</div>
-                        </StyledReviewCard>
-                        <StyledReviewCard>
-                              <div className="review-user-and-date">
-                                    <img className="profile-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/931055275056717844/skull.png"></img>
-                                    <span className="reviewer-name">{testReview.poster}</span>
-                                    <span className="review-post-date">{testDate.toString().split(" ").slice(1, 4).join(" ")}</span>
-                              </div>
-                              <div className="review-star-rating">{renderStarRating(testReview.rating)}</div>
-                              <div className="review-comment">{testReview.comment}</div>
-                        </StyledReviewCard>
+                        <ItemReviews itemId={itemId} user={user} reviewData={item.reviewData} />
                   </div>
                   <div id="item-info-container">
                         {item.userId === user?.id && <button id="delete-item-button" onClick={handleDeleteItem}>
@@ -558,8 +412,8 @@ const ItemPage = () => {
                               <span id="item-name-span">{item.name}</span>
                               {item.userId === user?.id && <div id="edit-icon-arrow-box-container">
                                     <img id="name-edit-button"
-                                    onClick={() => setShowEditName(true)}
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                                          onClick={() => setShowEditName(true)}
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
                                     <div className="arrow_box edit">
                                           <span>Edit name</span>
                                     </div>
@@ -569,7 +423,7 @@ const ItemPage = () => {
                               <form onSubmit={e => {
                                     e.preventDefault()
                                     handleEditItem("#new-item-name", "name")
-                                    }}>
+                              }}>
                                     <input id="new-item-name" placeholder="Give your item a new name"></input>
                               </form>
                               <img className="edit-button" onClick={() => handleEditItem("#new-item-name", "name")} src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
@@ -579,8 +433,8 @@ const ItemPage = () => {
                               {item.price}
                               {item.userId === user?.id && <>
                                     <img className="edit-button"
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
-                                    onClick={() => setShowEditPrice(true)}
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                          onClick={() => setShowEditPrice(true)}
                                     ></img>
                                     <div className="arrow_box edit">
                                           <span>Edit price</span>
@@ -597,11 +451,11 @@ const ItemPage = () => {
                               }}>
                                     <input id="new-item-price" placeholder="New price" ></input>
                                     <img className="edit-button"
-                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
-                                    onClick={() => handleEditItem("#new-item-price", "price")}
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                          onClick={() => handleEditItem("#new-item-price", "price")}
                                     ></img>
                               </form>
-                              {item.stock > 0 && <span style={{fontWeight: 'normal'}} className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
+                              {item.stock > 0 && <span style={{ fontWeight: 'normal' }} className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>}
                         {!showEditStock && item.userId === user?.id && <div id="item-stock">
