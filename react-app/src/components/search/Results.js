@@ -18,6 +18,7 @@ const Container = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+    padding-bottom: 30px;
 `
 
 const Content = styled.div`
@@ -38,10 +39,20 @@ const Content = styled.div`
         margin: 10px 0px;
         font-size: small;
     }
+
+    #category-results-bar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 `
 
 const CategorySelect = styled.select`
-
+    outline: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
 `
 
 const Grid = styled.ul`
@@ -96,17 +107,21 @@ const Results = () => {
                 {isLoaded &&
                     <>
                         {searchKey &&
-                            <CategorySelect value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-                                <option value="">All Categories</option>
-                                {Object.values(categories).map(category => (
-                                    <option value={category.id} key={category.id}>{category.name}</option>
-                                ))}
-                            </CategorySelect>
+                            <div id="category-results-bar">
+                                <CategorySelect value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                                    <option value="">All Categories</option>
+                                    {Object.values(categories).map(category => (
+                                        <option value={category.id} key={category.id}>{category.name}</option>
+                                    ))}
+                                </CategorySelect>
+                                <span id='search-count'>
+                                    {Object.values(results).length === 1 ?
+                                        '1 result' :
+                                        `${Object.values(results).length} results`
+                                    }
+                                </span>
+                            </div>
                         }
-                        <span id='search-count'>{Object.values(results).length === 1 ?
-                            '1 result' :
-                            `${Object.values(results).length} results`
-                        }</span>
                         <Grid>
                             {Object.values(results).map((item, idx) => {
                                 return <ResultCard key={idx} item={item} />

@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 import requests
 from wtforms import IntegerField
 from wtforms.fields.core import StringField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, InputRequired, ValidationError
 
 from app.models.category import Category
 
@@ -33,5 +33,5 @@ class CreateItemForm(FlaskForm):
     categoryId = IntegerField(validators=[DataRequired(), category_exists])
     description = StringField(validators=[DataRequired()])
     image = StringField(validators=[DataRequired(), valid_img_url])
-    price = IntegerField(validators=[DataRequired(), zero_or_above])
-    stock = IntegerField(validators=[DataRequired(), zero_or_above])
+    price = IntegerField(validators=[InputRequired(), zero_or_above])
+    stock = IntegerField(validators=[InputRequired(), zero_or_above])
