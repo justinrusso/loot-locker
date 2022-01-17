@@ -79,12 +79,27 @@ def seed_items():
         updated_at="Sat, 08 Jan 2022 19:34:00 GMT",
     )
 
+    keyblade = Item(
+        user_id=4,
+        category_id=1,
+        name="Keyblade",
+        description="Umm... I'm a little hazy on the details.",
+        image="https://static.wikia.nocookie.net/disney/images/3/30/Kingdom_Key_KH.png/revision/latest/scale-to-width-down/840?cb=20130512175730",
+        price=100000,
+        stock=1,
+        created_at="Sat, 08 Jan 2022 19:38:00 GMT",
+        updated_at="Sat, 08 Jan 2022 19:38:00 GMT",
+    )
+
+    
+
     db.session.add(bow)
     db.session.add(helm)
     db.session.add(minion)
     db.session.add(fantasia)
     db.session.add(gunblade)
     db.session.add(heart_container)
+    db.session.add(keyblade)
 
     db.session.commit()
 
