@@ -130,8 +130,6 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         }
     }
 
-    console.log(user)
-
     if (loaded) return (
         <>
             <StyledReviewsSectionDiv>
