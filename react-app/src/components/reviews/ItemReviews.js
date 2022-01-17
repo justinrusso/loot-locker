@@ -74,7 +74,7 @@ const ReviewsTitle = styled.div`
     color: grey;
 `
 
-const ItemReviews = ({ itemId, user, reviewData }) => {
+const ItemReviews = ({ itemId, userObj, reviewData }) => {
 
     const dispatch = useDispatch();
 
@@ -113,6 +113,8 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         return new Date(b.updatedAt) - new Date(a.updatedAt);
     }
 
+    const user = userObj ? userObj : { 'id': 0 }
+
     const seller = useSelector(state => state.items.entities.items[itemId].seller)
 
     const totalRating = Math.round(useSelector(state => state.reviews.entities.totalRating) * 2) / 2
@@ -137,7 +139,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
                             <StarsDisplay className="item-rating" defRating={totalRating} disabled={true} />
                         </>}
-                    {user.id !== seller.id && (!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
+                    {!!user.id && user.id !== seller.id && (!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
                         <Button className="make-review" type='button' variant="text" onClick={(() => {
                             setShowCreate(false);
                             setComment('');
