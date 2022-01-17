@@ -38,7 +38,7 @@ const HomeStyling = styled.div`
         width: 100%;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
         grid-column: 1;
         grid-row: 2;
         z-index: 2;

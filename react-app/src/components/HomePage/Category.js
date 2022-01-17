@@ -6,11 +6,13 @@ const CategoryBlock = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 3vw;
-        width: 7vw;
+        margin: 2vw;
+        width: auto;
 
         .category-name {
             text-align: center;
+            display: flex;
+            justify-content: center;
             width: 100%;
             padding-bottom: 5px;
             border-bottom: 2px solid transparent;

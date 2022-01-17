@@ -62,7 +62,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     h1, h2, h3, h4, h5, h6 {
-      font-family: 'Crimson Pro', serif;
+      font-family: 'Cardo', serif;
       font-weight: 500;
     }
 `;
