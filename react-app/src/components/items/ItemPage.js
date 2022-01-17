@@ -23,7 +23,7 @@ const StyledItemPageDiv = styled.div`
       #item-image-container {
             position: relative;
             display: flex;
-            aspect-ratio: 1;
+            aspect-ratio: 1.33;
             justify-content: center;
             border: 1px solid lightgrey;
             border-radius: 8px;
@@ -32,10 +32,8 @@ const StyledItemPageDiv = styled.div`
 
       #item-image {
             display: flex;
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            border-radius: 8px;
+            object-fit: contain;
+            // border-radius: 8px;
       }
 
       #edit-image-button {

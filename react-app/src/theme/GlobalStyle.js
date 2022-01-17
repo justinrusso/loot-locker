@@ -58,7 +58,7 @@ const GlobalStyle = createGlobalStyle`
     ${resetCss}
 
     :root {
-      --font-sans: 'Inter', sans-serif;
+      --font-sans: 'Noto Sans Display', sans-serif;
       --font-serif: 'Cardo', serif;
     }
 
