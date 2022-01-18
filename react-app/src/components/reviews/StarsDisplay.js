@@ -7,6 +7,7 @@ import none from './images/star-grey.png';
 
 const SelectContainer = styled.div`
     width: 12.5rem;
+    cursor: pointer;
 `
 
 const Container = styled.div`
