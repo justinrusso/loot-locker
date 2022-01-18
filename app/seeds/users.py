@@ -15,11 +15,27 @@ def seed_users():
     pia = User(
         username="Pia", email="pia@aa.io", password="password", location="Henesys"
     )
+    misty = User(
+        username="Misty", email="misty@aa.io", password="password", location="Cerulean City"
+    )
+    sylvanas = User(
+        username="Sylvanas Windrunner", email="sylvanas@aa.io", password="password", location="Shadowlands"
+    )
+    link = User(
+        username="Link", email="link@aa.io", password="password", location="Kokiri Forest"
+    )
+    tingle = User(
+        username="Tingle", email="tingle@aa.io", password="password", location="Termina"
+    )
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
     db.session.add(pia)
+    db.session.add(misty)
+    db.session.add(sylvanas)
+    db.session.add(link)
+    db.session.add(tingle)
 
     db.session.commit()
 
