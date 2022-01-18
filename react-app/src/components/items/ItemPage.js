@@ -7,6 +7,7 @@ import { addCartItem } from "../../store/cart-items";
 import { getAnItem, deleteItem, editItem } from "../../store/items"
 import { selectUser } from "../../store/session";
 import { useAuthModal } from "../../context/AuthModalProvider";
+import { useCart } from  "../../context/CartProvider"
 
 import ItemReviews from "../reviews/ItemReviews";
 import Button from "../common/Button"
@@ -497,6 +498,7 @@ const ItemPage = () => {
       const authModal = useAuthModal();
       const dispatch = useDispatch();
       const history = useHistory();
+      const cart = useCart();
 
       const renderCategory = () => {
             // render a category div and icon based on the category of the item
@@ -597,6 +599,7 @@ const ItemPage = () => {
                   itemId,
                   quantity: 1
             }))
+            cart.show();
       }
 
       const handleEditItem = async (cssSelector, fieldName) => {
