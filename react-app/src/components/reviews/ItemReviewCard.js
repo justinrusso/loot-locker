@@ -94,7 +94,7 @@ const ReviewCard = ({ review, user }) => {
                     day: 'numeric',
                     year: 'numeric'
                 })}</span>
-                {review.userId === user.id &&
+                {review.userId === user?.id &&
                     <span className='review-buttons'>
                         {buttonDisplay === 'base' &&
                             <>
