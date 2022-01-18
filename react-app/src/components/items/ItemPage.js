@@ -10,6 +10,8 @@ import { useAuthModal } from "../../context/AuthModalProvider";
 
 import ItemReviews from "../reviews/ItemReviews";
 import Button from "../common/Button"
+import Dialog from "../common/Dialog"
+import Modal from "../common/Modal"
 
 const StyledItemPageDiv = styled.div`
       display: flex;
@@ -119,9 +121,6 @@ const StyledItemPageDiv = styled.div`
             flex-direction: column;
             width: 30vw;
             margin-left: 5%;
-            span {
-                  font-weight: bolder;
-            }
       }
 
       #item-seller {
@@ -169,6 +168,8 @@ const StyledItemPageDiv = styled.div`
                   top: 6vh;
             }
       }
+
+
 
       #item-price {
             display: flex;
@@ -257,6 +258,7 @@ const StyledItemPageDiv = styled.div`
             }
             span {
                   font-size: x-large;
+                  font-weight: bold;
                   margin-left: 0.5vw;
             }
             form {
@@ -317,6 +319,7 @@ const StyledItemPageDiv = styled.div`
             margin-bottom: 2vh;
             border-radius: 30px;
             justify-content: center;
+            font-weight: bold;
       }
 
       #delete-item-button:hover {
@@ -345,6 +348,9 @@ const StyledItemPageDiv = styled.div`
             bottom: -5.8vh;
             border-radius: 10px;
             visibility: hidden;
+            span {
+                  font-weight: bold;
+            }
       }
 
       .arrow_box:after {
@@ -430,6 +436,41 @@ const StyledItemPageDiv = styled.div`
       }
 `
 
+const StyledConfirmDeleteDiv = styled.div`
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 10vh;
+      img {
+            height: 100%;
+      }
+      span {
+            color: red;
+            font-weight: bold;
+            display: block;
+      }
+      #right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+      }
+      #buttons {
+            width: 100%;
+            justify-content: center;
+            display: flex;
+            margin-top: 1vh;
+      }
+      #yes:hover, #no:hover {
+            font-weight: bold;
+      }
+      #yes, #no {
+            padding: 1vh 2vw;
+      }
+      #yes {
+            margin-right: 1vw;
+      }
+`
+
 /**
  *
 * @param {number} stock The amount of stock remaining of the item
@@ -453,34 +494,6 @@ const ItemPage = () => {
       const authModal = useAuthModal();
       const dispatch = useDispatch();
       const history = useHistory();
-
-
-      const testReview = {
-            poster: "Link",
-            rating: 5,
-            comment:
-                  `
-            Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one.
-            `,
-            created_at: "2021-09-08 19:24:00"
-      }
-
-      const testDate = new Date(testReview.created_at)
-
-      const renderStarRating = (rating) => {
-            // TODO: add support for half star ratings, can probably just adjust this logic
-            let content = []
-            let key = 5
-            for (let i = 0; i < rating; i++) {
-                  content.push(<img key={i} className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/930955253296267285/star-rainbow.png"></img>)
-            }
-            //if rating < 5, populate rest of stars div with grey ones
-            while (content.length < 5) {
-                  content.push(<img key={key} className="star" src="https://cdn.discordapp.com/attachments/858135958729392152/931062582440255538/star-grey.png"></img>)
-                  key++
-            }
-            return content
-      }
 
       const renderCategory = () => {
             // render a category div and icon based on the category of the item
@@ -553,6 +566,7 @@ const ItemPage = () => {
       const user = useSelector(selectUser())
 
       const [showDescription, setShowDescription] = useState(true)
+      const [showConfirmDelete, setShowConfirmDelete] = useState(false)
       const [showEditDescription, setShowEditDescription] = useState(false)
       const [showEditName, setShowEditName] = useState(false)
       const [showEditPrice, setShowEditPrice] = useState(false)
@@ -681,7 +695,7 @@ const ItemPage = () => {
                   </div>
                   <div id="item-info-container">
                         {item.userId === user?.id &&
-                        <Button id="delete-item-button" onClick={handleDeleteItem} variant="outlined">
+                        <Button id="delete-item-button" onClick={() => setShowConfirmDelete(true)} variant="outlined">
                               <img id="dragon-icon"
                               src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"
                               ></img>
@@ -690,6 +704,19 @@ const ItemPage = () => {
                                     <span>Delete item</span>
                               </div>
                         </Button>}
+                        {showConfirmDelete &&
+                        <Dialog hideBackground={!showConfirmDelete} onClose={() => setShowConfirmDelete(false)}>
+                              <StyledConfirmDeleteDiv>
+                                    <img src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
+                                    <div id="right">
+                                          <span>Are you sure you want to delete this item?</span>
+                                          <div id="buttons">
+                                                <Button id="yes" variant="outlined" onClick={handleDeleteItem}>Yes</Button>
+                                                <Button id="no" variant="outlined" onClick={() => setShowConfirmDelete(false)}>No</Button>
+                                          </div>
+                                    </div>
+                              </StyledConfirmDeleteDiv>
+                        </Dialog>}
                         <div id="item-seller">{item.seller.username}</div>
                         {!showEditName &&
                         <div id="item-name">
