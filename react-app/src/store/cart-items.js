@@ -118,7 +118,7 @@ const cartItemsSlice = createSlice({
     builder.addCase(addCartItem.fulfilled, cartItemsAdapter.upsertOne);
     builder.addCase(
       changeCartItemQuantity.fulfilled,
-      cartItemsAdapter.updateOne
+      cartItemsAdapter.upsertOne
     );
     builder.addCase(removeCartItem.fulfilled, (state, action) => {
       cartItemsAdapter.removeOne(state, action.payload.id);
