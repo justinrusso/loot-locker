@@ -32,12 +32,6 @@ const Content = styled.div`
     align-items: center;
     width: 80%;
 
-    #search-header {
-        margin-top: 2rem;
-        color: grey;
-        font-size: 24px;
-    }
-
     #search-count {
         display: flex;
         align-self: flex-end;
@@ -78,7 +72,6 @@ const Grid = styled.ul`
 
 const useQuery = () => {
     const { search } = useLocation();
-
     return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
@@ -108,15 +101,15 @@ const Results = () => {
         <Container>
             <Content>
                 {searchKey &&
-                    < CategoryHeader >
+                    <CategoryHeader>
                         <h3>Results for "{searchKey}"</h3>
                     </CategoryHeader>}
-                {categoryId && (categoryId > 0 && categoryId < 6) &&
-                    < CategoryHeader >
+                {!searchKey && (categoryId > 0 && categoryId < 6) &&
+                    <CategoryHeader>
                         <h3>{categories[categoryId].name}</h3>
                     </CategoryHeader>}
                 {!searchKey && !categoryId &&
-                    <CategoryHeader >
+                    <CategoryHeader>
                         <h3>Explore</h3>
                     </CategoryHeader>}
                 {categoryId && (categoryId > 5 || categoryId < 1) &&
