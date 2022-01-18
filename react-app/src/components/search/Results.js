@@ -90,7 +90,7 @@ const Results = () => {
     let history = useHistory();
     let query = useQuery();
     const searchKey = query.get("key");
-    const [categoryId, setCategoryId] = useState(query.get("category") || "");
+    const categoryId = query.get("category");
 
     const dispatch = useDispatch()
 
@@ -101,7 +101,6 @@ const Results = () => {
     const results = useSelector(state => state.items.entities.items);
 
     const selectCategory = e => {
-        setCategoryId(e.target.value);
         history.push(`/search?key=${searchKey}&category=${e.target.value}`)
     }
 
