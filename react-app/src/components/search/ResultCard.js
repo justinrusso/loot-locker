@@ -39,6 +39,11 @@ const ResultLi = styled.li`
         font-size: .65rem;
         margin-bottom: .25rem;
     }
+    .search-no-rating {
+        color: grey;
+        display: flex;
+        align-items: center;
+    }
 `
 
 const ItemName = styled.span`
@@ -64,11 +69,14 @@ const ResultCard = ({ item }) => {
             <Link to={`/items/${item.id}`}>
                 <img src={item.image} alt={item.name} />
                 <ItemName>{item.name}</ItemName>
-                <StarsDisplay className='search-rating' defRating={totalRating} disabled={true} />
+                {!totalRating ?
+                    <div className='search-no-rating'>
+                        <span>No Reviews Yet</span>
+                    </div> : <StarsDisplay className='search-rating' defRating={totalRating} disabled={true} />}
                 <ItemPrice>{item.price}</ItemPrice>
                 <ItemUser>{item.seller.username}</ItemUser>
             </Link>
-        </ResultLi>
+        </ResultLi >
     )
 }
 
