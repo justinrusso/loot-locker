@@ -164,7 +164,7 @@ const CartDrawer = () => {
           />
         );
       }),
-    [cartItems]
+    [cartItems.ids, cartItems.entities]
   );
 
   const subtotal = useMemo(
@@ -174,7 +174,7 @@ const CartDrawer = () => {
           currentTotal + cartItem.item.price * cartItem.quantity,
         0
       ),
-    [cartItems]
+    [cartItems.entities]
   );
 
   const totalItems = useMemo(
@@ -183,7 +183,7 @@ const CartDrawer = () => {
         (currentTotal, cartItem) => currentTotal + cartItem.quantity,
         0
       ),
-    [cartItems]
+    [cartItems.entities]
   );
 
   if (!mounted) {
