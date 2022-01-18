@@ -71,7 +71,7 @@ const useQuery = () => {
     return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-const Results = ({ categoryId, setCategoryId }) => {
+const Results = () => {
     const categories = useSelector(state => state.categories.categories);
     console.log(categories)
 
