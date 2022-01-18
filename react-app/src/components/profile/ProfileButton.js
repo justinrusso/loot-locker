@@ -101,9 +101,9 @@ const ProfileButton = ({ user }) => {
           <li className="profile-dropdown-li">
             <Link to="/items/new">Sell an item</Link>
           </li>
-          <li className="profile-dropdown-li">
+          <li className="profile-dropdown-li" onClick={handleLogout}>
             <i className="fas fa-sign-out-alt dropdown-icon" />
-            <span onClick={handleLogout}>Sign out</span>
+            <span>Sign out</span>
           </li>
         </ProfileDropdown>
       )}
