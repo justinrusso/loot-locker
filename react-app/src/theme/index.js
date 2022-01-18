@@ -23,6 +23,10 @@ const theme = {
       easeOut: "cubic-bezier(0, 0, 0.2, 1)",
     },
   },
+  typography: {
+    fontSans: "var(--font-sans)",
+    fontSerif: "var(--font-serif)",
+  },
   // MUI elevation shadows
   shadows: [
     "none",

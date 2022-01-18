@@ -15,6 +15,10 @@ const CartListItemRoot = styled.li`
     border-bottom: 1px solid ${(props) => props.theme.divider};
   }
 
+  h3 {
+    font-family: ${(props) => props.theme.typography.fontSans};
+  }
+
   img {
     width: 50px;
     height: 50px;
