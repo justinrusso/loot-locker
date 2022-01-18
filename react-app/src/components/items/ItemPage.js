@@ -397,7 +397,7 @@ const ItemPage = () => {
                                     <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>
                               </button>}
                         </div>
-                        <ItemReviews itemId={itemId} userObj={user} reviewData={item.reviewData} />
+                        <ItemReviews itemId={itemId} user={user} reviewData={item.reviewData} />
                   </div>
                   <div id="item-info-container">
                         {item.userId === user?.id && <button id="delete-item-button" onClick={handleDeleteItem}>

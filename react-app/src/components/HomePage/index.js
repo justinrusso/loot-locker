@@ -35,6 +35,7 @@ const HomeStyling = styled.div`
     }
 
     #wb-container {
+        padding-bottom: 10px;
         width: 100%;
         display: flex;
         justify-content: center;
