@@ -697,7 +697,7 @@ const ItemPage = () => {
                                     </div>
                               </div>}
                         </div>
-                        <ItemReviews itemId={itemId} user={user} reviewData={item.reviewData} />
+                        <ItemReviews itemId={itemId} user={user} />
                   </div>
                   <div id="item-info-container">
                         {item.userId === user?.id &&

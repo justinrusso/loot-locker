@@ -76,7 +76,7 @@ const ReviewsTitle = styled.div`
     color: grey;
 `
 
-const ItemReviews = ({ itemId, user, reviewData }) => {
+const ItemReviews = ({ itemId, user }) => {
 
     const dispatch = useDispatch();
 
@@ -134,7 +134,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
         <>
             <StyledReviewsSectionDiv>
                 <div id="reviews-div">
-                    {!reviewData.count ? <span id="reviews-amt">No Reviews Yet</span> :
+                    {!reviews.length ? <span id="reviews-amt">No Reviews Yet</span> :
                         <>
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
                             <StarsDisplay className="item-rating" defRating={totalRating} disabled={true} />
