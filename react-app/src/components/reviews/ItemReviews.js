@@ -14,6 +14,7 @@ const StyledReviewsSectionDiv = styled.div`
     #reviews-div {
         height: 6vh;
         display: flex;
+        align-items: center;
         margin-bottom: 4vh;
     }
     #reviews-amt {
@@ -43,7 +44,8 @@ const StyledReviewsSectionDiv = styled.div`
         margin-bottom: 4vh;
     }
     .make-review {
-        width: 10rem;
+        width: fit-content;
+        height: fit-content;
     }
     .item-rating {
         margin-left: 1rem;
@@ -121,7 +123,7 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
     const userReviews = [];
     const otherReviews = [];
     for (const review of reviews) {
-        if (review.userId === user.id) {
+        if (review.userId === user?.id) {
             userReviews.push(review);
         } else {
             otherReviews.push(review);
@@ -137,7 +139,12 @@ const ItemReviews = ({ itemId, user, reviewData }) => {
                             <span id="reviews-amt">{reviews.length === 1 ? '1 Rating' : `${reviews.length} Ratings`}</span>
                             <StarsDisplay className="item-rating" defRating={totalRating} disabled={true} />
                         </>}
-                    {user.id !== seller.id && (!showCreate ? <Button variant="outlined" className="make-review" type=' button' onClick={() => setShowCreate(true)}>Add a Review</Button> :
+                    {user && user?.id !== seller.id && (!showCreate ?
+                        <Button
+                            variant="outlined"
+                            className="make-review"
+                            type=' button'
+                            onClick={() => { setShowCreate(true) }}>Add a Review</Button> :
                         <Button className="make-review" type='button' variant="text" onClick={(() => {
                             setShowCreate(false);
                             setComment('');

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 
 import full from './images/star-rainbow.png';
 import half from './images/star-half.png';
@@ -8,6 +7,7 @@ import none from './images/star-grey.png';
 
 const SelectContainer = styled.div`
     width: 12.5rem;
+    cursor: pointer;
 `
 
 const Container = styled.div`

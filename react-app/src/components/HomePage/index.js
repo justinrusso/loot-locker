@@ -35,10 +35,11 @@ const HomeStyling = styled.div`
     }
 
     #wb-container {
+        padding-bottom: 10px;
         width: 100%;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
         grid-column: 1;
         grid-row: 2;
         z-index: 2;
@@ -58,18 +59,17 @@ const HomeStyling = styled.div`
         text-align: center;
         font-size: 52px;
         line-height: 56px;
-        font-weight: bold;
     }
 
     h2 {
         text-align: center;
         font-size: 44px;
         line-height: 48px;
-        font-weight: bold;
     }
 
     .section-title {
-        font-size: 24px;
+        font-size: 28px;
+        line-height: 32px;
         font-weight: bold;
     }
 
@@ -266,6 +266,7 @@ const AboutSection = styled.div`
     width: 100%;
 
     #about-text {
+        text-align: center;
         font-size: 20px;
         font-weight: 300;
         line-height: 38px;
@@ -324,7 +325,7 @@ function HomePage() {
 
             <AboutSection>
                 <h2>What is Loot Locker?</h2>
-                <p id="about-text">Loot Locker is a global online marketplace, where gamers can buy and sell in-game items. (to be cont.)</p>
+                <p id="about-text">Loot Locker is a global online marketplace, where users can buy and sell game items.</p>
                 <p id="questions">Have any questions?</p>
                 <a href="https://github.com/justinrusso/loot-locker" id="contact-button">Contact Us</a>
             </AboutSection>

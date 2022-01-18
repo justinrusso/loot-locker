@@ -34,8 +34,13 @@ const StyledNavElement = styled.header`
   }
 
   .logo {
+    font-family: ${(props) => props.theme.typography.fontSerif};
     font-size: 24px;
     padding-right: 12px;
+
+    a {
+      color: ${(props) => props.theme.palette.text.primary};
+    }
   }
 
   .search-wrapper {

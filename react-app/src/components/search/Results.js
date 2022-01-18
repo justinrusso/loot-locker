@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory, Redirect } from 'react-router-dom'
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../store/items'
 import ResultCard from './ResultCard'
@@ -8,10 +9,14 @@ import ResultCard from './ResultCard'
 const CategoryHeader = styled.div`
     width: 100vw;
     height: 150px;
+    display: flex;
+    align-items: center;
     background-color: #faecd5;
     padding-left: 10%;
-    padding-top: 30px;
+    // padding-top: 30px;
+    margin-bottom: 30px;
     font-size: 30px;
+    margin-bottom: 1rem;
 `
 
 const Container = styled.div`
@@ -28,8 +33,8 @@ const Content = styled.div`
     width: 80%;
 
     #search-header {
-        margin-top: 20px;
-        font-weight: bold;
+        margin-top: 2rem;
+        color: grey;
         font-size: 24px;
     }
 
@@ -45,6 +50,7 @@ const Content = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin: 1.5rem 0rem;
     }
 `
 
@@ -82,6 +88,7 @@ const Results = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
 
+    let history = useHistory();
     let query = useQuery();
     const searchKey = query.get("key");
     const [categoryId, setCategoryId] = useState(query.get("category") || "");
@@ -89,26 +96,39 @@ const Results = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getItems({categoryId, searchKey})).then(() => setIsLoaded(true));
+        dispatch(getItems({ categoryId, searchKey })).then(() => setIsLoaded(true));
     }, [dispatch, categoryId, searchKey])
 
     const results = useSelector(state => state.items.entities.items);
 
+    const selectCategory = e => {
+        setCategoryId(e.target.value);
+        history.push(`/search?key=${searchKey}&category=${e.target.value}`)
+    }
+
     return (
         <Container>
             <Content>
-                {searchKey ?
-                    <span id='search-header'>Results for "{searchKey}"</span>
-                    :
-                    <CategoryHeader>
+                {searchKey &&
+                    < CategoryHeader >
+                        <h3>Results for "{searchKey}"</h3>
+                    </CategoryHeader>}
+                {categoryId && (categoryId > 0 && categoryId < 6) &&
+                    < CategoryHeader >
                         <h3>{categories[categoryId].name}</h3>
-                    </CategoryHeader>
+                    </CategoryHeader>}
+                {!searchKey && !categoryId &&
+                    <CategoryHeader >
+                        <h3>Explore</h3>
+                    </CategoryHeader>}
+                {categoryId && (categoryId > 5 || categoryId < 1) &&
+                    <Redirect to='/' />
                 }
                 {isLoaded &&
                     <>
                         {searchKey &&
                             <div id="category-results-bar">
-                                <CategorySelect value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                                <CategorySelect value={categoryId} onChange={selectCategory}>
                                     <option value="">All Categories</option>
                                     {Object.values(categories).map(category => (
                                         <option value={category.id} key={category.id}>{category.name}</option>
@@ -130,7 +150,7 @@ const Results = () => {
                     </>
                 }
             </Content>
-        </Container>
+        </Container >
     )
 }
 
