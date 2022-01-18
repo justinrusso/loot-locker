@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { useLocation, Redirect } from 'react-router-dom'
+import { useLocation, useHistory, Redirect } from 'react-router-dom'
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../store/items'
 import ResultCard from './ResultCard'
@@ -8,9 +9,12 @@ import ResultCard from './ResultCard'
 const CategoryHeader = styled.div`
     width: 100vw;
     height: 150px;
+    display: flex;
+    align-items: center;
     background-color: #faecd5;
     padding-left: 10%;
-    padding-top: 30px;
+    // padding-top: 30px;
+    margin-bottom: 30px;
     font-size: 30px;
     margin-bottom: 1rem;
 `
@@ -84,6 +88,7 @@ const Results = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
 
+    let history = useHistory();
     let query = useQuery();
     const searchKey = query.get("key");
     const [categoryId, setCategoryId] = useState(query.get("category") || "");
@@ -95,6 +100,11 @@ const Results = () => {
     }, [dispatch, categoryId, searchKey])
 
     const results = useSelector(state => state.items.entities.items);
+
+    const selectCategory = e => {
+        setCategoryId(e.target.value);
+        history.push(`/search?key=${searchKey}&category=${e.target.value}`)
+    }
 
     return (
         <Container>
@@ -118,7 +128,7 @@ const Results = () => {
                     <>
                         {searchKey &&
                             <div id="category-results-bar">
-                                <CategorySelect value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                                <CategorySelect value={categoryId} onChange={selectCategory}>
                                     <option value="">All Categories</option>
                                     {Object.values(categories).map(category => (
                                         <option value={category.id} key={category.id}>{category.name}</option>

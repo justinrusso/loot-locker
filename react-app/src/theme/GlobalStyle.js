@@ -1,9 +1,5 @@
 import { createGlobalStyle, css } from "styled-components";
 
-/*
-  Josh's Custom CSS Reset
-  https://www.joshwcomeau.com/css/custom-css-reset/
-*/
 const resetCss = css`
   *,
   *::before,
@@ -61,8 +57,18 @@ const resetCss = css`
 const GlobalStyle = createGlobalStyle`
     ${resetCss}
 
+    :root {
+      --font-sans: 'Noto Sans Display', sans-serif;
+      --font-serif: 'Cardo', serif;
+    }
+
     body {
-        font-family: 'Roboto', sans-serif;
+      font-family: var(--font-sans);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-serif);
+      font-weight: 500;
     }
 `;
 
