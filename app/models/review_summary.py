@@ -15,5 +15,5 @@ class ReviewSummary(db.Model):
     def to_dict(self):
         return {
             'count': self.num_of_reviews,
-            'rating': round(float(self.ratings_total / self.num_of_reviews), 2)
+            'rating': round(float(self.ratings_total / self.num_of_reviews), 2) if self.num_of_reviews > 0 else 0
         }

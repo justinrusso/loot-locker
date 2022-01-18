@@ -79,12 +79,78 @@ def seed_items():
         updated_at="Sat, 08 Jan 2022 19:34:00 GMT",
     )
 
+    keyblade = Item(
+        user_id=4,
+        category_id=1,
+        name="Keyblade",
+        description="Umm... I'm a little hazy on the details.",
+        image="https://static.wikia.nocookie.net/kingdomhearts/images/f/f6/Kingdom_Key_KHIII.png",
+        price=100000,
+        stock=1,
+        created_at="Sat, 08 Jan 2022 19:38:00 GMT",
+        updated_at="Sat, 08 Jan 2022 19:38:00 GMT",
+    )
+
+    magic_armor = Item(
+        user_id=4,
+        category_id=2,
+        name="Magic Armor",
+        description="Wear it and your money will become magical. The armor will protect you, so if you get hit, you lose money, not health. If you run out of money, the armor will go dormant and your movement will become impaired.",
+        image="https://static.wikia.nocookie.net/zelda/images/9/90/Magic_Armor_%28Twilight_Princess%29.png",
+        price=5980,
+        stock=2,
+        created_at="Sat, 08 Jan 2022 19:48:00 GMT",
+        updated_at="Sat, 08 Jan 2022 19:48:00 GMT",
+    )
+
+    warrior_ring = Item(
+        user_id=4,
+        category_id=3,
+        name="Warrior's Ring",
+        description="No one really knows exactly what it does, but it's probably good.",
+        image="https://static.wikia.nocookie.net/dragonquest/images/9/92/DQW_-_Warrior%27s_ring.png",
+        price=1500,
+        stock=5,
+        created_at="Sat, 08 Jan 2022 19:55:00 GMT",
+        updated_at="Sat, 08 Jan 2022 19:55:00 GMT",
+    )
+
+    lotm = Item(
+        user_id=4,
+        category_id=4,
+        name="Lord of the Mountain",
+        description="This noble creature watches over all animals that make their homes in the forest. Legends say this holy creature is a reincarnation of a sage that died on the lands it now protects. It has an acute awareness of its surroundings, so it seldom appears before people. It's sometimes known by its other name, Satori.",
+        image="https://i.ytimg.com/vi/6mglXoD4vQ4/maxresdefault.jpg",
+        price=999999,
+        stock=1,
+        created_at="Sat, 08 Jan 2022 19:50:00 GMT",
+        updated_at="Sat, 08 Jan 2022 19:50:00 GMT",
+    )
+
+    medicinal_herb = Item(
+        user_id=4,
+        category_id=5,
+        name="Medicinal Herb",
+        description="Can restore a target's HP by about 30",
+        image="https://static.wikia.nocookie.net/dragonquest/images/5/54/Medicinal_Herb_Item_Artwork.png",
+        price=80,
+        stock=40,
+        created_at="Sat, 08 Jan 2022 20:00:00 GMT",
+        updated_at="Sat, 08 Jan 2022 20:00:00 GMT",
+    )
+
     db.session.add(bow)
     db.session.add(helm)
     db.session.add(minion)
     db.session.add(fantasia)
     db.session.add(gunblade)
     db.session.add(heart_container)
+    db.session.add(keyblade)
+    db.session.add(magic_armor)
+    db.session.add(lotm)
+    db.session.add(warrior_ring)
+    db.session.add(medicinal_herb)
+
 
     db.session.commit()
 
