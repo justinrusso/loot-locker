@@ -4,10 +4,12 @@ const initialState = { entities: { reviews: {}, totalRating: 0 } }
 
 const calculateRating = (reviews) => {
     let sum = 0;
+    const length = Object.keys(reviews).length
     for (const index in reviews) {
         sum += reviews[index].rating;
     }
-    return (sum / Object.keys(reviews).length).toFixed(2)
+    if (length) return (sum / length).toFixed(2);
+    else return 0;
 }
 
 export const createReview = createAsyncThunk(
