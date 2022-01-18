@@ -27,6 +27,16 @@ def valid_img_url(form, field):
     if r.headers["content-type"] not in image_formats:
       raise ValidationError('Must provide a valid image url')
 
+def valid_category_id(form, field):
+    category_id = field.data
+
+    if category_id == None:
+        return
+
+    if not category_id > 0 and category_id < 6:
+      raise ValidationError('Must provide a valid category')
+
+
 # may want to add some more robust validators later
 class EditItemForm(FlaskForm):
     name = StringField(validators=[not_empty])
@@ -34,3 +44,4 @@ class EditItemForm(FlaskForm):
     image = StringField(validators=[valid_img_url])
     price = IntegerField(validators=[not_empty])
     stock = IntegerField(validators=[not_empty])
+    category = IntegerField(validators=[valid_category_id])

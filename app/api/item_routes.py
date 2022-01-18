@@ -101,9 +101,7 @@ def delete_item(item_id):
 @item_routes.route("/<int:item_id>", methods=["PUT"])
 @login_required
 def update_item(item_id):
-    new_item_info = request.json  # {'name': 'new name hello', 'stock': 2}, etc
-    new_item_info_items = new_item_info.items()
-
+    new_item_info = request.json # {'name': 'new name hello', 'stock': 2}, etc
     form = EditItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -119,12 +117,17 @@ def update_item(item_id):
     optional_attributes(new_item_info, 'image')
     optional_attributes(new_item_info, 'price')
     optional_attributes(new_item_info, 'stock')
+    optional_attributes(new_item_info, 'category')
 
     if form.validate_on_submit():
         item = Item.query.get(item_id)
 
         for k, v in new_item_info.items():
-            setattr(item, k, v)
+            if k == "category":
+                setattr(item, "category_id", v)
+            else:
+                setattr(item, k, v)
+
 
         db.session.commit()
         return {"item": item.to_dict(), "message": "Success"}

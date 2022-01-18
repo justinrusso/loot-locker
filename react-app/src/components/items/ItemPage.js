@@ -7,8 +7,12 @@ import { addCartItem } from "../../store/cart-items";
 import { getAnItem, deleteItem, editItem } from "../../store/items"
 import { selectUser } from "../../store/session";
 import { useAuthModal } from "../../context/AuthModalProvider";
+import { useCart } from  "../../context/CartProvider"
 
 import ItemReviews from "../reviews/ItemReviews";
+import Button from "../common/Button"
+import Dialog from "../common/Dialog"
+import Modal from "../common/Modal"
 
 const StyledItemPageDiv = styled.div`
       display: flex;
@@ -16,8 +20,34 @@ const StyledItemPageDiv = styled.div`
       padding-right: 10vw;
       margin-top: 4vh;
 
+      // TODO: media screens
+      // @media screen and (max-width: 900px) {
+      //       flex-direction: column;
+      //       padding: 0;
+      //       align-items: center;
+      // }
+
       #left-side-page-container {
             width: 45vw;
+      }
+
+      .edit-item-div {
+            height: 7vh;
+            display: flex;
+            align-items: center;
+            form {
+                  display: flex;
+                  align-items: center;
+                  height: 100%;
+                  width: 80%;
+            }
+            input {
+                  padding-left: 1vw;
+                  border: 2px solid black;
+                  border-radius: 30px;
+                  height: 80%;
+                  width: 100%;
+            }
       }
 
       #item-image-container {
@@ -32,21 +62,60 @@ const StyledItemPageDiv = styled.div`
 
       #item-image {
             display: flex;
+            max-height: 100%;
+            max-width: 100%;
+            border-radius: 8px;
             object-fit: contain;
             // border-radius: 8px;
       }
 
+      #edit-image {
+            position: absolute;
+            top: 1vh;
+            right: 4.5vw;
+            width: 30vw;
+            height: 7vh;
+            form {
+                  width: 100%;
+                  height: 100%;
+            }
+      }
+
+
+      #new-image-input {
+            position: absolute;
+            width: 100%;
+            height: 80%;
+            top: 1.2vh;
+            right: 1vw;
+      }
+
+      #camera-and-image-arrow-box {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            right: 2vw;
+            top: 2vh;
+            #edit-image-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
+            }
+            span {
+                  font-weight: bold;
+            }
+      }
+
       #edit-image-button {
             padding: 4px;
+            cursor: pointer;
             border: 1px solid black;
             border-radius: 50%;
-            position: absolute;
-            right: 1vw;
-            top: 2vh;
+            position: relative;
       }
 
       #edit-image-image {
-            height: 4vh;
+            height: 5vh;
             padding: 5px;
       }
 
@@ -55,36 +124,7 @@ const StyledItemPageDiv = styled.div`
             display: flex;
             flex-direction: column;
             width: 30vw;
-            // padding-top: 1%;
-            // padding-left:2vw;
             margin-left: 5%;
-
-            span {
-                  font-weight: bolder;
-            }
-      }
-
-      .edit-item-div {
-            height: 7vh;
-            // background-color: grey;
-            display: flex;
-            align-items: center;
-
-            form {
-                  display: flex;
-                  align-items: center;
-                  height: 100%;
-                  width: 80%;
-            }
-
-            input {
-                  padding-left: 1vw;
-                  border: 2px solid black;
-                  border-radius: 30px;
-                  // background-color: cyan;
-                  height: 80%;
-                  width: 100%;
-            }
       }
 
       #item-seller {
@@ -93,80 +133,97 @@ const StyledItemPageDiv = styled.div`
       }
 
       #item-name {
-            // background-color: grey;
             display: flex;
             position: relative;
             font-size: xx-large;
-
             #item-name-span {
                   display: -webkit-box;
                   -webkit-line-clamp: 3;
                   -webkit-box-orient: vertical;
                   overflow: hidden;
                   text-overflow: ellipsis;
-                  // width: 70%;
+                  width: 85%;
                   font-weight: normal;
                   padding-left: 0;
             }
-
             #name-edit-button {
                   position: relative;
                   cursor: pointer;
-                  // background-color: lime;
+                  bottom: 1vh;
                   padding: 0;
                   height: 5vh;
-                  bottom: 1vh;
+                  align-self: flex-start
             }
+      }
 
-            .edit {
-                  bottom: -55px;
-                  right: 2vw;
-            }
-
-            .edit-button:hover {
-                  + .edit {
+      #book-and-name-arrow-box {
+            margin-left: 0.5vw;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            #name-edit-button:hover {
+                  + .arrow_box {
                         visibility: visible;
                   }
             }
-      }
-
-      #edit-icon-arrow-box-container {
-            position: relative;
-            // background-color: blue;
-            display: flex;
-            flex-direction: column;
-            width: 5vw;
-            height: 5vh;
-            // justify-content: center;
-            align-items: center;
-
-            .edit-button {
-                  margin: 0;
-                  padding: 0;
-            }
-
             .arrow_box {
-                  // position: relative;
-                  left: 0;
-
+                  right: -2.2vw;
+                  top: 6vh;
             }
       }
+
+
 
       #item-price {
-            // background-color: green;
             display: flex;
             position: relative;
             align-items: center;
             font-size: xx-large;
             font-weight: bolder;
             margin-top: 2vh;
-
             .is-in-stock-span {
                   font-size: large;
                   font-weight: normal;
                   position: relative;
                   left: 15vw;
             }
+            .edit-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
+            }
+      }
+      #coins-icon {
+            margin-right: 0.5vw
+      }
+      #new-item-price {
+            width: 40%;
+      }
+
+      #book-and-price-arrow-box {
+            position: relative;
+            margin-left: 0.5vw;
+            display: flex;
+            justify-content: center;
+            .edit-button {
+                  margin-left: 0;
+            }
+            .edit-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
+            }
+            .arrow_box {
+                  font-weight: normal;
+            }
+      }
+
+      #book-and-stock-arrow-box {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            margin-left: 0.5vw;
 
             .edit-button:hover {
                   + .arrow_box {
@@ -174,54 +231,99 @@ const StyledItemPageDiv = styled.div`
                   }
             }
 
-            .arrow_box {
-                  // visibility: visible
+            .edit-button {
+                  margin-left: 0;
             }
-      }
 
-      #coins-icon {
-            margin-right: 0.5vw
-      }
-
-      #new-item-price {
-            width: 40%;
-      }
-
-      #edit-price {
-            // background-color: red;
+            .arrow_box {
+                  bottom: -5.5vh;
+            }
       }
 
       #item-stock {
             display: flex;
             align-items: center;
             margin-top: 1vh;
-            margin-bottom: 10vh;
             font-size: xx-large;
+      }
+
+      #new-item-stock {
+            width: 30%;
+            font-size: medium;
+      }
+
+      #category-container {
+            display: flex;
+            align-items: center;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+            img {
+                  height: 7vh;
+            }
+            span {
+                  font-size: x-large;
+                  font-weight: bold;
+                  margin-left: 0.5vw;
+            }
+            form {
+                  position: relative;
+                  top: 0.5vh;
+                  border-radius: 10px;
+                  height: 5vh;
+                  width: 40%;
+                  select {
+                        border: 2px solid black;
+                        border-radius: 30px;
+                        padding-left: 0.25vw;
+                        height: 100%;
+                        width: 100%;
+                  }
+            }
+            #edit-category-and-arrow-box {
+                  display: flex;
+                  justify-content: center;
+                  position: relative;
+                  margin-left: 0.5vw;
+                  img {
+                        height: 5vh;
+                        cursor: pointer;
+                  }
+                  span {
+                        font-size: small;
+                        margin-left: 0;
+                  }
+                  img:hover {
+                        + .arrow_box {
+                              visibility: visible;
+                        }
+                  }
+            }
       }
 
       #add-to-cart-button, #description-button, #delete-item-button {
             margin-bottom: 1vh;
             padding: 1.5vh 0;
-            margin-top: 10vh;
             font-size: large;
-            border: 2px solid black;
+            // border: 2px solid black;
             border-radius: 30px;
+            // font-weight: regular;
+      }
+
+      #add-to-cart-button:hover {
+            font-weight: bold;
       }
 
       #delete-item-button {
-            height: 5vh;
-            // overflow: hidden;
+            height: 6vh;
+            cursor: pointer;
             position: relative;
             display: flex;
             align-items: center;
             margin-top: 0;
             margin-bottom: 2vh;
-            i {
-                  color: crimson;
-                  margin-right: 0.5vw;
-            }
             border-radius: 30px;
             justify-content: center;
+            font-weight: bold;
       }
 
       #delete-item-button:hover {
@@ -232,7 +334,7 @@ const StyledItemPageDiv = styled.div`
 
       #dragon-icon {
             display: flex;
-            height: 5vh;
+            height: 6vh;
             margin-right: 0.5vw;
       }
 
@@ -250,6 +352,9 @@ const StyledItemPageDiv = styled.div`
             bottom: -5.8vh;
             border-radius: 10px;
             visibility: hidden;
+            span {
+                  font-weight: bold;
+            }
       }
 
       .arrow_box:after {
@@ -269,6 +374,15 @@ const StyledItemPageDiv = styled.div`
             margin-top: 2vh;
             padding-left: 10%;
             padding-right: 10%;
+            width: 100%;
+            span {
+                  font-weight: normal;
+            }
+      }
+      #description-button:hover {
+            span {
+                  font-weight: bold;
+            }
       }
 
       .edit-button {
@@ -286,6 +400,78 @@ const StyledItemPageDiv = styled.div`
             margin-top: 1vh;
             overflow: hidden;
             height: 20vh;
+      }
+
+      #description-button-and-edit-book {
+            display: flex;
+            align-items: center;
+            position: relative;
+      }
+
+      #book-and-description-arrow-box {
+            justify-content: center;
+            display: flex;
+            margin-left: 1vw;
+            #edit-description-button:hover {
+                  + .arrow_box {
+                        visibility: visible;
+                  }
+            }
+            #edit-description-button {
+                  cursor: pointer;
+                  position: relative;
+                  height: 5vh;
+                  right: 0;
+            }
+            .arrow_box {
+                  bottom: -4vh;
+                  width: 8vw;
+            }
+            .arrow_box:after {
+                  right: 3.2vw;
+            }
+      }
+      #edit-description-textarea {
+            padding: 1vh 0.5vw;
+            resize: vertical;
+            width: 100%;
+            height: 20vh;
+            border-radius: 10px;
+      }
+`
+
+const StyledConfirmDeleteDiv = styled.div`
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 10vh;
+      img {
+            height: 100%;
+      }
+      span {
+            color: red;
+            font-weight: bold;
+            display: block;
+      }
+      #right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+      }
+      #buttons {
+            width: 100%;
+            justify-content: center;
+            display: flex;
+            margin-top: 1vh;
+      }
+      #yes:hover, #no:hover {
+            font-weight: bold;
+      }
+      #yes, #no {
+            padding: 1vh 2vw;
+      }
+      #yes {
+            margin-right: 1vw;
       }
 `
 
@@ -312,19 +498,70 @@ const ItemPage = () => {
       const authModal = useAuthModal();
       const dispatch = useDispatch();
       const history = useHistory();
+      const cart = useCart();
 
+      const renderCategory = () => {
+            // render a category div and icon based on the category of the item
+            let src
+            let text
+            switch(item.category) {
+                  case "Arms":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932409968118878238/sword.png"
+                        text = "Arm"
+                        break
+                  case "Armor":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932351759110766633/shield.png"
+                        text = "Armor"
+                        break
+                  case "Accessories":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932410334055116850/amulet.png"
+                        text = "Accessory"
+                        break
+                  case "Mounts":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932410865171447848/pegasus.png"
+                        text = "Mount"
+                        break
+                  case "Consumables":
+                        src = "https://cdn.discordapp.com/attachments/858135958729392152/932411125037957171/bottle.png"
+                        text = "Consumable"
+                        break
+            }
 
-      const testReview = {
-            poster: "Link",
-            rating: 5,
-            comment:
-                  `
-            Would buy again, but Tingle will only sell me one. Guess I have to go blow up some rocks to find another one.
-            `,
-            created_at: "2021-09-08 19:24:00"
+            return(
+                  <div id="category-container">
+                       {!showEditCategory && <>
+                        <img src={src}></img>
+                        <span>{text}</span>
+                       </>}
+                       {showEditCategory && <form onSubmit={(e) => e.preventDefault()}>
+                              <select id="new-category">
+                                    <option value="" selected>Select item category</option>
+                                    <option value="Arms">Arms</option>
+                                    <option value="Armor">Armor</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="Mounts">Mounts</option>
+                                    <option value="Consumables">Consumables</option>
+                              </select>
+                        </form>}
+                       {item.userId === user?.id &&
+                       <div id="edit-category-and-arrow-box">
+                             {!showEditCategory && <img
+                             src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                             onClick={() => setShowEditCategory(true)}
+                             ></img>}
+                             {showEditCategory && <img
+                             src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                             onClick={() => handleEditItem("#new-category", "category")}
+                             ></img>}
+                             <div className="arrow_box">
+                                    {!showEditCategory && <span>Edit category</span>}
+                                    {showEditCategory && <span>Save category</span>}
+                              </div>
+                        </div>}
+                  </div>
+            )
+
       }
-
-      const testDate = new Date(testReview.created_at)
 
       useEffect(() => {
             dispatch(getAnItem(itemId))
@@ -334,10 +571,20 @@ const ItemPage = () => {
       const user = useSelector(selectUser())
 
       const [showDescription, setShowDescription] = useState(true)
+      const [showConfirmDelete, setShowConfirmDelete] = useState(false)
+      const [showEditDescription, setShowEditDescription] = useState(false)
       const [showEditName, setShowEditName] = useState(false)
       const [showEditPrice, setShowEditPrice] = useState(false)
       const [showEditStock, setShowEditStock] = useState(false)
       const [showEditImg, setShowEditImg] = useState(false)
+      const [showEditCategory, setShowEditCategory] = useState(false)
+
+      const shortOrLongButton = () => {
+            if (user?.id === item.seller.id) {
+                  return {"width": "85%"}
+            }
+            return {"width": "100%"}
+      }
 
       const handleSetShowDescription = () => {
             setShowDescription(!showDescription)
@@ -352,17 +599,42 @@ const ItemPage = () => {
                   itemId,
                   quantity: 1
             }))
+            cart.show();
       }
 
       const handleEditItem = async (cssSelector, fieldName) => {
+            let categoryId
             let newValue = document.querySelector(cssSelector).value
-            switch (fieldName) {
+
+            // turn the categories into their respective ID counterparts
+            if (fieldName === 'category') {
+                  switch(newValue) {
+                        case 'Arms':
+                              categoryId = 1
+                              break
+                        case 'Armor':
+                              categoryId = 2
+                              break
+                        case 'Accessories':
+                              categoryId = 3
+                              break
+                        case 'Mounts':
+                              categoryId = 4
+                              break
+                        case 'Consumables':
+                              categoryId = 5
+                              break
+                  }
+            }
+
+            switch(fieldName) {
                   case 'name':
-                        dispatch(editItem({ itemId: itemId, item: { name: newValue } }))
+                        dispatch(editItem({ itemId, item: { name: newValue }}))
                         setShowEditName(false)
                         break
                   case 'description':
-                        dispatch(editItem({ itemId, item: { description: newValue } }))
+                        dispatch(editItem({ itemId, item: { description: newValue }}))
+                        setShowEditDescription(false)
                         break
                   case 'image':
                         dispatch(editItem({ itemId, item: { image: newValue } }))
@@ -376,11 +648,16 @@ const ItemPage = () => {
                         dispatch(editItem({ itemId, item: { stock: newValue } }))
                         setShowEditStock(false)
                         break
+                  case 'category':
+                        dispatch(editItem({ itemId, item: { category: categoryId }}))
+                        setShowEditCategory(false)
+                        break
+
             }
       }
 
       const handleDeleteItem = async () => {
-            dispatch(deleteItem(itemId))
+            await dispatch(deleteItem(itemId))
             history.push("/")
       }
 
@@ -393,91 +670,203 @@ const ItemPage = () => {
                   <div id="left-side-page-container">
                         <div id="item-image-container">
                               <img id="item-image" src={item.image}></img>
-                              {item.userId === user?.id && <button id="edit-image-button">
-                                    <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>
-                              </button>}
+                              {showEditImg &&
+                              <div className="edit-item-div" id="edit-image">
+                                    <form onSubmit={(e) => {
+                                          e.preventDefault()
+                                          handleEditItem("#new-image-input", "image")
+                                    }}>
+                                          <input id="new-image-input" placeholder="New image URL"></input>
+                                    </form>
+                              </div>}
+                              {item.userId === user?.id &&
+                              <div id="camera-and-image-arrow-box">
+                                    <button
+                                    onClick={() => {
+                                          if (showEditImg) {
+                                                handleEditItem("#new-image-input", "image")
+                                          }
+                                          setShowEditImg(!showEditImg)}}
+                                    id="edit-image-button">
+                                          {!showEditImg && <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931230209666088960/camera.png"></img>}
+                                          {showEditImg && <img id="edit-image-image" src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>}
+                                    </button>
+                                    <div className="arrow_box">
+                                          {!showEditImg && <span>Edit image</span>}
+                                          {showEditImg && <span>Save image</span>}
+                                    </div>
+                              </div>}
                         </div>
                         <ItemReviews itemId={itemId} user={user} reviewData={item.reviewData} />
                   </div>
                   <div id="item-info-container">
-                        {item.userId === user?.id && <button id="delete-item-button" onClick={handleDeleteItem}>
-                              <img id="dragon-icon" src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
+                        {item.userId === user?.id &&
+                        <Button id="delete-item-button" onClick={() => setShowConfirmDelete(true)} variant="outlined">
+                              <img id="dragon-icon"
+                              src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"
+                              ></img>
                               <span>Incinerate this item</span>
                               <div className="arrow_box">
                                     <span>Delete item</span>
                               </div>
-                        </button>}
+                        </Button>}
+                        {showConfirmDelete &&
+                        <Dialog hideBackground={!showConfirmDelete} onClose={() => setShowConfirmDelete(false)}>
+                              <StyledConfirmDeleteDiv>
+                                    <img src="https://cdn.discordapp.com/attachments/858135958729392152/930590127099613214/dragon-front.png"></img>
+                                    <div id="right">
+                                          <span>Are you sure you want to delete this item?</span>
+                                          <div id="buttons">
+                                                <Button id="yes" variant="outlined" onClick={handleDeleteItem}>Yes</Button>
+                                                <Button id="no" variant="outlined" onClick={() => setShowConfirmDelete(false)}>No</Button>
+                                          </div>
+                                    </div>
+                              </StyledConfirmDeleteDiv>
+                        </Dialog>}
                         <div id="item-seller">{item.seller.username}</div>
-                        {!showEditName && <div id="item-name">
+                        {!showEditName &&
+                        <div id="item-name">
                               <span id="item-name-span">{item.name}</span>
-                              {item.userId === user?.id && <div id="edit-icon-arrow-box-container">
+                              {item.userId === user?.id &&
+                              <div id="book-and-name-arrow-box">
                                     <img id="name-edit-button"
-                                          onClick={() => setShowEditName(true)}
-                                          src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
-                                    <div className="arrow_box edit">
+                                    onClick={() => setShowEditName(true)}
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                    ></img>
+                                    <div className="arrow_box">
                                           <span>Edit name</span>
                                     </div>
                               </div>}
                         </div>}
-                        {showEditName && <div className="edit-item-div">
+                        {showEditName &&
+                        <div className="edit-item-div">
                               <form onSubmit={e => {
                                     e.preventDefault()
                                     handleEditItem("#new-item-name", "name")
                               }}>
                                     <input id="new-item-name" placeholder="Give your item a new name"></input>
                               </form>
-                              <img className="edit-button" onClick={() => handleEditItem("#new-item-name", "name")} src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"></img>
+                              <div id="book-and-name-arrow-box">
+                                    <img id="name-edit-button"
+                                    className="edit-button"
+                                    onClick={() => handleEditItem("#new-item-name", "name")}
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                    ></img>
+                                    <div className="arrow_box">
+                                          <span>Save name</span>
+                                    </div>
+                              </div>
                         </div>}
-                        {!showEditPrice && <div id="item-price">
+                        {!showEditPrice &&
+                        <div id="item-price">
                               <i className="fas fa-coins" id="coins-icon"></i>
                               {item.price}
-                              {item.userId === user?.id && <>
+                              {item.userId === user?.id &&
+                              <div id="book-and-price-arrow-box">
                                     <img className="edit-button"
                                           src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
                                           onClick={() => setShowEditPrice(true)}
                                     ></img>
-                                    <div className="arrow_box edit">
+                                    <div className="arrow_box">
                                           <span>Edit price</span>
                                     </div>
-                              </>}
+                              </div>}
 
                               {item.stock > 0 && <span className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>}
-                        {showEditPrice && <div className="edit-item-div" id="edit-price">
+                        {showEditPrice &&
+                        <div className="edit-item-div" id="edit-price">
                               <form onSubmit={(e) => {
                                     e.preventDefault()
                                     handleEditItem("#new-item-price", "price")
                               }}>
-                                    <input id="new-item-price" placeholder="New price" ></input>
-                                    <img className="edit-button"
+                                    <input id="new-item-price" placeholder="New price (gold)"></input>
+                                    <div id="book-and-price-arrow-box">
+                                          <img className="edit-button"
                                           src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
                                           onClick={() => handleEditItem("#new-item-price", "price")}
-                                    ></img>
+                                          ></img>
+                                          <div className="arrow_box">
+                                                <span>Save price</span>
+                                          </div>
+                                    </div>
                               </form>
                               {item.stock > 0 && <span style={{ fontWeight: 'normal' }} className="is-in-stock-span"><i className="fas fa-check"></i> In stock</span>}
                               {item.stock === 0 && <span className="is-in-stock-span"><i className="fas fa-times"></i> Out of stock</span>}
                         </div>}
                         {!showEditStock && item.userId === user?.id && <div id="item-stock">
                               <span id="stock-span">Stock: {item.stock}</span>
-                              <img className="edit-button" src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"></img>
+                              <div id="book-and-stock-arrow-box">
+                                    <img className="edit-button"
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                    onClick={() => setShowEditStock(true)}
+                                    ></img>
+                                    <div className="arrow_box">
+                                          <span>Edit stock</span>
+                                    </div>
+                              </div>
                         </div>}
-                        {/* Continue quest here tomorrow */}
+                        {showEditStock && item.userId === user?.id &&
+                        <div className="edit-item-div" id="item-stock">
+                              <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleEditItem("#new-item-stock", "stock")
+                              }}>
+                                    <input id="new-item-stock" placeholder="New stock"></input>
+                                    <div id="book-and-stock-arrow-box">
+                                          <img className="edit-button"
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                          onClick={() => handleEditItem("#new-item-stock", "stock")}
+                                          ></img>
+                                          <div className="arrow_box">
+                                          <span>Save stock</span>
+                                    </div>
+                                    </div>
+                              </form>
+                        </div>}
+                        {renderCategory()}
                         {user?.id !== item.seller.id && (
-                              <button
-                                    id="add-to-cart-button"
-                                    disabled={item.stock === 0}
-                                    onClick={handleAddToCart}
-                              >
-                                    {getCartButtonMessage(item.stock)}
-                              </button>
+                              <Button id="add-to-cart-button" type='button' variant='outlined'
+                              disabled={item.stock === 0}
+                              onClick={handleAddToCart}>
+                              {getCartButtonMessage(item.stock)}
+                              </Button>
                         )}
-                        <button onClick={handleSetShowDescription} id="description-button">
-                              <span>Description</span>
-                              {!showDescription && <i className="fas fa-chevron-down"></i>}
-                              {showDescription && <i className="fas fa-chevron-up"></i>}
-                        </button>
-                        {showDescription && <div id="item-description">{item.description}</div>}
+                        <div id="description-button-and-edit-book">
+                              <Button variant='outlined' id="description-button" style={shortOrLongButton()} onClick={handleSetShowDescription}>
+                                    <span>Description</span>
+                                    {!showDescription && <i className="fas fa-chevron-down"></i>}
+                                    {showDescription && <i className="fas fa-chevron-up"></i>}
+                              </Button>
+                              {!showEditDescription && user?.id === item.seller.id &&
+                              <div id="book-and-description-arrow-box">
+                                    <img id="edit-description-button"
+                                          src="https://cdn.discordapp.com/attachments/858135958729392152/930594787944456282/bookandfeather.png"
+                                          onClick={() => setShowEditDescription(true)}
+                                    ></img>
+                                    <div className="arrow_box">
+                                          <span>Edit description</span>
+                                    </div>
+                              </div>}
+                              {showEditDescription && user?.id === item.seller.id &&
+                              <div id="book-and-description-arrow-box">
+                                    <img id="edit-description-button"
+                                    src="https://cdn.discordapp.com/attachments/858135958729392152/931251654504873984/save-changes.png"
+                                    onClick={() => handleEditItem("#edit-description-textarea", "description")}
+                                    ></img>
+                                    <div className="arrow_box">
+                                          <span>Save description</span>
+                                    </div>
+                              </div>}
+                        </div>
+                        {showDescription && !showEditDescription && <div id="item-description">{item.description}</div>}
+                        {showEditDescription &&
+                        <div id="edit-item-description">
+                              <form>
+                                    <textarea id="edit-description-textarea">{item.description}</textarea>
+                              </form>
+                        </div>}
                   </div>
             </StyledItemPageDiv>
       )

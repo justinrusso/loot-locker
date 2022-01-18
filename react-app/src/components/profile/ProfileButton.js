@@ -11,8 +11,12 @@ const ProfileButtonRoot = styled.div`
 `;
 
 const ProfileIconButton = styled(IconButton)`
+  i:first-child{
+    font-size: x-large;
+  }
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 8px;
 `;
 
@@ -21,6 +25,7 @@ const ProfileDropdown = styled.ul`
   display: flex;
   flex-direction: column;
   width: fit-content;
+  width: 7vw;
   background-color: rgb(235, 235, 235);
   list-style: none;
   margin-top: 0;
@@ -31,11 +36,13 @@ const ProfileDropdown = styled.ul`
   z-index: 1000;
 
   .profile-dropdown-li {
-    padding: 10px 8px;
+    padding: 10px 10px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid ${(props) => props.theme.divider};
-
+    i {
+      font-weight: large;
+    }
     a {
       color: currentcolor;
     }
