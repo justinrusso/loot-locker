@@ -28,8 +28,8 @@ const Content = styled.div`
     width: 80%;
 
     #search-header {
-        margin-top: 20px;
-        font-weight: bold;
+        margin-top: 2rem;
+        color: grey;
         font-size: 24px;
     }
 
@@ -45,6 +45,7 @@ const Content = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin: 1.5rem 0rem;
     }
 `
 
@@ -89,7 +90,7 @@ const Results = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getItems({categoryId, searchKey})).then(() => setIsLoaded(true));
+        dispatch(getItems({ categoryId, searchKey })).then(() => setIsLoaded(true));
     }, [dispatch, categoryId, searchKey])
 
     const results = useSelector(state => state.items.entities.items);
@@ -98,7 +99,9 @@ const Results = () => {
         <Container>
             <Content>
                 {searchKey ?
-                    <span id='search-header'>Results for "{searchKey}"</span>
+                    <CategoryHeader>
+                        <h3>Results for "{searchKey}"</h3>
+                    </CategoryHeader>
                     :
                     <CategoryHeader>
                         <h3>{categories[categoryId].name}</h3>
