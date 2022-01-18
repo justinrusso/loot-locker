@@ -654,7 +654,7 @@ const ItemPage = () => {
       }
 
       const handleDeleteItem = async () => {
-            dispatch(deleteItem(itemId))
+            await dispatch(deleteItem(itemId))
             history.push("/")
       }
 
