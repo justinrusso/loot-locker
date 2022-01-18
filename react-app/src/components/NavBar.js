@@ -137,7 +137,7 @@ const NavBar = () => {
   const searchSubmit = (e) => {
     e.preventDefault();
     setSearchKey("");
-    history.push(`/search?key=${searchKey}`);
+    history.push(`/search?key=${searchKey}&category=`);
   };
 
   const updateKey = (e) => {
