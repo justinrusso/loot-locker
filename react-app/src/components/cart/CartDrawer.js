@@ -159,7 +159,7 @@ const CartDrawer = () => {
             imgSrc={cartItem.item.image}
             itemId={cartItem.item.id}
             name={cartItem.item.name}
-            price={cartItem.item.price / 100}
+            price={cartItem.item.price}
             quantity={cartItem.quantity}
           />
         );
@@ -173,7 +173,7 @@ const CartDrawer = () => {
         (currentTotal, cartItem) =>
           currentTotal + cartItem.item.price * cartItem.quantity,
         0
-      ) / 100,
+      ),
     [cartItems]
   );
 
