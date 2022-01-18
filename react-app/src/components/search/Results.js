@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom'
+import { useLocation, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../store/items'
 import ResultCard from './ResultCard'
@@ -12,6 +12,7 @@ const CategoryHeader = styled.div`
     padding-left: 10%;
     padding-top: 30px;
     font-size: 30px;
+    margin-bottom: 1rem;
 `
 
 const Container = styled.div`
@@ -98,14 +99,20 @@ const Results = () => {
     return (
         <Container>
             <Content>
-                {searchKey ?
-                    <CategoryHeader>
+                {searchKey &&
+                    < CategoryHeader >
                         <h3>Results for "{searchKey}"</h3>
-                    </CategoryHeader>
-                    :
-                    <CategoryHeader>
+                    </CategoryHeader>}
+                {categoryId && (categoryId > 0 && categoryId < 6) &&
+                    < CategoryHeader >
                         <h3>{categories[categoryId].name}</h3>
-                    </CategoryHeader>
+                    </CategoryHeader>}
+                {!searchKey && !categoryId &&
+                    <CategoryHeader >
+                        <h3>Explore</h3>
+                    </CategoryHeader>}
+                {categoryId && (categoryId > 5 || categoryId < 1) &&
+                    <Redirect to='/' />
                 }
                 {isLoaded &&
                     <>
@@ -133,7 +140,7 @@ const Results = () => {
                     </>
                 }
             </Content>
-        </Container>
+        </Container >
     )
 }
 
