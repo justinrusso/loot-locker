@@ -48,6 +48,8 @@ const ResultLi = styled.li`
 
 const ItemName = styled.span`
     color: black;
+    font-size: 1.15rem;
+    margin-bottom: .25rem;
 `
 
 const ItemPrice = styled.span`
