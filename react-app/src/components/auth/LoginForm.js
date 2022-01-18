@@ -47,7 +47,7 @@ const DemoLoginButton = styled.button`
 `;
 
 const LoginForm = ({ onSuccess, toSignUp }) => {
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [cred, setCred] = useState("");
   const [password, setPassword] = useState("");
   const user = useSelector((state) => state.session.user);
