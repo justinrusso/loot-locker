@@ -81,7 +81,6 @@ const useQuery = () => {
 
 const Results = () => {
     const categories = useSelector(state => state.categories.categories);
-    console.log(categories)
 
     const [isLoaded, setIsLoaded] = useState(false);
 
