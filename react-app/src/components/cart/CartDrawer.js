@@ -149,6 +149,8 @@ const CartDrawer = () => {
     };
   }, [cart.visible]);
 
+  console.log(cartItems.ids);
+
   const cartItemElements = useMemo(
     () =>
       cartItems.ids.map((id) => {
