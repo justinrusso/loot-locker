@@ -180,7 +180,7 @@ def seed_reviews():
     summaryTwo = ReviewSummary(
         item_id=2,
         num_of_reviews=1,
-        ratings_total=4,
+        ratings_total=5,
     )
 
     ashes_s = ReviewSummary(
