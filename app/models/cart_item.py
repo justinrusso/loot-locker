@@ -22,8 +22,8 @@ class CartItem(db.Model):
     )
 
     if environment == "production":
-        __table_args__ = ((
-            PrimaryKeyConstraint(user_id, item_id, name='user_cart_item_pk'),), {'schema': SCHEMA})
+        __table_args__ = (
+            PrimaryKeyConstraint(user_id, item_id, name='user_cart_item_pk'), {'schema': SCHEMA})
 
     item = db.relationship('Item')
 
