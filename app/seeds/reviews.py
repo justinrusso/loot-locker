@@ -1,4 +1,4 @@
-from app.models import db, Review, ReviewSummary
+from app.models import db, Review, ReviewSummary, environment, SCHEMA
 
 
 def seed_reviews():
@@ -269,6 +269,13 @@ def seed_reviews():
 
 
 def undo_reviews():
-    db.session.execute("TRUNCATE reviews RESTART IDENTITY CASCADE;")
-    db.session.execute("TRUNCATE review_summaries RESTART IDENTITY CASCADE;")
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.reviews RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.review_summaries RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute('TRUNCATE reviews RESTART IDENTITY CASCADE;')
+        db.session.execute(
+            'TRUNCATE review_summaries RESTART IDENTITY CASCADE;')
     db.session.commit()

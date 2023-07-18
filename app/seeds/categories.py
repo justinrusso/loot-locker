@@ -1,4 +1,5 @@
-from app.models import db, Category
+from app.models import db, Category, environment, SCHEMA
+
 
 def seed_categories():
     arms = Category(name="Arms")
@@ -15,6 +16,11 @@ def seed_categories():
 
     db.session.commit()
 
+
 def undo_categories():
-    db.session.execute("TRUNCATE categories RESTART IDENTITY CASCADE;")
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.categories RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute('TRUNCATE categories RESTART IDENTITY CASCADE;')
     db.session.commit()
