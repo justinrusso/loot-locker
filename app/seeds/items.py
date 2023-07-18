@@ -1,4 +1,4 @@
-from app.models import db, Item
+from app.models import db, Item, environment, SCHEMA
 
 
 # Adds a demo user, you can add other users here if you want
@@ -48,7 +48,7 @@ def seed_items():
         category_id=3,
         name="Minion of Light",
         description="Tiny explosions.",
-        image="https://pbs.twimg.com/media/FHYhfHZXIAcC6aI?format=jpg&name=large",
+        image="https://img2.finalfantasyxiv.com/accimg2/f8/49/f849349c55a6ea63f76532af7912f4532c4d6508.png",
         price=1099,
         stock=10,
         created_at="Sat, 08 Jan 2022 19:30:00 GMT",
@@ -60,7 +60,7 @@ def seed_items():
         category_id=5,
         name="Phial of Fantasia",
         description="It's all cat girls? Always has been.",
-        image="https://onlinestore-img.finalfantasyxiv.com/onlinestore/item/2048d09293f96c8fe0ec4746a79572aed973962cf008f2b37506566ba727db1c/0000/b8fd228346654a8cee3e920c32017493f0e99cf8266b6d9e1e9b30f7ed245eab_m_detail.jpg",
+        image="https://miaumaru.com/cdn/shop/products/il_fullxfull.3271777871_b3kh.jpg",
         price=700,
         stock=42,
         created_at="Sat, 08 Jan 2022 19:32:00 GMT",
@@ -199,5 +199,9 @@ def seed_items():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_items():
-    db.session.execute("TRUNCATE items RESTART IDENTITY CASCADE;")
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute('TRUNCATE items RESTART IDENTITY CASCADE;')
     db.session.commit()
