@@ -16,7 +16,7 @@ from .seeds import seed_commands
 
 from .config import Config
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
 # Disable strict slashes so urls like /api/items can work
 # Without this, only /api/items/ would work.
@@ -24,16 +24,12 @@ app.url_map.strict_slashes = False
 
 # Setup login manager
 login = LoginManager(app)
+login.login_view = 'auth.unauthorized'
 
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-
-
-@login.unauthorized_handler
-def unauthorized():
-    return {}, 401
 
 
 # Tell flask about our seed commands
